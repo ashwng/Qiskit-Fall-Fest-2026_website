@@ -1,0 +1,68 @@
+import type { TeamMember } from "@/types";
+
+export const team: TeamMember[] = [
+  {
+    id: "team-1",
+    name: "Lorem Ipsum",
+    role: "Event Lead",
+    team: "Core",
+    imageSeed: "qff-team-1",
+    socials: [{ platform: "linkedin", href: "#" }, { platform: "github", href: "#" }],
+  },
+  {
+    id: "team-2",
+    name: "Lorem Ipsum",
+    role: "Hackathon Lead",
+    team: "Core",
+    imageSeed: "qff-team-2",
+    socials: [{ platform: "linkedin", href: "#" }],
+  },
+  {
+    id: "team-3",
+    name: "Lorem Ipsum",
+    role: "Design Lead",
+    team: "Core",
+    imageSeed: "qff-team-3",
+    socials: [{ platform: "linkedin", href: "#" }, { platform: "x", href: "#" }],
+  },
+  {
+    id: "team-4",
+    name: "Lorem Ipsum",
+    role: "Logistics",
+    team: "Operations",
+    imageSeed: "qff-team-4",
+    socials: [{ platform: "linkedin", href: "#" }],
+  },
+  {
+    id: "team-5",
+    name: "Lorem Ipsum",
+    role: "Sponsorship",
+    team: "Operations",
+    imageSeed: "qff-team-5",
+    socials: [{ platform: "linkedin", href: "#" }],
+  },
+  {
+    id: "team-6",
+    name: "Lorem Ipsum",
+    role: "Outreach",
+    team: "Operations",
+    imageSeed: "qff-team-6",
+    socials: [{ platform: "linkedin", href: "#" }, { platform: "instagram", href: "#" }],
+  },
+  {
+    id: "team-7",
+    name: "Lorem Ipsum",
+    role: "Technical Content",
+    team: "Content",
+    imageSeed: "qff-team-7",
+    socials: [{ platform: "github", href: "#" }],
+  },
+  {
+    id: "team-8",
+    name: "Lorem Ipsum",
+    role: "Media",
+    team: "Content",
+    imageSeed: "qff-team-8",
+    socials: [{ platform: "instagram", href: "#" }],
+  },
+];
