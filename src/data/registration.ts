@@ -106,8 +106,8 @@ export const quantumInterests = [
 ];
 
 export const studyLevels = [
-  "Undergraduate — 1st / 2nd Year",
-  "Undergraduate — 3rd / 4th Year",
+  "Undergraduate - 1st / 2nd Year",
+  "Undergraduate - 3rd / 4th Year",
   "Dual Degree / 5th Year",
   "Master's (M.Sc / M.Tech / MS)",
   "PhD / Doctoral Researcher",

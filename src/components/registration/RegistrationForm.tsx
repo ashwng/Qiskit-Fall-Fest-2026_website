@@ -25,6 +25,7 @@ import {
   tshirtSizes,
 } from "@/data/registration";
 import { RegistrationFormData } from "@/types";
+import { registerAttendee } from "@/app/actions/register";
 import { cn } from "@/lib/utils";
 
 const initialFormData: RegistrationFormData = {
@@ -36,7 +37,7 @@ const initialFormData: RegistrationFormData = {
   graduationYear: "",
   attendanceMode: "offline",
   quantumExperience: "beginner",
-  interests: ["Quantum Machine Learning (QML)", "Quantum Algorithms & Complexity"],
+  interests: [],
   githubUrl: "",
   linkedinUrl: "",
   tshirtSize: "M (38\")",
@@ -49,6 +50,7 @@ export function RegistrationForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionPhase, setSubmissionPhase] = useState("");
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [ticketId, setTicketId] = useState("");
 
@@ -63,6 +65,9 @@ export function RegistrationForm() {
         delete next[field];
         return next;
       });
+    }
+    if (submitError) {
+      setSubmitError(null);
     }
   };
 
@@ -115,29 +120,49 @@ export function RegistrationForm() {
     window.scrollTo({ top: 120, behavior: "smooth" });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
     if (!validateStep(2)) return;
 
     setIsSubmitting(true);
-    setSubmissionPhase("Initializing quantum state register |0⟩...");
+    setSubmitError(null);
+    setSubmissionPhase("Initializing quantum register |0⟩...");
 
-    setTimeout(() => {
-      setSubmissionPhase("Allocating IBM Quantum runtime credentials...");
-    }, 600);
+    const timer1 = setTimeout(() => {
+      setSubmissionPhase("Allocating IBM Quantum compute profile...");
+    }, 500);
 
-    setTimeout(() => {
-      setSubmissionPhase("Compiling attendee ticket verification hash...");
-    }, 1200);
+    const timer2 = setTimeout(() => {
+      setSubmissionPhase("Saving record to Neon database...");
+    }, 1100);
 
-    setTimeout(() => {
-      const randomHex = Math.random().toString(16).substring(2, 4).toUpperCase();
-      const randomNum = Math.floor(1000 + Math.random() * 9000);
-      setTicketId(`${randomHex}${randomNum}`);
+    try {
+      const result = await registerAttendee(formData);
+
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+
+      if (!result.success) {
+        throw new Error(result.error || "Failed to submit registration. Please try again.");
+      }
+
+      if (result.ticketId) {
+        setTicketId(result.ticketId);
+        setIsSubmitted(true);
+        window.scrollTo({ top: 80, behavior: "smooth" });
+      } else {
+        throw new Error("Invalid response received from server.");
+      }
+    } catch (err: unknown) {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      const message =
+        err instanceof Error ? err.message : "An unexpected error occurred during registration.";
+      setSubmitError(message);
+      window.scrollTo({ top: 160, behavior: "smooth" });
+    } finally {
       setIsSubmitting(false);
-      setIsSubmitted(true);
-      window.scrollTo({ top: 80, behavior: "smooth" });
-    }, 1800);
+    }
   };
 
   const resetForm = () => {
@@ -145,6 +170,7 @@ export function RegistrationForm() {
     setStep(1);
     setIsSubmitted(false);
     setTicketId("");
+    setSubmitError(null);
   };
 
   // If submitted, show digital ticket pass!
@@ -744,6 +770,19 @@ export function RegistrationForm() {
                 </p>
               )}
             </div>
+
+            {/* Error banner if submission failed */}
+            {submitError && (
+              <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-4 animate-[fadeUp_0.3s_ease-out_forwards]">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="h-5 w-5 text-red-400 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-display text-sm font-semibold text-red-300">Registration Failed</p>
+                    <p className="mt-1 text-xs text-red-200/80">{submitError}</p>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Submission buttons */}
             <div className="flex items-center justify-between pt-4">

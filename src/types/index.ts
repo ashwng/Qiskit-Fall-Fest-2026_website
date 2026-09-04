@@ -90,3 +90,20 @@ export interface RegistrationFormData {
   tshirtSize: string;
   agreedToTerms: boolean;
 }
+
+export interface RegistrationResponse {
+  success?: boolean;
+  ticketId?: string;
+  message?: string;
+  error?: string;
+}
+
+export interface RegistrationActionResult {
+  success: boolean;
+  ticketId?: string;
+  message?: string;
+  error?: string;
+  statusCode?: number;
+}
+
+
