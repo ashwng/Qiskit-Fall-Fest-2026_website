@@ -21,7 +21,7 @@ export function Footer() {
             {navItems.map((item) => (
               <li key={item.href}>
                 <a
-                  href={item.href}
+                  href={item.href.startsWith("#") ? `/${item.href}` : item.href}
                   className="font-mono text-xs uppercase tracking-wide text-ink-dim transition-colors hover:text-cyan"
                 >
                   {item.label}

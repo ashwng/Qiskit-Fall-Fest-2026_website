@@ -11,7 +11,7 @@ export const event = {
   tagline: "A campus-wide gathering for quantum computing, in circuits and in community.",
   description:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Qiskit Fall Fest brings together students, researchers, and builders for a season of talks, workshops, and a 24-hour hackathon exploring quantum computing on real hardware.",
-  registerHref: "#details",
+  registerHref: "/registration",
   exploreHref: "#hackathon",
 };
 

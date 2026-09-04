@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { navItems } from "@/data/nav";
 import { event } from "@/data/event";
@@ -9,6 +10,15 @@ import { cn } from "@/lib/utils";
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  const getHref = (href: string) => {
+    if (href.startsWith("#")) {
+      return isHome ? href : `/${href}`;
+    }
+    return href;
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -39,7 +49,7 @@ export function Navbar() {
         aria-label="Primary"
       >
         <a
-          href="#top"
+          href={isHome ? "#top" : "/"}
           className="flex items-center gap-2 font-display text-sm font-semibold tracking-tight text-ink"
         >
           <span
@@ -56,7 +66,7 @@ export function Navbar() {
           {navItems.map((item) => (
             <li key={item.href}>
               <a
-                href={item.href}
+                href={getHref(item.href)}
                 className="font-mono text-[13px] uppercase tracking-wide text-ink-dim transition-colors hover:text-cyan"
               >
                 {item.label}
@@ -67,8 +77,13 @@ export function Navbar() {
 
         <div className="hidden lg:block">
           <a
-            href={event.registerHref}
-            className="whitespace-nowrap rounded-full border border-cyan/40 bg-cyan/10 px-4 py-2 font-mono text-xs uppercase tracking-wide text-cyan transition-colors hover:bg-cyan/20"
+            href={pathname === "/registration" ? "#register-form" : event.registerHref}
+            className={cn(
+              "whitespace-nowrap rounded-full border px-4 py-2 font-mono text-xs uppercase tracking-wide transition-colors",
+              pathname === "/registration"
+                ? "border-cyan bg-cyan/20 text-cyan shadow-[0_0_15px_rgba(79,209,232,0.25)]"
+                : "border-cyan/40 bg-cyan/10 text-cyan hover:bg-cyan/20"
+            )}
           >
             Register Now
           </a>
@@ -98,7 +113,7 @@ export function Navbar() {
             {navItems.map((item) => (
               <li key={item.href}>
                 <a
-                  href={item.href}
+                  href={getHref(item.href)}
                   onClick={() => setOpen(false)}
                   className="block rounded-md px-3 py-3 font-mono text-sm uppercase tracking-wide text-ink-dim transition-colors hover:bg-surface hover:text-cyan"
                 >
@@ -108,7 +123,7 @@ export function Navbar() {
             ))}
             <li className="pt-2">
               <a
-                href={event.registerHref}
+                href={pathname === "/registration" ? "#register-form" : event.registerHref}
                 onClick={() => setOpen(false)}
                 className="block whitespace-nowrap rounded-md border border-cyan/40 bg-cyan/10 px-3 py-3 text-center font-mono text-sm uppercase tracking-wide text-cyan"
               >
