@@ -57,8 +57,6 @@ export function Navbar() {
               className="object-cover"
             />
           </div>
-          <span className="hidden sm:inline transition-colors group-hover:text-cyan">{event.fullName}</span>
-          <span className="sm:hidden transition-colors group-hover:text-cyan">{event.shortName}</span>
         </a>
 
         <ul className="hidden items-center gap-8 lg:flex">
