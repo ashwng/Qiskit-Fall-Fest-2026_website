@@ -77,7 +77,7 @@ export function Navbar() {
         aria-label="Primary"
       >
         <Link
-          href={isHome ? "#top" : "/"}
+          href={isHome ? "#top" : "/#top"}
           className="group flex shrink-0 items-center gap-2.5 rounded-full pl-1 pr-2"
         >
           <span className="relative block h-11 w-11 overflow-hidden rounded-full border border-line bg-surface-2 transition-transform duration-300 group-hover:scale-105">
