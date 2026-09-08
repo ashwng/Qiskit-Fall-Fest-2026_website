@@ -75,21 +75,16 @@ html {
 }
 
 body {
-  background: var(--bg);
   color: var(--ink);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
-  background-image: 
-    radial-gradient(circle at 15% 10%, rgba(138, 63, 252, 0.05), transparent 30rem),
-    radial-gradient(circle at 85% 30%, rgba(8, 189, 186, 0.05), transparent 25rem),
-    radial-gradient(circle at 50% 80%, rgba(209, 39, 113, 0.03), transparent 40rem);
+  background: var(--bg) url('/bg-network.png') no-repeat center center fixed;
+  background-size: cover;
 }
 
 .dark body {
-  background-image: 
-    radial-gradient(circle at 15% 10%, rgba(138, 63, 252, 0.1), transparent 30rem),
-    radial-gradient(circle at 85% 30%, rgba(8, 189, 186, 0.08), transparent 25rem),
-    radial-gradient(circle at 50% 80%, rgba(209, 39, 113, 0.05), transparent 40rem);
+  background: var(--bg) url('/bg-network.png') no-repeat center center fixed;
+  background-size: cover;
 }
 
 /* Respect reduced-motion everywhere by default */
@@ -122,12 +117,7 @@ body {
     linear-gradient(90deg, rgba(138, 63, 252, 0.03) 1px, transparent 1px);
 }
 
-.circuit-field::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 50%, transparent 20%, var(--bg) 80%);
-}
+/* circuit-field opacity blocker removed to allow background image to be visible */
 
 /* Glass card surface */
 .glass {
