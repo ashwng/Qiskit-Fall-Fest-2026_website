@@ -201,7 +201,9 @@ export default function QubitSphere() {
       if (!clientWidth || !clientHeight) return;
       camera.aspect = clientWidth / clientHeight;
       camera.updateProjectionMatrix();
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
+      // Cap pixel ratio on mobile to prevent GPU fill-rate exhaustion
+      const maxPixelRatio = window.innerWidth < 768 ? 1.4 : 1.8;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPixelRatio));
       renderer.setSize(clientWidth, clientHeight, false);
     };
     resize();
@@ -227,10 +229,15 @@ export default function QubitSphere() {
     window.addEventListener("pointermove", movePointer, { passive: true });
 
     let frame: number | undefined;
+    let isVisible = true;
     const start = performance.now();
     const target = new THREE.Vector3();
 
     const render = (now: number) => {
+      if (!isVisible) {
+        frame = undefined;
+        return;
+      }
       const elapsed = (now - start) / 1000;
 
       // Pull the pointer onto the sphere. z keeps the tip in front of the
@@ -252,10 +259,33 @@ export default function QubitSphere() {
       renderer.render(scene, camera);
       frame = window.requestAnimationFrame(render);
     };
+
+    // Pause WebGL rendering loop when off-screen to preserve mobile GPU and battery
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        const visible = entry?.isIntersecting ?? true;
+        if (visible && !isVisible) {
+          isVisible = true;
+          if (frame === undefined) {
+            frame = window.requestAnimationFrame(render);
+          }
+        } else if (!visible && isVisible) {
+          isVisible = false;
+          if (frame !== undefined) {
+            window.cancelAnimationFrame(frame);
+            frame = undefined;
+          }
+        }
+      },
+      { threshold: 0.05 }
+    );
+    visibilityObserver.observe(host);
+
     frame = window.requestAnimationFrame(render);
 
     return () => {
       if (frame !== undefined) window.cancelAnimationFrame(frame);
+      visibilityObserver.disconnect();
       observer.disconnect();
       window.removeEventListener("pointermove", movePointer);
       canvas.remove();

@@ -46,8 +46,8 @@ export function LatticeScene() {
   return (
     <div className="qff-scene" aria-hidden>
       <div className="absolute inset-0 bg-[linear-gradient(160deg,var(--qff-periwinkle)_0%,var(--bg)_45%,var(--bg)_100%)] opacity-80" />
-      <div className="absolute left-[8%] top-[10%] h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,rgba(255,126,182,0.15),transparent_70%)] blur-3xl" />
-      <div className="absolute right-[4%] bottom-[6%] h-[40rem] w-[40rem] rounded-full bg-[radial-gradient(circle,rgba(138,63,252,0.13),transparent_70%)] blur-3xl" />
+      <div className="absolute left-[8%] top-[10%] h-72 w-72 sm:h-[36rem] sm:w-[36rem] rounded-full bg-[radial-gradient(circle,rgba(255,126,182,0.15),transparent_70%)] blur-2xl sm:blur-3xl" />
+      <div className="absolute right-[4%] bottom-[6%] h-80 w-80 sm:h-[40rem] sm:w-[40rem] rounded-full bg-[radial-gradient(circle,rgba(138,63,252,0.13),transparent_70%)] blur-2xl sm:blur-3xl" />
 
       <svg
         className="absolute inset-0 h-full w-full opacity-70"
