@@ -1,10 +1,10 @@
 import type { SocialLink } from "@/types";
 
 export const socials: SocialLink[] = [
-  { platform: "instagram", href: "#", handle: "@qff2026" },
-  { platform: "linkedin", href: "#", handle: "BITS Qiskit Fall Fest" },
-  { platform: "x", href: "#", handle: "@qff2026" },
-  { platform: "github", href: "#", handle: "qff2026" },
-  { platform: "youtube", href: "#", handle: "QFF 2026" },
-  { platform: "discord", href: "#", handle: "Join server" },
+  { platform: "instagram", href: "https://www.instagram.com/qbits.bitsgoa/", handle: "@qbits.bitsgoa" },
+  { platform: "linkedin", href: "https://www.linkedin.com/company/qbits-bitsgoa/", handle: "qBITS BITS Goa" },
+  { platform: "x", href: "#", handle: "To be announced" },
+  { platform: "github", href: "https://github.com/qBITS-github", handle: "qBITS-github" },
+  { platform: "youtube", href: "https://www.youtube.com/@qbits.bitsgoa/videos", handle: "qBITS BITS Goa" },
+  { platform: "discord", href: "https://discord.gg/EzFDVEpgd", handle: "Join server" },
 ];
