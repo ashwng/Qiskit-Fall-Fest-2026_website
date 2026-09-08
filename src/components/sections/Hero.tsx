@@ -15,22 +15,13 @@ export function Hero() {
           className="animate-[fadeUp_1s_cubic-bezier(0.2,0.8,0.2,1)_forwards] opacity-0 [animation-fill-mode:forwards]"
           style={{ animationDelay: "120ms" }}
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-violet/30 bg-surface/50 backdrop-blur-md px-4 py-1.5 font-mono text-[10px] uppercase tracking-widest text-cyan shadow-[0_0_15px_rgba(8,189,186,0.15)]">
-            <Sparkles className="h-3.5 w-3.5 animate-pulse-glow" />
-            {event.organizer} &middot; PLUS Qiskit Fall Fest
-          </div>
-
           <h1 className="mt-8 max-w-3xl font-display text-5xl font-bold leading-[1.1] tracking-tight text-ink sm:text-6xl lg:text-7xl">
             BITS GOA
             <br />
-            PLUS Qiskit Fall Fest
+            IBM PLUS Qiskit Fall Fest
             <br />
             <span className="text-gradient">2026</span>
           </h1>
-
-          <p className="mt-4 font-mono text-sm uppercase tracking-[0.3em] text-muted">
-            {event.shortName}
-          </p>
 
           <div className="mt-12 flex flex-wrap items-center gap-5">
             <a
