@@ -9,6 +9,7 @@ import { CollaborationsSection } from "@/components/sections/CollaborationsSecti
 import { TeamSection } from "@/components/sections/TeamSection";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { SocialsSection } from "@/components/sections/SocialsSection";
+import { VenueSection } from "@/components/sections/VenueSection";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
         <TeamSection />
         <FAQSection />
         <SocialsSection />
+        <VenueSection />
       </main>
       <Footer />
     </>
