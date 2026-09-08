@@ -1,7 +1,7 @@
 "use server";
 
 import crypto from "node:crypto";
-import { getDb } from "@/lib/db";
+import { getDb, hasDatabase } from "@/lib/db";
 import { RegistrationFormData, RegistrationActionResult } from "@/types";
 
 function generateTicketId(): string {
@@ -17,6 +17,18 @@ export async function registerAttendee(
   payload: Partial<RegistrationFormData>
 ): Promise<RegistrationActionResult> {
   try {
+    // Preview builds ship without a Neon connection string. Say so plainly
+    // rather than surfacing a raw "DATABASE_URL is missing" to the visitor —
+    // that reads as a crash, not as a deliberately unwired preview.
+    if (!hasDatabase()) {
+      return {
+        success: false,
+        error:
+          "This is a preview build — registration isn't wired up to a database yet, so nothing was saved.",
+        statusCode: 503,
+      };
+    }
+
     // 1. Validate required fields
     const fullName = payload.fullName?.trim();
     const email = payload.email?.trim().toLowerCase();

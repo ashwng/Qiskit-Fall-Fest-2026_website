@@ -9,6 +9,11 @@ function getDatabaseUrl(): string {
   return cleaned;
 }
 
+/** Whether a database is configured at all. */
+export function hasDatabase(): boolean {
+  return getDatabaseUrl().length > 0;
+}
+
 /**
  * Returns a Neon SQL execution client for serverless/edge route handlers.
  * Uses HTTP fetch under the hood for zero connection pool latency.
