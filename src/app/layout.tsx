@@ -57,6 +57,7 @@ export const viewport: Viewport = {
 };
 
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import { SiteBackground } from "@/components/backgrounds/SiteBackground";
 
 export default function RootLayout({
   children,
@@ -67,6 +68,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen antialiased">
         <ThemeProvider attribute="class" defaultTheme="dark">
+          {/* `picker` is preview scaffolding — drop it once a background is
+              chosen and set DEFAULT_BACKGROUND in backgrounds/registry.tsx. */}
+          <SiteBackground picker />
           {children}
         </ThemeProvider>
       </body>

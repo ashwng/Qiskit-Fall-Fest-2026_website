@@ -60,7 +60,7 @@ export function ScheduleSection() {
               className="absolute -left-[calc(2rem+7px)] top-4 h-3 w-3 rounded-full border-2 border-violet-bright bg-surface transition-all duration-300 group-hover:bg-violet-bright group-hover:shadow-[0_0_12px_rgba(165,110,255,0.8)] group-hover:scale-125"
             />
             <div className="glass-dark flex flex-col gap-3 rounded-2xl p-6 sm:flex-row sm:items-center sm:gap-6 transition-all duration-300 hover:border-violet-bright/50 hover:shadow-[0_0_25px_rgba(138,63,252,0.15)] hover:bg-surface-2/80 hover:-translate-x-1 hover:translate-y-0.5">
-              <div className="w-32 sm:w-40 shrink-0 font-mono text-sm font-bold text-cyan">
+              <div className="w-32 sm:w-40 shrink-0 font-mono text-sm font-bold text-pink-ink">
                 {item.time}
               </div>
               <div className="flex-1">
@@ -72,7 +72,7 @@ export function ScheduleSection() {
                 </p>
               </div>
               {item.track ? (
-                <span className="w-fit shrink-0 rounded-full border border-cyan/30 bg-cyan/10 px-4 py-1.5 font-mono text-[10px] font-bold uppercase tracking-widest text-cyan">
+                <span className="w-fit shrink-0 rounded-full border border-pink/30 bg-pink/10 px-4 py-1.5 font-mono text-[10px] font-bold uppercase tracking-widest text-pink-ink">
                   {item.track}
                 </span>
               ) : null}

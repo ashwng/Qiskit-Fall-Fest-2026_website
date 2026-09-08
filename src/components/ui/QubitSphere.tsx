@@ -1,11 +1,42 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useTheme } from "next-themes";
 
 import * as THREE from "three";
 
 const SPHERE_RADIUS = 2.2;
 type Point3D = [number, number, number];
+
+/**
+ * Fest-palette colours for the Bloch sphere, per theme. The line work needs
+ * markedly more contrast on the light periwinkle ground than it does on the
+ * dark one, so hull/axis opacity is part of the palette rather than fixed.
+ */
+const PALETTES = {
+  light: {
+    hull: 0x8a3ffc,
+    hullOpacity: 0.5,
+    equator: 0x6929c4,
+    equatorOpacity: 0.6,
+    axis: 0xbe95ff,
+    axisOpacity: 0.85,
+    vector: 0xd02670,
+    label: "#d02670",
+    fog: 0xf6f7fd,
+  },
+  dark: {
+    hull: 0xa56eff,
+    hullOpacity: 0.42,
+    equator: 0xbe95ff,
+    equatorOpacity: 0.5,
+    axis: 0x6929c4,
+    axisOpacity: 0.7,
+    vector: 0xff7eb6,
+    label: "#ff9ec7",
+    fog: 0x0a0420,
+  },
+} as const;
 
 function createLabel(text: string, color: string) {
   const labelCanvas = document.createElement("canvas");
@@ -20,7 +51,7 @@ function createLabel(text: string, color: string) {
     return new THREE.Sprite(new THREE.SpriteMaterial({ color }));
   }
 
-  context.font = "600 42px Space Grotesk, sans-serif";
+  context.font = '600 42px "IBM Plex Sans", sans-serif';
 
   context.fillStyle = color;
 
@@ -49,7 +80,12 @@ function createLabel(text: string, color: string) {
   return sprite;
 }
 
-function createAxis(start: Point3D, end: Point3D, color: number) {
+function createAxis(
+  start: Point3D,
+  end: Point3D,
+  color: number,
+  opacity: number,
+) {
   const geometry = new THREE.BufferGeometry().setFromPoints([
     new THREE.Vector3(...start),
 
@@ -59,12 +95,14 @@ function createAxis(start: Point3D, end: Point3D, color: number) {
   return new THREE.Line(
     geometry,
 
-    new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.65 }),
+    new THREE.LineBasicMaterial({ color, transparent: true, opacity }),
   );
 }
 
 function ThreeBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { resolvedTheme } = useTheme();
+  const palette = resolvedTheme === "dark" ? PALETTES.dark : PALETTES.light;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -95,17 +133,17 @@ function ThreeBackground() {
 
     camera.position.set(0, 0, 9);
 
-    scene.fog = new THREE.FogExp2(0xfbf8fc, 0.055);
+    scene.fog = new THREE.FogExp2(palette.fog, 0.055);
 
     const sphere = new THREE.LineSegments(
       new THREE.EdgesGeometry(new THREE.SphereGeometry(SPHERE_RADIUS, 32, 20)),
 
       new THREE.LineBasicMaterial({
-        color: 0x8b4fc7,
+        color: palette.hull,
 
         transparent: true,
 
-        opacity: 0.4,
+        opacity: palette.hullOpacity,
       }),
     );
 
@@ -127,22 +165,22 @@ function ThreeBackground() {
       new THREE.BufferGeometry().setFromPoints(equatorPoints),
 
       new THREE.LineBasicMaterial({
-        color: 0x8b4fc7,
+        color: palette.equator,
 
         transparent: true,
 
-        opacity: 0.46,
+        opacity: palette.equatorOpacity,
       }),
     );
 
     scene.add(equator);
 
     [
-      createAxis([-3, 0, 0], [3, 0, 0], 0xd8c6e1),
+      createAxis([-3, 0, 0], [3, 0, 0], palette.axis, palette.axisOpacity),
 
-      createAxis([0, -3, 0], [0, 3, 0], 0xd8c6e1),
+      createAxis([0, -3, 0], [0, 3, 0], palette.axis, palette.axisOpacity),
 
-      createAxis([0, 0, -3], [0, 0, 3], 0xd8c6e1),
+      createAxis([0, 0, -3], [0, 0, 3], palette.axis, palette.axisOpacity),
     ].forEach((axis) => scene.add(axis));
 
     const labels: Array<[string, string, Point3D]> = [
@@ -150,9 +188,9 @@ function ThreeBackground() {
 
       // ["|1⟩", "#e38b68", [0, 0, -SPHERE_RADIUS - 0.42]],
 
-      ["|0⟩", "#EC4899", [0, 3.18, 0]],
+      ["|0⟩", palette.label, [0, 3.18, 0]],
 
-      ["|1⟩", "#EC4899", [0, -3.18, 0]],
+      ["|1⟩", palette.label, [0, -3.18, 0]],
 
       // ["Z", "#f2c7a5", [0, 0, 3.18]],
     ];
@@ -172,7 +210,7 @@ function ThreeBackground() {
 
       SPHERE_RADIUS,
 
-      0xec4899,
+      palette.vector,
 
       0.28,
 
@@ -271,7 +309,7 @@ function ThreeBackground() {
 
       renderer.dispose();
     };
-  }, []);
+  }, [palette]);
 
   return (
     <div className="three-background" aria-hidden="true">

@@ -17,11 +17,11 @@ export function FAQSection() {
         {faqs.map((faq, index) => (
           <RevealOnScroll key={faq.question} delayMs={index * 45}>
             <details className="group border-b border-line first:border-t transition-colors duration-300">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 font-display text-lg font-bold text-ink marker:hidden transition-colors hover:text-cyan [&::-webkit-details-marker]:hidden focus-visible:outline-none focus-visible:text-cyan">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 font-display text-lg font-bold text-ink marker:hidden transition-colors hover:text-pink-ink [&::-webkit-details-marker]:hidden focus-visible:outline-none focus-visible:text-pink-ink">
                 {faq.question}
                 <ChevronDown
                   aria-hidden
-                  className="h-5 w-5 shrink-0 text-violet-bright transition-transform duration-300 group-open:rotate-180"
+                  className="h-5 w-5 shrink-0 text-pink-ink transition-transform duration-300 group-open:rotate-180"
                 />
               </summary>
               <div className="overflow-hidden">

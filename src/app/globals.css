@@ -1,49 +1,73 @@
 @import "tailwindcss";
 
-@import "@fontsource/space-grotesk/400.css";
-@import "@fontsource/space-grotesk/500.css";
-@import "@fontsource/space-grotesk/600.css";
-@import "@fontsource/space-grotesk/700.css";
-@import "@fontsource/inter/400.css";
-@import "@fontsource/inter/500.css";
-@import "@fontsource/inter/600.css";
-@import "@fontsource/jetbrains-mono/400.css";
-@import "@fontsource/jetbrains-mono/500.css";
+/* IBM Plex — IBM's corporate typeface, and the type used across the official
+   Qiskit Fall Fest 2026 brand material. Sans carries display + body; Mono
+   carries the labels and eyebrows, as it does on the fest badges. */
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-sans/700.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/ibm-plex-mono/600.css";
 
+/* ---------------------------------------------------------------------------
+   Palette — sampled from the official QFF 2026 art
+   (Qiskit-Fall-Fest-2026/materials-resources). These are IBM Carbon tokens:
+   pink 40/30/50, purple 90/60/50, blue 60, and the periwinkle sky the birds
+   are illustrated against.
+   --------------------------------------------------------------------------- */
 :root {
-  --bg: #fdfcff;
+  --bg: #f6f7fd;
   --surface: #ffffff;
-  --surface-2: #f4f4f5;
-  --line: #e4e4e7;
-  --line-soft: #f4f4f5;
-  --ink: #09090b;
-  --ink-dim: #3f3f46;
-  --muted: #71717a;
+  --surface-2: #eef1fb;
+  --line: #dbe1f4;
+  --line-soft: #e9edf9;
+  --ink: #2a0f52;
+  --ink-dim: #4c3a6b;
+  --muted: #6f6289;
   --qiskit-violet: #8a3ffc;
   --qiskit-violet-bright: #a56eff;
-  --qubit-cyan: #08bdba;
+  --qff-pink: #ff7eb6;
+  --qff-pink-soft: #ffafd2;
+  --qff-pink-deep: #ee5396;
+  /* accent text only — pink 40 is ~2.3:1 on white, pink 60 is ~5:1 */
+  --qff-pink-ink: #d02670;
+  --qff-indigo: #31135e;
+  --qff-blue: #0f62fe;
+  --qff-periwinkle: #dae5fc;
+  --qff-cloud: #f2f4f8;
   --pulse-amber: #f1c21b;
-  --pulse-magenta: #d12771;
-  
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* rgb triples, for the rgb(var(--x) / <alpha>) glows */
+  --qff-pink-rgb: 255 126 182;
+  --qff-violet-rgb: 138 63 252;
+
+  --font-display: "IBM Plex Sans", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 }
 
 .dark {
-  --bg: #030014;
-  --surface: #0a051e;
-  --surface-2: #130a2f;
-  --line: #221443;
-  --line-soft: #170d30;
-  --ink: #f0ebf9;
-  --ink-dim: #9c8eaf;
-  --muted: #6b5c80;
+  --bg: #0a0420;
+  --surface: #140a2e;
+  --surface-2: #1d1040;
+  --line: #2e1a5c;
+  --line-soft: #1f1145;
+  --ink: #f1ecfb;
+  --ink-dim: #b6a6cf;
+  --muted: #8676a3;
   --qiskit-violet: #8a3ffc;
   --qiskit-violet-bright: #a56eff;
-  --qubit-cyan: #08bdba;
+  --qff-pink: #ff7eb6;
+  --qff-pink-soft: #ffafd2;
+  --qff-pink-deep: #ee5396;
+  --qff-pink-ink: #ff9ec7;
+  --qff-indigo: #31135e;
+  --qff-blue: #4589ff;
+  --qff-periwinkle: #2b2154;
+  --qff-cloud: #1b1140;
   --pulse-amber: #f1c21b;
-  --pulse-magenta: #d12771;
 }
 
 @theme inline {
@@ -57,8 +81,13 @@
   --color-muted: var(--muted);
   --color-violet: var(--qiskit-violet);
   --color-violet-bright: var(--qiskit-violet-bright);
-  --color-cyan: var(--qubit-cyan);
-  --color-magenta: var(--pulse-magenta);
+  --color-pink: var(--qff-pink);
+  --color-pink-soft: var(--qff-pink-soft);
+  --color-pink-deep: var(--qff-pink-deep);
+  --color-pink-ink: var(--qff-pink-ink);
+  --color-indigo: var(--qff-indigo);
+  --color-qblue: var(--qff-blue);
+  --color-periwinkle: var(--qff-periwinkle);
   --color-amber: var(--pulse-amber);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
@@ -74,17 +103,13 @@ html {
   scroll-padding-top: 88px;
 }
 
+/* The page background is painted by <SiteBackground /> (a fixed, -z-10 layer),
+   so body only needs the flat base colour behind it. */
 body {
   color: var(--ink);
   font-family: var(--font-body);
+  background: var(--bg);
   -webkit-font-smoothing: antialiased;
-  background: var(--bg) url('/bg-network.png') no-repeat center center fixed;
-  background-size: cover;
-}
-
-.dark body {
-  background: var(--bg) url('/bg-network.png') no-repeat center center fixed;
-  background-size: cover;
 }
 
 /* Respect reduced-motion everywhere by default */
@@ -121,35 +146,37 @@ body {
 
 /* Glass card surface */
 .glass {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 30px rgba(42, 15, 82, 0.06);
   border: 1px solid var(--line);
 }
 
 .dark .glass {
-  background: rgba(10, 5, 30, 0.6);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  background: rgba(20, 10, 46, 0.66);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
 }
 
 .glass-dark {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(138, 63, 252, 0.15);
-  box-shadow: inset 0 0 20px rgba(138, 63, 252, 0.05);
+  border: 1px solid rgba(255, 126, 182, 0.22);
+  box-shadow: inset 0 0 20px rgba(255, 126, 182, 0.06);
 }
 
 .dark .glass-dark {
-  background: rgba(3, 0, 20, 0.7);
-  box-shadow: inset 0 0 20px rgba(138, 63, 252, 0.02);
+  background: rgba(13, 6, 32, 0.7);
+  box-shadow: inset 0 0 20px rgba(255, 126, 182, 0.05);
 }
 
+/* Pink → violet, the two anchors of the fest palette. */
 .text-gradient {
   background: linear-gradient(
-    135deg,
-    var(--qiskit-violet-bright) 0%,
-    var(--qubit-cyan) 100%
+    120deg,
+    var(--qff-pink) 0%,
+    var(--qff-pink-deep) 42%,
+    var(--qiskit-violet) 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -165,9 +192,9 @@ body {
   position: absolute;
   inset: -1px;
   border-radius: inherit;
-  background: linear-gradient(135deg, var(--qiskit-violet), var(--qubit-cyan));
+  background: linear-gradient(135deg, var(--qff-pink), var(--qiskit-violet));
   z-index: -1;
-  opacity: 0.5;
+  opacity: 0.45;
   transition: opacity 0.3s ease;
   filter: blur(8px);
 }
@@ -198,13 +225,17 @@ body {
 
 /* Visible, on-brand focus ring for keyboard navigation */
 :focus-visible {
-  outline: 2px solid var(--qiskit-violet-bright);
+  outline: 2px solid var(--qff-pink-deep);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
 ::selection {
-  background: rgba(138, 63, 252, 0.4);
+  background: rgba(255, 126, 182, 0.45);
+  color: var(--qff-indigo);
+}
+
+.dark ::selection {
   color: #ffffff;
 }
 
@@ -249,11 +280,11 @@ body {
   0%,
   100% {
     opacity: 0.5;
-    box-shadow: 0 0 15px rgba(138, 63, 252, 0.2);
+    box-shadow: 0 0 15px rgba(255, 126, 182, 0.2);
   }
   50% {
     opacity: 1;
-    box-shadow: 0 0 25px rgba(138, 63, 252, 0.5);
+    box-shadow: 0 0 25px rgba(255, 126, 182, 0.5);
   }
 }
 .animate-pulse-glow {
@@ -286,5 +317,191 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* ===========================================================================
+   Animated site backgrounds
+   ---------------------------------------------------------------------------
+   Every scene is pure CSS keyframes over SVG/DOM — no rAF loop, no canvas —
+   so the compositor owns them and they cost nothing while scrolling. Each
+   animated property is transform or opacity only.
+
+   All four honour prefers-reduced-motion via the global rule above, which
+   collapses animation-duration; the scenes are composed to still read as a
+   deliberate still image when that happens.
+   =========================================================================== */
+
+.qff-scene {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* --- Migration: official fest birds crossing a periwinkle sky ------------- */
+
+.qff-lane {
+  position: absolute;
+  left: 0;
+  will-change: transform;
+  animation: qff-cross linear infinite;
+}
+
+@keyframes qff-cross {
+  from {
+    transform: translate3d(-24vw, 0, 0);
+  }
+  to {
+    transform: translate3d(124vw, 0, 0);
+  }
+}
+
+/* A second element inside the lane, so the bob composes with the crossing
+   instead of fighting it for the transform property. */
+.qff-bob {
+  animation: qff-bob ease-in-out infinite alternate;
+}
+
+@keyframes qff-bob {
+  from {
+    transform: translateY(-0.6rem) rotate(-1.5deg);
+  }
+  to {
+    transform: translateY(0.6rem) rotate(1.5deg);
+  }
+}
+
+/* --- Lattice: dot grid crossed by a probability wave ---------------------- */
+
+.qff-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: qff-swell 7s ease-in-out infinite;
+}
+
+/* The resting state is deliberately near-invisible: what should read is the
+   wavefront travelling through the grid, not the grid itself. */
+@keyframes qff-swell {
+  0%,
+  72%,
+  100% {
+    transform: scale(0.5);
+    opacity: 0.16;
+  }
+  36% {
+    transform: scale(2);
+    opacity: 0.95;
+  }
+}
+
+/* --- Interference: stacked travelling waves ------------------------------ */
+
+/* fill-box makes the -50% below resolve against the path's own width (two
+   tiles) rather than the viewBox, so one cycle advances exactly one tile and
+   the wrap is invisible. */
+.qff-wave {
+  transform-box: fill-box;
+  animation: qff-travel linear infinite;
+}
+
+@keyframes qff-travel {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.qff-orbit-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: qff-throb 4s ease-in-out infinite;
+}
+
+@keyframes qff-throb {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.45);
+    opacity: 1;
+  }
+}
+
+/* --- Bloch: precessing great circles ------------------------------------- */
+
+.qff-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: qff-spin linear infinite;
+}
+
+@keyframes qff-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.qff-squash {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: qff-squash ease-in-out infinite alternate;
+}
+
+@keyframes qff-squash {
+  from {
+    transform: scaleY(0.18);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.qff-breathe {
+  animation: qff-breathe ease-in-out infinite alternate;
+}
+
+@keyframes qff-breathe {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 0.85;
+  }
+}
+
+/* With motion suppressed, park every scene mid-cycle rather than at a frame
+   where elements sit stacked off-screen or fully collapsed. */
+@media (prefers-reduced-motion: reduce) {
+  .qff-lane,
+  .qff-bob,
+  .qff-node,
+  .qff-wave,
+  .qff-orbit-node,
+  .qff-spin,
+  .qff-squash,
+  .qff-breathe {
+    animation: none !important;
+  }
+  .qff-lane {
+    transform: translate3d(var(--qff-rest, 40vw), 0, 0);
+  }
+  .qff-node {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  .qff-squash {
+    transform: scaleY(0.55);
+  }
+  .qff-breathe {
+    opacity: 0.6;
   }
 }

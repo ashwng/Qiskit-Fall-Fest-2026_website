@@ -26,12 +26,12 @@ export function CollaborationsSection() {
           if (items.length === 0) return null;
           return (
             <div key={tier}>
-              <p className="font-mono text-xs uppercase tracking-widest text-violet-bright font-bold">{tierLabel[tier]}</p>
+              <p className="font-mono text-xs uppercase tracking-widest text-pink-ink font-bold">{tierLabel[tier]}</p>
               <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                 {items.map((c, i) => (
                   <RevealOnScroll key={c.id} delayMs={i * 50}>
-                    <div className="glass-dark group flex h-28 flex-col items-center justify-center gap-3 rounded-2xl px-4 text-center transition-all duration-300 hover:border-cyan/50 hover:shadow-[0_0_20px_rgba(8,189,186,0.15)] hover:-translate-y-1">
-                      <span className="grid h-10 w-10 place-items-center rounded-full border border-line bg-surface-2 font-display text-base font-bold text-cyan transition-colors duration-300 group-hover:bg-cyan/10 group-hover:border-cyan/40">
+                    <div className="glass-dark group flex h-28 flex-col items-center justify-center gap-3 rounded-2xl px-4 text-center transition-all duration-300 hover:border-pink/50 hover:shadow-[0_0_20px_rgba(255,126,182,0.15)] hover:-translate-y-1">
+                      <span className="grid h-10 w-10 place-items-center rounded-full border border-line bg-surface-2 font-display text-base font-bold text-pink-ink transition-colors duration-300 group-hover:bg-pink/10 group-hover:border-pink/40">
                         {c.logoInitial}
                       </span>
                       <span className="font-body text-xs font-medium text-ink-dim transition-colors group-hover:text-ink">{c.name}</span>

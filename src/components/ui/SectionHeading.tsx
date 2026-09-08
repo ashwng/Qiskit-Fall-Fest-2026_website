@@ -31,15 +31,15 @@ export function SectionHeading({
     >
       <div
         className={cn(
-          "flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-cyan",
+          "flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-pink-ink",
           align === "center" && "justify-center",
         )}
       >
         <span
           aria-hidden
-          className="inline-block h-2 w-2 rounded-full border border-cyan bg-cyan/20 shadow-[0_0_8px_rgba(8,189,186,0.8)]"
+          className="inline-block h-2 w-2 rounded-full border border-pink bg-pink/20 shadow-[0_0_8px_rgba(255,126,182,0.8)]"
         />
-        <span className="font-mono text-violet-bright">{eyebrow}</span>
+        <span className="font-mono text-pink-ink">{eyebrow}</span>
       </div>
       <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
         {title}

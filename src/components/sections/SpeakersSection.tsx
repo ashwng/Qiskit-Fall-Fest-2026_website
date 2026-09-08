@@ -24,7 +24,7 @@ export function SpeakersSection() {
                 <PlaceholderAvatar seed={speaker.imageSeed} className="aspect-square w-full rounded-xl transition-transform duration-500 group-hover:scale-105" />
               </div>
               <p className="mt-5 font-display text-lg font-bold text-ink">{speaker.name}</p>
-              <p className="mt-1 font-mono text-xs uppercase tracking-widest text-cyan font-bold">{speaker.designation}</p>
+              <p className="mt-1 font-mono text-xs uppercase tracking-widest text-pink-ink font-bold">{speaker.designation}</p>
               <p className="mt-1 text-xs text-muted">{speaker.organization}</p>
               <p className="mt-4 font-body text-sm leading-relaxed text-muted">{speaker.bio}</p>
               <ul className="mt-5 flex gap-2">
@@ -33,7 +33,7 @@ export function SpeakersSection() {
                     <a
                       href={s.href}
                       aria-label={`${speaker.name} on ${platformLabel[s.platform]}`}
-                      className="grid h-9 w-9 place-items-center rounded-lg border border-line bg-surface-2 text-ink-dim transition-all duration-300 hover:border-violet-bright hover:text-cyan hover:shadow-[0_0_15px_rgba(138,63,252,0.3)] hover:-translate-y-0.5"
+                      className="grid h-9 w-9 place-items-center rounded-lg border border-line bg-surface-2 text-ink-dim transition-all duration-300 hover:border-violet-bright hover:text-pink-ink hover:shadow-[0_0_15px_rgba(138,63,252,0.3)] hover:-translate-y-0.5"
                     >
                       <SocialIcon platform={s.platform} className="h-4 w-4" />
                     </a>

@@ -64,7 +64,7 @@ export function Navbar() {
             <li key={item.href}>
               <a
                 href={item.href}
-                className="font-mono text-[13px] font-medium text-ink-dim transition-all duration-300 hover:text-cyan hover:drop-shadow-[0_0_8px_rgba(8,189,186,0.5)]"
+                className="font-mono text-[13px] font-medium text-ink-dim transition-all duration-300 hover:text-pink-ink hover:drop-shadow-[0_0_8px_rgba(255,126,182,0.5)]"
               >
                 {item.label}
               </a>
@@ -91,7 +91,7 @@ export function Navbar() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="grid h-10 w-10 place-items-center rounded-md border border-line bg-surface-2/50 text-ink transition-colors hover:bg-surface-2 hover:text-cyan"
+            className="grid h-10 w-10 place-items-center rounded-md border border-line bg-surface-2/50 text-ink transition-colors hover:bg-surface-2 hover:text-pink-ink"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -112,7 +112,7 @@ export function Navbar() {
                 <a
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-md px-3 py-3 font-mono text-sm font-semibold text-ink-dim transition-all duration-300 hover:bg-surface-2 hover:text-cyan hover:pl-5"
+                  className="block rounded-md px-3 py-3 font-mono text-sm font-semibold text-ink-dim transition-all duration-300 hover:bg-surface-2 hover:text-pink-ink hover:pl-5"
                 >
                   {item.label}
                 </a>

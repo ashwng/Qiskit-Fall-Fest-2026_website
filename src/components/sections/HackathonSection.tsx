@@ -21,7 +21,7 @@ export function HackathonSection() {
                   aria-hidden
                   className="absolute -right-6 -top-6 h-32 w-32 rounded-full bg-violet-bright/20 blur-3xl transition-opacity duration-300 group-hover:bg-violet-bright/30"
                 />
-                <div className="relative grid h-12 w-12 place-items-center rounded-xl border border-line bg-surface-2 text-violet-bright transition-colors duration-300 group-hover:bg-violet-bright/20 group-hover:border-violet-bright/50">
+                <div className="relative grid h-12 w-12 place-items-center rounded-xl border border-line bg-surface-2 text-pink-ink transition-colors duration-300 group-hover:bg-violet-bright/20 group-hover:border-violet-bright/50">
                   <Icon className="h-6 w-6" />
                 </div>
                 <h3 className="relative mt-6 font-display text-lg font-bold text-ink">{card.title}</h3>

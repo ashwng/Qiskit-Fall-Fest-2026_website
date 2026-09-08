@@ -26,7 +26,7 @@ export function Footer() {
               <li key={item.href}>
                 <a
                   href={item.href}
-                  className="font-mono text-[11px] uppercase tracking-widest text-ink-dim transition-all duration-300 hover:text-cyan hover:drop-shadow-[0_0_8px_rgba(8,189,186,0.5)]"
+                  className="font-mono text-[11px] uppercase tracking-widest text-ink-dim transition-all duration-300 hover:text-pink-ink hover:drop-shadow-[0_0_8px_rgba(255,126,182,0.5)]"
                 >
                   {item.label}
                 </a>
@@ -45,7 +45,7 @@ export function Footer() {
                 <a
                   href={s.href}
                   aria-label={platformLabel[s.platform]}
-                  className="grid h-10 w-10 place-items-center rounded-md border border-line bg-surface-2 text-ink-dim transition-all duration-300 hover:border-violet-bright hover:text-cyan hover:shadow-[0_0_15px_rgba(138,63,252,0.3)] hover:-translate-y-0.5"
+                  className="grid h-10 w-10 place-items-center rounded-md border border-line bg-surface-2 text-ink-dim transition-all duration-300 hover:border-violet-bright hover:text-pink-ink hover:shadow-[0_0_15px_rgba(138,63,252,0.3)] hover:-translate-y-0.5"
                 >
                   <SocialIcon platform={s.platform} className="h-4 w-4" />
                 </a>
