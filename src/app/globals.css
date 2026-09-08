@@ -288,3 +288,101 @@ body {
     transform: translateY(0);
   }
 }
+
+/* Print optimization: Print ONLY the pass ticket, hide everything else */
+@media print {
+  @page {
+    margin: 1.5cm;
+    size: auto;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  header,
+  footer,
+  nav,
+  button,
+  .circuit-field,
+  #perks,
+  #faqs,
+  .no-print,
+  #registration-hero,
+  #print-hide-header,
+  #print-hide-actions {
+    display: none !important;
+  }
+
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  #form-section {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+
+  #printable-pass-wrapper {
+    display: block !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 580px !important;
+  }
+
+  #printable-pass {
+    display: block !important;
+    background: #ffffff !important;
+    color: #0b0f19 !important;
+    border: 2px solid #0f172a !important;
+    box-shadow: none !important;
+    border-radius: 16px !important;
+    padding: 24px !important;
+    page-break-inside: avoid !important;
+  }
+
+  #printable-pass * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  #printable-pass .text-ink,
+  #printable-pass .text-ink-dim,
+  #printable-pass h1,
+  #printable-pass h2,
+  #printable-pass h3,
+  #printable-pass p {
+    color: #0b0f19 !important;
+  }
+
+  #printable-pass .text-muted {
+    color: #475569 !important;
+  }
+
+  #printable-pass .text-cyan {
+    color: #0284c7 !important;
+    font-weight: 600 !important;
+  }
+
+  #printable-pass .border-line,
+  #printable-pass .border-line-soft {
+    border-color: #cbd5e1 !important;
+  }
+
+  #printable-pass .bg-surface,
+  #printable-pass .bg-surface-2,
+  #printable-pass .bg-bg {
+    background: #f8fafc !important;
+  }
+
+  #printable-pass svg rect {
+    fill: #0b0f19 !important;
+  }
+}
+
