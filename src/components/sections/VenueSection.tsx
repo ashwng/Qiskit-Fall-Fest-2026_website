@@ -35,7 +35,7 @@ export function VenueSection() {
                 href="https://www.google.com/maps/search/?api=1&query=BITS+Pilani+K.K.+Birla+Goa+Campus"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glow-button inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-surface-2 border border-line px-6 py-3 font-display text-sm font-bold text-ink transition-all duration-300 hover:-translate-y-0.5 hover:text-white hover:border-pink"
+                className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-6 py-3 font-display text-sm font-bold text-ink-dim backdrop-blur-sm transition-all duration-300 hover:border-pink/60 hover:bg-surface-2 hover:text-ink shrink-0 whitespace-nowrap hover:-translate-y-0.5"
               >
                 Open in Google Maps
                 <ExternalLink className="h-4 w-4" />

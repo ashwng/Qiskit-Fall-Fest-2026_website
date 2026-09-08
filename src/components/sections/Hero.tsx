@@ -36,7 +36,7 @@ export function Hero() {
           <div className="mt-10 flex flex-wrap items-center gap-5">
             <a
               href={event.registerHref}
-              className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-pink-ink px-8 py-3.5 text-sm font-bold text-white shadow-[0_10px_30px_-10px_rgba(208,38,112,0.85)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-pink-deep"
+              className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-pink-fill px-8 py-3.5 text-sm font-bold text-white shadow-[0_10px_30px_-10px_rgba(208,38,112,0.85)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-pink-fill-hover"
             >
               Register Now
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

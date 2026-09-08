@@ -39,7 +39,7 @@ export function ScheduleSection() {
               "rounded-full px-5 py-2 font-mono text-xs uppercase tracking-widest transition-all duration-300",
               activeDay === day
                 ? "bg-violet-bright text-white shadow-[0_0_15px_rgba(165,110,255,0.4)]"
-                : "text-muted hover:text-white hover:bg-surface",
+                : "text-muted hover:bg-surface hover:text-ink",
             )}
           >
             {day}

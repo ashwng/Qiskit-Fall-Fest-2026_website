@@ -33,11 +33,16 @@
   --qff-pink-deep: #ee5396;
   /* accent text only — pink 40 is ~2.3:1 on white, pink 60 is ~5:1 */
   --qff-pink-ink: #d02670;
+  /* filled pink surfaces carrying white text; fixed across themes, since a
+     token that lightens in the dark would strand the label at ~1.5:1 */
+  --qff-pink-fill: #d02670;
+  --qff-pink-fill-hover: #9f1853;
   --qff-indigo: #31135e;
   --qff-blue: #0f62fe;
   --qff-periwinkle: #dae5fc;
   --qff-cloud: #f2f4f8;
   --pulse-amber: #f1c21b;
+  --qff-danger: #da1e28;
 
   /* rgb triples, for the rgb(var(--x) / <alpha>) glows */
   --qff-pink-rgb: 255 126 182;
@@ -63,11 +68,14 @@
   --qff-pink-soft: #ffafd2;
   --qff-pink-deep: #ee5396;
   --qff-pink-ink: #ff9ec7;
+  --qff-pink-fill: #d02670;
+  --qff-pink-fill-hover: #9f1853;
   --qff-indigo: #31135e;
   --qff-blue: #4589ff;
   --qff-periwinkle: #2b2154;
   --qff-cloud: #1b1140;
   --pulse-amber: #f1c21b;
+  --qff-danger: #ff8389;
 }
 
 @theme inline {
@@ -85,17 +93,28 @@
   --color-pink-soft: var(--qff-pink-soft);
   --color-pink-deep: var(--qff-pink-deep);
   --color-pink-ink: var(--qff-pink-ink);
+  --color-pink-fill: var(--qff-pink-fill);
+  --color-pink-fill-hover: var(--qff-pink-fill-hover);
   --color-indigo: var(--qff-indigo);
   --color-qblue: var(--qff-blue);
   --color-periwinkle: var(--qff-periwinkle);
   --color-amber: var(--pulse-amber);
+  --color-danger: var(--qff-danger);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
   --font-mono: var(--font-mono);
 }
 
-* {
-  border-color: var(--line);
+/* Default border colour for every element.
+ *
+ * This must live in @layer base. Unlayered CSS outranks *every* cascade layer,
+ * so as a bare `* { }` rule it silently beat all of Tailwind's border-colour
+ * utilities — `border-pink`, `border-danger`, `focus:border-pink` and friends
+ * all resolved to --line no matter what the markup asked for. */
+@layer base {
+  * {
+    border-color: var(--line);
+  }
 }
 
 html {

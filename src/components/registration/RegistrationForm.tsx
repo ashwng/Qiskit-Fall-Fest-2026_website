@@ -295,7 +295,7 @@ export function RegistrationForm() {
             <button
               type="button"
               onClick={() => window.print()}
-              className="glow-button inline-flex items-center gap-2 rounded-full bg-surface-2 border border-line px-6 py-3 font-display text-sm font-bold text-ink hover:text-white hover:border-violet-bright transition-all"
+              className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-6 py-3 font-display text-sm font-bold text-ink-dim backdrop-blur-sm transition-all duration-300 hover:border-pink/60 hover:bg-surface-2 hover:text-ink"
             >
               <Download className="h-4 w-4 text-pink-ink" />
               Print / Save Pass
@@ -402,11 +402,11 @@ export function RegistrationForm() {
                   onChange={(e) => updateField("fullName", e.target.value)}
                   className={cn(
                     "mt-2 w-full rounded-xl border bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-pink focus:outline-none focus:ring-1 focus:ring-pink/50",
-                    errors.fullName ? "border-pulse-magenta bg-pulse-magenta/5" : "border-line"
+                    errors.fullName ? "border-danger bg-danger/5" : "border-line"
                   )}
                 />
                 {errors.fullName && (
-                  <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] text-pulse-magenta">
+                  <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] text-danger">
                     <AlertCircle className="h-3.5 w-3.5" />
                     {errors.fullName}
                   </p>
@@ -426,11 +426,11 @@ export function RegistrationForm() {
                   onChange={(e) => updateField("email", e.target.value)}
                   className={cn(
                     "mt-2 w-full rounded-xl border bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-pink focus:outline-none focus:ring-1 focus:ring-pink/50",
-                    errors.email ? "border-pulse-magenta bg-pulse-magenta/5" : "border-line"
+                    errors.email ? "border-danger bg-danger/5" : "border-line"
                   )}
                 />
                 {errors.email && (
-                  <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] text-pulse-magenta">
+                  <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] text-danger">
                     <AlertCircle className="h-3.5 w-3.5" />
                     {errors.email}
                   </p>
@@ -450,11 +450,11 @@ export function RegistrationForm() {
                   onChange={(e) => updateField("phone", e.target.value)}
                   className={cn(
                     "mt-2 w-full rounded-xl border bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-pink focus:outline-none focus:ring-1 focus:ring-pink/50",
-                    errors.phone ? "border-pulse-magenta bg-pulse-magenta/5" : "border-line"
+                    errors.phone ? "border-danger bg-danger/5" : "border-line"
                   )}
                 />
                 {errors.phone && (
-                  <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] text-pulse-magenta">
+                  <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] text-danger">
                     <AlertCircle className="h-3.5 w-3.5" />
                     {errors.phone}
                   </p>
@@ -474,11 +474,11 @@ export function RegistrationForm() {
                   onChange={(e) => updateField("institution", e.target.value)}
                   className={cn(
                     "mt-2 w-full rounded-xl border bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-pink focus:outline-none focus:ring-1 focus:ring-pink/50",
-                    errors.institution ? "border-pulse-magenta bg-pulse-magenta/5" : "border-line"
+                    errors.institution ? "border-danger bg-danger/5" : "border-line"
                   )}
                 />
                 {errors.institution && (
-                  <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] text-pulse-magenta">
+                  <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] text-danger">
                     <AlertCircle className="h-3.5 w-3.5" />
                     {errors.institution}
                   </p>
@@ -549,7 +549,7 @@ export function RegistrationForm() {
                           className={cn(
                             "grid h-5 w-5 place-items-center rounded-full border text-[10px] transition-colors",
                             isSelected
-                              ? "border-pink bg-pink-ink text-white font-bold"
+                              ? "border-pink bg-pink-fill text-white font-bold"
                               : "border-line bg-surface"
                           )}
                         >
@@ -567,7 +567,7 @@ export function RegistrationForm() {
                 })}
               </div>
               {errors.attendanceMode && (
-                <p className="mt-2 flex items-center gap-1 font-mono text-[11px] text-pulse-magenta">
+                <p className="mt-2 flex items-center gap-1 font-mono text-[11px] text-danger">
                   <AlertCircle className="h-3.5 w-3.5" />
                   {errors.attendanceMode}
                 </p>
@@ -579,7 +579,7 @@ export function RegistrationForm() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="glow-button inline-flex items-center gap-2 rounded-full bg-surface-2 border border-line px-8 py-3 font-display text-sm font-bold text-ink hover:text-white hover:border-violet-bright transition-all"
+                className="inline-flex items-center gap-2 rounded-full bg-pink-fill px-8 py-3.5 font-display text-sm font-bold text-white shadow-[0_10px_30px_-10px_rgba(208,38,112,0.85)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-pink-fill-hover"
               >
                 Continue to Skills
                 <ArrowRight className="h-4 w-4" />
@@ -732,7 +732,7 @@ export function RegistrationForm() {
                 </span>
               </label>
               {errors.agreedToTerms && (
-                <p className="mt-2 flex items-center gap-1 font-mono text-[11px] text-pulse-magenta">
+                <p className="mt-2 flex items-center gap-1 font-mono text-[11px] text-danger">
                   <AlertCircle className="h-3.5 w-3.5" />
                   {errors.agreedToTerms}
                 </p>
@@ -741,7 +741,7 @@ export function RegistrationForm() {
 
             {/* Server Error Display */}
             {submitError && (
-              <div className="rounded-2xl border border-pulse-magenta/50 bg-pulse-magenta/10 p-4 text-xs font-mono text-pulse-magenta">
+              <div className="rounded-2xl border border-danger/50 bg-danger/10 p-4 text-xs font-mono text-danger">
                 <p className="flex items-center gap-2 font-bold">
                   <AlertCircle className="h-4 w-4" />
                   Registration Error
@@ -773,17 +773,17 @@ export function RegistrationForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="glow-button inline-flex items-center gap-2 rounded-full bg-surface-2 border border-line px-8 py-3.5 font-display text-sm font-bold text-ink hover:text-white hover:border-violet-bright transition-all disabled:opacity-50"
+                className="inline-flex items-center gap-2 rounded-full bg-pink-fill px-8 py-3.5 font-display text-sm font-bold text-white shadow-[0_10px_30px_-10px_rgba(208,38,112,0.85)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-pink-fill-hover disabled:pointer-events-none disabled:opacity-60"
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="h-4 w-4 animate-spin text-pink-ink" />
+                    <Loader2 className="h-4 w-4 animate-spin text-white" />
                     Allocating Ticket...
                   </>
                 ) : (
                   <>
                     Complete Registration
-                    <Sparkles className="h-4 w-4 text-pink-ink" />
+                    <Sparkles className="h-4 w-4 text-white" />
                   </>
                 )}
               </button>

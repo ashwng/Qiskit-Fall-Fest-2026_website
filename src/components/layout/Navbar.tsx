@@ -71,7 +71,7 @@ export function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4 print:hidden">
       <nav
         className={cn(
-          "qff-island mx-auto flex max-w-6xl items-center justify-between gap-2 rounded-full transition-all duration-300",
+          "qff-island mx-auto flex w-fit max-w-full items-center gap-1.5 rounded-full transition-all duration-300",
           scrolled ? "p-1.5 sm:p-2" : "p-2 sm:p-2.5",
         )}
         aria-label="Primary"
@@ -119,7 +119,7 @@ export function Navbar() {
           <Link
             href={registerTarget}
             aria-current={onRegistration ? "page" : undefined}
-            className="inline-flex items-center whitespace-nowrap rounded-full bg-pink-ink px-5 py-2.5 text-sm font-bold text-white shadow-[0_6px_20px_-6px_rgba(208,38,112,0.9)] transition-all duration-300 hover:bg-pink-deep hover:shadow-[0_8px_26px_-6px_rgba(208,38,112,1)]"
+            className="inline-flex items-center whitespace-nowrap rounded-full bg-pink-fill px-5 py-2.5 text-sm font-bold text-white shadow-[0_6px_20px_-6px_rgba(208,38,112,0.9)] transition-all duration-300 hover:bg-pink-fill-hover hover:shadow-[0_8px_26px_-6px_rgba(208,38,112,1)]"
           >
             Register
           </Link>
@@ -139,7 +139,7 @@ export function Navbar() {
       <div
         id="mobile-menu"
         className={cn(
-          "mx-auto grid max-w-6xl overflow-hidden transition-[grid-template-rows,margin] duration-300 lg:hidden",
+          "mx-auto grid w-full max-w-sm overflow-hidden transition-[grid-template-rows,margin] duration-300 lg:hidden",
           open ? "mt-2 grid-rows-[1fr]" : "mt-0 grid-rows-[0fr]",
         )}
       >
