@@ -68,11 +68,11 @@ export function Navbar() {
   const registerTarget = isHome ? event.registerHref : "#form-section";
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4 print:hidden">
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-4 sm:px-5 sm:pt-5 print:hidden">
       <nav
         className={cn(
-          "qff-island mx-auto flex w-fit max-w-full items-center gap-1.5 rounded-full transition-all duration-300",
-          scrolled ? "p-1.5 sm:p-2" : "p-2 sm:p-2.5",
+          "qff-island mx-auto flex w-fit max-w-full items-center gap-2 rounded-full transition-all duration-300",
+          scrolled ? "p-2 sm:p-2.5" : "p-2.5 sm:p-3",
         )}
         aria-label="Primary"
       >
@@ -80,12 +80,12 @@ export function Navbar() {
           href={isHome ? "#top" : "/"}
           className="group flex shrink-0 items-center gap-2.5 rounded-full pl-1 pr-2"
         >
-          <span className="relative block h-9 w-9 overflow-hidden rounded-full border border-line bg-surface-2 transition-transform duration-300 group-hover:scale-105">
+          <span className="relative block h-11 w-11 overflow-hidden rounded-full border border-line bg-surface-2 transition-transform duration-300 group-hover:scale-105">
             <Image
               src="/image-removebg-preview.png"
               alt=""
-              width={36}
-              height={36}
+              width={44}
+              height={44}
               className="object-cover"
             />
           </span>
@@ -101,7 +101,7 @@ export function Navbar() {
                   href={isHome ? item.href : `/${item.href}`}
                   aria-current={active ? "true" : undefined}
                   className={cn(
-                    "block rounded-full px-3.5 py-2 text-[13px] transition-colors duration-200",
+                    "block rounded-full px-4 py-2.5 text-sm transition-colors duration-200",
                     active
                       ? "bg-ink/[0.07] font-semibold text-ink dark:bg-white/10"
                       : "font-medium text-ink-dim hover:bg-ink/[0.04] hover:text-ink dark:hover:bg-white/[0.06]",
@@ -119,7 +119,7 @@ export function Navbar() {
           <Link
             href={registerTarget}
             aria-current={onRegistration ? "page" : undefined}
-            className="inline-flex items-center whitespace-nowrap rounded-full bg-pink-fill px-5 py-2.5 text-sm font-bold text-white shadow-[0_6px_20px_-6px_rgba(208,38,112,0.9)] transition-all duration-300 hover:bg-pink-fill-hover hover:shadow-[0_8px_26px_-6px_rgba(208,38,112,1)]"
+            className="inline-flex items-center whitespace-nowrap rounded-full bg-pink-fill px-6 py-3 text-sm font-bold text-white shadow-[0_6px_20px_-6px_rgba(208,38,112,0.9)] transition-all duration-300 hover:bg-pink-fill-hover hover:shadow-[0_8px_26px_-6px_rgba(208,38,112,1)]"
           >
             Register
           </Link>
@@ -129,7 +129,7 @@ export function Navbar() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="grid h-9 w-9 place-items-center rounded-full text-ink-dim transition-colors hover:bg-ink/[0.06] hover:text-ink lg:hidden dark:hover:bg-white/10"
+            className="grid h-11 w-11 place-items-center rounded-full text-ink-dim transition-colors hover:bg-ink/[0.06] hover:text-ink lg:hidden dark:hover:bg-white/10"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>

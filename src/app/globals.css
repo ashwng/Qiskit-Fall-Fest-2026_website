@@ -119,7 +119,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 104px;
+  scroll-padding-top: 120px;
 }
 
 /* The page background is painted by <SiteBackground /> (a fixed, -z-10 layer),
@@ -220,26 +220,6 @@ body {
 
 .glow-button:hover::before {
   opacity: 1;
-}
-
-.three-background {
-  position: relative;
-  min-height: 480px;
-  width: 100%;
-}
-
-.three-background canvas {
-  display: block;
-  height: 100%;
-  width: 100%;
-}
-
-@media (max-width: 1023px) {
-  .three-background {
-    min-height: 380px;
-    max-width: 520px;
-    margin: 0 auto;
-  }
 }
 
 /* Visible, on-brand focus ring for keyboard navigation */

@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { event } from "@/data/event";
-import ThreeBackground from "@/components/ui/QubitSphere";
+import QubitSphere from "@/components/ui/QubitSphere";
 
 export function Hero() {
   return (
@@ -50,12 +50,12 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-md lg:max-w-none animate-[fadeUp_1s_cubic-bezier(0.2,0.8,0.2,1)_forwards] opacity-0 [animation-fill-mode:forwards]" style={{ animationDelay: "300ms" }}>
-          <div className="absolute inset-0 -m-8 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,126,182,0.22),transparent_70%)] blur-2xl" />
-          <div className="glass-dark relative aspect-square overflow-hidden rounded-full p-4 shadow-[0_0_40px_rgba(255,126,182,0.14)] md:p-8">
-            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(138,63,252,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(138,63,252,0.05)_1px,transparent_1px)] bg-[size:20px_20px]" />
-            <ThreeBackground />
-          </div>
+        {/* The sphere brings its own frame and gate controls. */}
+        <div
+          className="relative mx-auto w-full max-w-md animate-[fadeUp_1s_cubic-bezier(0.2,0.8,0.2,1)_forwards] opacity-0 [animation-fill-mode:forwards] lg:max-w-none"
+          style={{ animationDelay: "300ms" }}
+        >
+          <QubitSphere />
         </div>
       </div>
     </section>

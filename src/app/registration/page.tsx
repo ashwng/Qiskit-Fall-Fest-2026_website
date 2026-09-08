@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Section } from "@/components/ui/Section";
-import ThreeBackground from "@/components/ui/QubitSphere";
+import QubitSphere from "@/components/ui/QubitSphere";
 import { RegistrationForm } from "@/components/registration/RegistrationForm";
 import { RegistrationPerks } from "@/components/registration/RegistrationPerks";
 import { RegistrationFaqSection } from "@/components/registration/RegistrationFaqSection";
@@ -95,7 +95,7 @@ export default function RegistrationPage() {
                   />
                   <div className="glass-dark relative rounded-full p-4 aspect-square overflow-hidden shadow-[0_0_40px_rgba(138,63,252,0.15)]">
                     <div className="absolute inset-0 bg-[linear-gradient(rgba(138,63,252,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(138,63,252,0.05)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
-                    <ThreeBackground />
+                    <QubitSphere variant="bare" />
                   </div>
                 </div>
               </div>
