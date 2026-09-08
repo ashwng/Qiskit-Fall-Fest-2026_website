@@ -100,7 +100,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 88px;
+  scroll-padding-top: 104px;
 }
 
 /* The page background is painted by <SiteBackground /> (a fixed, -z-10 layer),
@@ -321,6 +321,33 @@ body {
 }
 
 /* ===========================================================================
+   Dynamic island — the floating capsule shared by the navbar, its mobile
+   sheet, and the contact dock. A frosted, translucent surface so the animated
+   background reads through it, with a soft outer shadow that lifts it off the
+   page and a hairline highlight along the top edge.
+   =========================================================================== */
+
+.qff-island {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  border: 1px solid rgba(42, 15, 82, 0.08);
+  box-shadow:
+    0 10px 34px -12px rgba(42, 15, 82, 0.28),
+    0 2px 8px -3px rgba(42, 15, 82, 0.1),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.7);
+}
+
+.dark .qff-island {
+  background: rgba(26, 14, 58, 0.72);
+  border-color: rgba(255, 255, 255, 0.09);
+  box-shadow:
+    0 12px 40px -12px rgba(0, 0, 0, 0.7),
+    0 2px 10px -4px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+}
+
+/* ===========================================================================
    Animated site backgrounds
    ---------------------------------------------------------------------------
    Every scene is pure CSS keyframes over SVG/DOM — no rAF loop, no canvas —
@@ -505,3 +532,100 @@ body {
     opacity: 0.6;
   }
 }
+/* Print optimization: Print ONLY the pass ticket, hide everything else */
+@media print {
+  @page {
+    margin: 1.5cm;
+    size: auto;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  header,
+  footer,
+  nav,
+  button,
+  .circuit-field,
+  #perks,
+  #faqs,
+  .no-print,
+  #registration-hero,
+  #print-hide-header,
+  #print-hide-actions {
+    display: none !important;
+  }
+
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  #form-section {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+
+  #printable-pass-wrapper {
+    display: block !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 580px !important;
+  }
+
+  #printable-pass {
+    display: block !important;
+    background: #ffffff !important;
+    color: #0b0f19 !important;
+    border: 2px solid #0f172a !important;
+    box-shadow: none !important;
+    border-radius: 16px !important;
+    padding: 24px !important;
+    page-break-inside: avoid !important;
+  }
+
+  #printable-pass * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  #printable-pass .text-ink,
+  #printable-pass .text-ink-dim,
+  #printable-pass h1,
+  #printable-pass h2,
+  #printable-pass h3,
+  #printable-pass p {
+    color: #0b0f19 !important;
+  }
+
+  #printable-pass .text-muted {
+    color: #475569 !important;
+  }
+
+  #printable-pass .text-pink-ink {
+    color: #d02670 !important;
+    font-weight: 600 !important;
+  }
+
+  #printable-pass .border-line,
+  #printable-pass .border-line-soft {
+    border-color: #cbd5e1 !important;
+  }
+
+  #printable-pass .bg-surface,
+  #printable-pass .bg-surface-2,
+  #printable-pass .bg-bg {
+    background: #f8fafc !important;
+  }
+
+  #printable-pass svg rect {
+    fill: #0b0f19 !important;
+  }
+}
+

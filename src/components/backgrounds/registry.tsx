@@ -16,11 +16,15 @@ export type BackgroundId =
 export type BackgroundOption = {
   id: BackgroundId;
   label: string;
-  /** One line, shown in the picker. */
+  /** One line describing the scene, for whoever picks between them. */
   note: string;
   Scene: ComponentType;
 };
 
+/**
+ * Lattice ships; the rest stay reachable at `?bg=<id>` so the team can still
+ * compare them on the real page without a control in the corner.
+ */
 export const BACKGROUNDS: BackgroundOption[] = [
   {
     id: "migration",
@@ -54,7 +58,7 @@ export const BACKGROUNDS: BackgroundOption[] = [
   },
 ];
 
-export const DEFAULT_BACKGROUND: BackgroundId = "migration";
+export const DEFAULT_BACKGROUND: BackgroundId = "lattice";
 
 export function isBackgroundId(value: unknown): value is BackgroundId {
   return BACKGROUNDS.some((option) => option.id === value);
