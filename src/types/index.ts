@@ -61,3 +61,48 @@ export interface TeamMember {
   imageSeed: string;
   socials: SocialLink[];
 }
+
+
+export interface RegistrationPerk {
+  id: string;
+  title: string;
+  description: string;
+  icon: "cpu" | "award" | "book-open" | "users" | "gift" | "coffee";
+}
+
+export interface RegistrationFaq {
+  id: string;
+  question: string;
+  answer: string;
+}
+
+export interface RegistrationFormData {
+  fullName: string;
+  email: string;
+  phone: string;
+  institution: string;
+  studyLevel: string;
+  graduationYear: string;
+  attendanceMode: "offline" | "online";
+  quantumExperience: string;
+  interests: string[];
+  githubUrl: string;
+  linkedinUrl: string;
+  tshirtSize: string;
+  agreedToTerms: boolean;
+}
+
+export interface RegistrationResponse {
+  success?: boolean;
+  ticketId?: string;
+  message?: string;
+  error?: string;
+}
+
+export interface RegistrationActionResult {
+  success: boolean;
+  ticketId?: string;
+  message?: string;
+  error?: string;
+  statusCode?: number;
+}

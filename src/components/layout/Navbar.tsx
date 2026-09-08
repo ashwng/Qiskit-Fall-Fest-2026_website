@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { navItems } from "@/data/nav";
 import { event } from "@/data/event";
@@ -10,6 +12,8 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export function Navbar() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -28,6 +32,8 @@ export function Navbar() {
     };
   }, [open]);
 
+  const registerTarget = isHome ? event.registerHref : "#form-section";
+
   return (
     <header
       className={cn(
@@ -44,8 +50,8 @@ export function Navbar() {
         )}
         aria-label="Primary"
       >
-        <a
-          href="#top"
+        <Link
+          href={isHome ? "#top" : "/"}
           className="flex items-center gap-2 font-display text-base font-bold tracking-tight text-ink group"
         >
           <div className="relative h-8 w-8 overflow-hidden rounded-full border border-line bg-surface-2 transition-transform duration-300 group-hover:scale-110">
@@ -59,26 +65,29 @@ export function Navbar() {
           </div>
           <span className="hidden sm:inline transition-colors group-hover:text-cyan">{event.fullName}</span>
           <span className="sm:hidden transition-colors group-hover:text-cyan">{event.shortName}</span>
-        </a>
+        </Link>
 
         <ul className="hidden items-center gap-8 lg:flex">
-          {navItems.map((item) => (
-            <li key={item.href}>
-              <a
-                href={item.href}
-                className="font-mono text-[13px] font-medium text-ink-dim transition-all duration-300 hover:text-cyan hover:drop-shadow-[0_0_8px_rgba(8,189,186,0.5)]"
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
+          {navItems.map((item) => {
+            const href = isHome ? item.href : `/${item.href}`;
+            return (
+              <li key={item.label}>
+                <a
+                  href={href}
+                  className="font-mono text-[13px] font-medium text-ink-dim transition-all duration-300 hover:text-cyan hover:drop-shadow-[0_0_8px_rgba(8,189,186,0.5)]"
+                >
+                  {item.label}
+                </a>
+              </li>
+            );
+          })}
         </ul>
 
         {/* DESKTOP ACTIONS */}
         <div className="hidden lg:flex items-center gap-4">
           <ThemeToggle />
           <a
-            href={event.registerHref}
+            href={registerTarget}
             className="glow-button inline-block whitespace-nowrap rounded-full bg-surface-2 border border-line px-6 py-2.5 font-display text-sm font-bold text-ink transition-all duration-300 hover:-translate-y-0.5 hover:text-white hover:border-violet-bright"
           >
             Register Now
@@ -109,22 +118,25 @@ export function Navbar() {
       >
         <div className="overflow-hidden">
           <ul className="flex flex-col gap-1 px-4 py-4 sm:px-8">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="block rounded-md px-3 py-3 font-mono text-sm font-semibold text-ink-dim transition-all duration-300 hover:bg-surface-2 hover:text-cyan hover:pl-5"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
+            {navItems.map((item) => {
+              const href = isHome ? item.href : `/${item.href}`;
+              return (
+                <li key={item.label}>
+                  <a
+                    href={href}
+                    onClick={() => setOpen(false)}
+                    className="block rounded-md px-3 py-3 font-mono text-sm font-semibold text-ink-dim transition-all duration-300 hover:bg-surface-2 hover:text-cyan hover:pl-5"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              );
+            })}
 
             {/* MOBILE BUTTON */}
             <li className="pt-4 pb-2">
               <a
-                href={event.registerHref}
+                href={registerTarget}
                 onClick={() => setOpen(false)}
                 className="glow-button block whitespace-nowrap rounded-md bg-surface-2 border border-line px-3 py-3.5 text-center font-display text-sm font-bold text-ink transition-all duration-300 hover:text-white"
               >
@@ -137,4 +149,3 @@ export function Navbar() {
     </header>
   );
 }
-

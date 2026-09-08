@@ -13,7 +13,7 @@ export const event = {
   description: `Dive into the exciting world of quantum computing at the PLUS Qiskit Fall Fest, where curiosity meets cutting-edge technology.
 Collaborate on hands-on challenges, learn from experts, and level up your skills alongside a passionate, welcoming community.
 Whether you are a complete beginner or a coding veteran, join us to build tomorrow's solutions and shape the future of tech today!`,
-  registerHref: "#details",
+  registerHref: "/registration",
   exploreHref: "#hackathon",
 };
 
