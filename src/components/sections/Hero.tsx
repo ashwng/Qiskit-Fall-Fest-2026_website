@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { event } from "@/data/event";
-import QubitSphere from "@/components/ui/QubitSphere";
+import { HeroSphere } from "@/components/ui/HeroSphere";
 
 export function Hero() {
   return (
@@ -46,7 +46,7 @@ export function Hero() {
           <div className="pointer-events-none absolute inset-0 -m-8 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,126,182,0.22),transparent_70%)] blur-2xl" />
           <div className="glass-dark relative aspect-square overflow-hidden rounded-full shadow-[0_0_40px_rgba(255,126,182,0.14)]">
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(138,63,252,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(138,63,252,0.05)_1px,transparent_1px)] bg-[size:20px_20px]" />
-            <QubitSphere />
+            <HeroSphere />
           </div>
         </div>
       </div>

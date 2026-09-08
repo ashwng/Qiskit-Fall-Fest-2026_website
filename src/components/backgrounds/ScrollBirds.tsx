@@ -72,6 +72,8 @@ export function ScrollBirds() {
 
     const update = () => {
       frame = undefined;
+      // Below lg (1024px) the layer is hidden; avoid forced reflows / getBoundingClientRect
+      if (window.innerWidth < 1024) return;
       const viewport = window.innerHeight;
 
       for (const node of nodes) {
@@ -106,10 +108,14 @@ export function ScrollBirds() {
     };
 
     const schedule = () => {
+      if (window.innerWidth < 1024) return;
       frame ??= window.requestAnimationFrame(update);
     };
 
-    update();
+    if (window.innerWidth >= 1024) {
+      update();
+    }
+
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule, { passive: true });
     return () => {
