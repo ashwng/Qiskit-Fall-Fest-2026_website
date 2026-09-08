@@ -3,7 +3,7 @@ import type { TeamMember } from "@/types";
 export const team: TeamMember[] = [
   {
     id: "team-1",
-    name: "To be announced",
+    name: "  ",
     role: "Event Lead",
     team: "Core",
     imageSeed: "qff-team-1",
@@ -11,7 +11,7 @@ export const team: TeamMember[] = [
   },
   {
     id: "team-2",
-    name: "To be announced",
+    name: "  ",
     role: "Hackathon Lead",
     team: "Core",
     imageSeed: "qff-team-2",
@@ -19,7 +19,7 @@ export const team: TeamMember[] = [
   },
   {
     id: "team-3",
-    name: "To be announced",
+    name: "  ",
     role: "Design Lead",
     team: "Core",
     imageSeed: "qff-team-3",
@@ -27,7 +27,7 @@ export const team: TeamMember[] = [
   },
   {
     id: "team-4",
-    name: "To be announced",
+    name: "  ",
     role: "Logistics",
     team: "Operations",
     imageSeed: "qff-team-4",
@@ -35,7 +35,7 @@ export const team: TeamMember[] = [
   },
   {
     id: "team-5",
-    name: "To be announced",
+    name: "  ",
     role: "Sponsorship",
     team: "Operations",
     imageSeed: "qff-team-5",
@@ -43,7 +43,7 @@ export const team: TeamMember[] = [
   },
   {
     id: "team-6",
-    name: "To be announced",
+    name: "  ",
     role: "Outreach",
     team: "Operations",
     imageSeed: "qff-team-6",
@@ -51,7 +51,7 @@ export const team: TeamMember[] = [
   },
   {
     id: "team-7",
-    name: "To be announced",
+    name: "  ",
     role: "Technical Content",
     team: "Content",
     imageSeed: "qff-team-7",
@@ -59,7 +59,7 @@ export const team: TeamMember[] = [
   },
   {
     id: "team-8",
-    name: "To be announced",
+    name: "  ",
     role: "Media",
     team: "Content",
     imageSeed: "qff-team-8",
