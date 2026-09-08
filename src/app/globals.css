@@ -1,8 +1,16 @@
 @import "tailwindcss";
 
-/* IBM Plex — IBM's corporate typeface, and the type used across the official
-   Qiskit Fall Fest 2026 brand material. Sans carries display + body; Mono
-   carries the labels and eyebrows, as it does on the fest badges. */
+/* Type system, three voices:
+   - Bricolage Grotesque carries the display headings. It has real character
+     at large sizes, which is what stops a page of uniform bold sans from
+     reading as generic.
+   - IBM Plex Sans carries body copy — IBM's corporate typeface, and the type
+     used across the official Qiskit Fall Fest 2026 brand material.
+   - IBM Plex Mono carries labels and metadata, as it does on the fest badges. */
+@import "@fontsource/bricolage-grotesque/500.css";
+@import "@fontsource/bricolage-grotesque/600.css";
+@import "@fontsource/bricolage-grotesque/700.css";
+@import "@fontsource/bricolage-grotesque/800.css";
 @import "@fontsource/ibm-plex-sans/400.css";
 @import "@fontsource/ibm-plex-sans/500.css";
 @import "@fontsource/ibm-plex-sans/600.css";
@@ -48,7 +56,7 @@
   --qff-pink-rgb: 255 126 182;
   --qff-violet-rgb: 138 63 252;
 
-  --font-display: "IBM Plex Sans", system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", "IBM Plex Sans", system-ui, sans-serif;
   --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 }
@@ -628,3 +636,51 @@ body {
   }
 }
 
+
+/* ---------------------------------------------------------------------------
+   Register call-to-action.
+
+   A halo that expands and fades out from behind the button, roughly the
+   rhythm of a slow pulse. It sits on a ::after so the button itself never
+   moves — a CTA that jumps around is harder to click, not easier to notice —
+   and it stops on hover, where the pointer has already found it.
+   --------------------------------------------------------------------------- */
+.qff-beacon {
+  position: relative;
+  isolation: isolate;
+}
+
+.qff-beacon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--qff-pink-fill);
+  animation: qff-beacon 2.8s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+
+.qff-beacon:hover::after,
+.qff-beacon:focus-visible::after {
+  animation-play-state: paused;
+  opacity: 0;
+}
+
+@keyframes qff-beacon {
+  0% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.32);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qff-beacon::after {
+    animation: none;
+    opacity: 0;
+  }
+}

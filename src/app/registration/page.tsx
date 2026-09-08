@@ -8,7 +8,7 @@ import { RegistrationForm } from "@/components/registration/RegistrationForm";
 import { RegistrationPerks } from "@/components/registration/RegistrationPerks";
 import { RegistrationFaqSection } from "@/components/registration/RegistrationFaqSection";
 import { registrationHeader } from "@/data/registration";
-import { ArrowLeft, Sparkles, MapPin, Calendar, Ticket } from "lucide-react";
+import { ArrowLeft, MapPin, Calendar, Ticket } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Registration",
@@ -41,31 +41,16 @@ export default function RegistrationPage() {
                 Back to Fest Overview
               </Link>
 
-              <div className="inline-flex items-center gap-2 rounded-full border border-pink/30 bg-pink/10 px-4 py-1.5 font-mono text-xs uppercase tracking-widest text-pink-ink shadow-[0_0_15px_rgba(255,126,182,0.15)]">
-                <Sparkles className="h-3.5 w-3.5 animate-pulse-glow" />
-                Applications Open · Fall 2026
-              </div>
             </div>
 
             {/* Header Content Grid */}
             <div className="mt-8 grid items-center gap-10 lg:grid-cols-12">
               <div className="lg:col-span-7 animate-[fadeUp_0.6s_ease-out_forwards]">
-                <div className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-pink-ink">
-                  <span
-                    aria-hidden
-                    className="inline-block h-2 w-2 rounded-full border border-pink bg-pink/20 shadow-[0_0_8px_rgba(255,126,182,0.8)]"
-                  />
-                  <span className="font-mono text-pink-ink">
-                    {registrationHeader.eyebrow}
-                  </span>
-                </div>
-
-                <h1 className="mt-4 font-display text-4xl font-bold leading-[1.1] tracking-tight text-ink sm:text-5xl lg:text-6xl">
-                  Reserve Your Spot at{" "}
-                  <span className="text-gradient">QFF 2026</span>
+                <h1 className="font-display text-4xl font-extrabold uppercase leading-[0.95] tracking-tight text-pink-ink sm:text-5xl lg:text-6xl">
+                  Register
                 </h1>
 
-                <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+                <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink sm:text-xl">
                   {registrationHeader.description}
                 </p>
 
@@ -95,7 +80,7 @@ export default function RegistrationPage() {
                   />
                   <div className="glass-dark relative rounded-full p-4 aspect-square overflow-hidden shadow-[0_0_40px_rgba(138,63,252,0.15)]">
                     <div className="absolute inset-0 bg-[linear-gradient(rgba(138,63,252,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(138,63,252,0.05)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
-                    <QubitSphere variant="bare" />
+                    <QubitSphere />
                   </div>
                 </div>
               </div>

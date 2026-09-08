@@ -10,11 +10,7 @@ export function TeamSection() {
     <Section id="team" className="relative bg-surface/30">
       <div className="absolute top-1/2 left-0 w-1/4 h-1/3 bg-[radial-gradient(ellipse_at_left,rgba(255,126,182,0.05),transparent_70%)] pointer-events-none" />
 
-      <SectionHeading
-        eyebrow="05 · Organizing Team"
-        title="The people behind QFF"
-        description="  "
-      />
+      <SectionHeading title="Organizing Team" />
 
       <div className="mt-14 grid gap-5 sm:grid-cols-3 lg:grid-cols-4 relative z-10">
         {team.map((member, i) => (

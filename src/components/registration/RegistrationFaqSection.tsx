@@ -6,11 +6,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 export function RegistrationFaqSection() {
   return (
     <div>
-      <SectionHeading
-        eyebrow="FAQ · Registration & Participation"
-        title="Frequently Asked Questions"
-        description="Got questions about attending, hardware requirements, or team formations? Find quick answers below."
-      />
+      <SectionHeading title="FAQs" />
 
       <div className="mt-12 max-w-4xl relative z-10">
         {registrationFaqs.map((faq, index) => (

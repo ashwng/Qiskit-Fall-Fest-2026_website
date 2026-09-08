@@ -10,11 +10,7 @@ export function SpeakersSection() {
     <Section id="speakers" className="relative bg-surface/30">
       <div className="absolute top-1/3 right-0 w-1/3 h-1/3 bg-[radial-gradient(ellipse_at_right,rgba(138,63,252,0.08),transparent_70%)] pointer-events-none" />
 
-      <SectionHeading
-        eyebrow="03 · Speakers"
-        title="Voices from the field"
-        description="To be announced."
-      />
+      <SectionHeading title="Speakers" />
 
       <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 relative z-10">
         {speakers.map((speaker, i) => (

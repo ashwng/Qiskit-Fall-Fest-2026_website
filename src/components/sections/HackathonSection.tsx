@@ -1,4 +1,4 @@
-import { hackathonCards, hackathonIntro } from "@/data/hackathon";
+import { hackathonCards } from "@/data/hackathon";
 import { hackathonIconMap } from "@/components/ui/icon-map";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Section } from "@/components/ui/Section";
@@ -9,7 +9,7 @@ export function HackathonSection() {
     <Section id="hackathon" className="relative bg-surface/30">
       <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-[radial-gradient(ellipse_at_right,rgba(138,63,252,0.08),transparent_60%)] pointer-events-none" />
 
-      <SectionHeading eyebrow="01 · Hackathon" title="Build something quantum" description={hackathonIntro} />
+      <SectionHeading title="Hackathon" />
 
       <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 relative z-10">
         {hackathonCards.map((card, i) => {

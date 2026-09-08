@@ -23,11 +23,7 @@ const iconMap: Record<string, LucideIcon> = {
 export function RegistrationPerks() {
   return (
     <div>
-      <SectionHeading
-        eyebrow="Privileges · Pass Inclusions"
-        title="Everything included with admission"
-        description="All registered and admitted attendees receive full access to our IBM Quantum runtime environment, workshops, hackathon hardware, and community resources."
-      />
+      <SectionHeading title="What's included" />
 
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {registrationPerks.map((perk, i) => {

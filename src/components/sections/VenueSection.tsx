@@ -8,11 +8,7 @@ export function VenueSection() {
     <Section id="venue" className="relative bg-surface/30">
       <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-[radial-gradient(ellipse_at_left,rgba(255,126,182,0.08),transparent_70%)] pointer-events-none" />
 
-      <SectionHeading
-        eyebrow="08 · Venue"
-        title="Where it happens"
-        description="Join us in person at our beautiful campus in Goa."
-      />
+      <SectionHeading title="Venue" />
 
       <div className="mt-14 max-w-3xl relative z-10">
         <RevealOnScroll>

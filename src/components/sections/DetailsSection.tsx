@@ -10,8 +10,7 @@ export function DetailsSection() {
       <div className="absolute top-1/2 left-0 w-1/3 h-1/2 bg-[radial-gradient(ellipse_at_left,rgba(255,126,182,0.08),transparent_70%)] pointer-events-none" />
       
       <SectionHeading
-        eyebrow="00 · Details"
-        title="Everything you need to know"
+        title="Details"
         description={event.description}
       />
 

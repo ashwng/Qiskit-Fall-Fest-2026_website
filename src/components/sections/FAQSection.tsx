@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { faqs, faqIntro } from "@/data/faqs";
+import { faqs } from "@/data/faqs";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -7,11 +7,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 export function FAQSection() {
   return (
     <Section id="faqs" className="relative bg-surface/30">
-      <SectionHeading
-        eyebrow="07 · FAQs"
-        title="Everything about applying"
-        description={faqIntro}
-      />
+      <SectionHeading title="FAQs" />
 
       <div className="mt-12 max-w-4xl relative z-10">
         {faqs.map((faq, index) => (

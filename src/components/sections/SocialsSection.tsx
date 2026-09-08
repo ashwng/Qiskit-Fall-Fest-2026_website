@@ -7,11 +7,7 @@ import { SocialIcon, platformLabel } from "@/components/ui/SocialIcon";
 export function SocialsSection() {
   return (
     <Section id="socials" className="relative">
-      <SectionHeading
-        eyebrow="06 · Socials"
-        title="Stay in the loop"
-        description="To be announced."
-      />
+      <SectionHeading title="Socials" />
 
       <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 relative z-10">
         {socials.map((s, i) => (

@@ -14,11 +14,7 @@ export function CollaborationsSection() {
 
   return (
     <Section id="collaborations" className="relative">
-      <SectionHeading
-        eyebrow="04 · Collaborations"
-        title="Built with the community"
-        description="To be announced."
-      />
+      <SectionHeading title="Collaborations" />
 
       <div className="mt-14 space-y-12 relative z-10">
         {tiers.map((tier) => {
