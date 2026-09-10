@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-import { QFF_ART, QffArtDefs, type QffArtName } from "@/components/ui/qff-art";
+import { QFF_ART, type QffArtName } from "@/components/ui/qff-art";
 
 /**
  * Official fest birds that fly in from the page margins as you scroll.
@@ -131,7 +131,6 @@ export function ScrollBirds() {
       aria-hidden
       className="pointer-events-none absolute inset-0 -z-10 hidden overflow-hidden lg:block"
     >
-      <QffArtDefs />
       {BIRDS.map((bird, i) => {
         const height = bird.width / QFF_ART[bird.art].aspect;
         return (

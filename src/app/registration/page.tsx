@@ -3,11 +3,12 @@ import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Section } from "@/components/ui/Section";
-import QubitSphere from "@/components/ui/QubitSphere";
+import { HeroSphere } from "@/components/ui/HeroSphere";
 import { RegistrationForm } from "@/components/registration/RegistrationForm";
 import { RegistrationPerks } from "@/components/registration/RegistrationPerks";
 import { RegistrationFaqSection } from "@/components/registration/RegistrationFaqSection";
 import { registrationHeader } from "@/data/registration";
+import { event } from "@/data/event";
 import { ArrowLeft, MapPin, Calendar, Ticket } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -23,7 +24,6 @@ export default function RegistrationPage() {
 
       <main className="relative min-h-screen overflow-hidden">
         {/* Background Circuit Grid Texture */}
-        <div className="circuit-field pointer-events-none absolute inset-0 -z-10" />
 
         {/* Hero Banner for Registration */}
         <section
@@ -58,11 +58,11 @@ export default function RegistrationPage() {
                 <div className="mt-6 flex flex-wrap items-center gap-3">
                   <div className="flex items-center gap-2 rounded-xl border border-line bg-surface-2/60 px-3.5 py-2 font-mono text-xs text-ink-dim">
                     <MapPin className="h-3.5 w-3.5 text-pink-ink" />
-                    <span>BITS Pilani KK Birla Goa Campus</span>
+                    <span>{event.venueName}</span>
                   </div>
                   <div className="flex items-center gap-2 rounded-xl border border-line bg-surface-2/60 px-3.5 py-2 font-mono text-xs text-ink-dim">
                     <Calendar className="h-3.5 w-3.5 text-pink-ink" />
-                    <span>Fall 2026 · Dates TBA</span>
+                    <span>{event.dates}</span>
                   </div>
                   <div className="flex items-center gap-2 rounded-xl border border-line bg-surface-2/60 px-3.5 py-2 font-mono text-xs text-ink-dim">
                     <Ticket className="h-3.5 w-3.5 text-pink-ink" />
@@ -80,7 +80,7 @@ export default function RegistrationPage() {
                   />
                   <div className="glass-dark relative rounded-full p-4 aspect-square overflow-hidden shadow-[0_0_40px_rgba(138,63,252,0.15)]">
                     <div className="absolute inset-0 bg-[linear-gradient(rgba(138,63,252,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(138,63,252,0.05)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
-                    <QubitSphere />
+                    <HeroSphere />
                   </div>
                 </div>
               </div>

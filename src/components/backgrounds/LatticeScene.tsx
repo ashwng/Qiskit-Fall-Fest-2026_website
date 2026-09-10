@@ -50,7 +50,7 @@ export function LatticeScene() {
       <div className="absolute right-[4%] bottom-[6%] h-80 w-80 sm:h-[40rem] sm:w-[40rem] rounded-full bg-[radial-gradient(circle,rgba(138,63,252,0.13),transparent_70%)] blur-2xl sm:blur-3xl" />
 
       <svg
-        className="absolute inset-0 h-full w-full opacity-70"
+        className="qff-lattice absolute inset-0 h-full w-full opacity-45"
         role="presentation"
       >
         {NODES.map((node, i) => (

@@ -3,32 +3,62 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Section } from "@/components/ui/Section";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { SocialIcon, platformLabel } from "@/components/ui/SocialIcon";
+import { isPending } from "@/components/ui/Pending";
 
+/**
+ * Six links.
+ *
+ * They were six full-width cards in the same grid as the details, the
+ * hackathon and the sponsors — a quarter of the page's height spent on a link
+ * list. Pills say the same thing in two lines, and an account the fest has not
+ * opened yet is shown as a slot rather than as a link to nowhere.
+ */
 export function SocialsSection() {
   return (
-    <Section id="socials" className="relative">
-      <SectionHeading title="Socials" />
+    <Section id="socials">
+      <SectionHeading title="Socials" meta="qBITS · BITS Goa" />
 
-      <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 relative z-10">
-        {socials.map((s, i) => (
-          <RevealOnScroll key={s.platform} delayMs={i * 50}>
-            <a
-              href={s.href}
-              className="glass-dark group flex items-center gap-5 rounded-2xl p-5 transition-all duration-300 hover:border-pink/50 hover:shadow-[0_0_20px_rgba(255,126,182,0.15)] hover:-translate-y-1"
+      <ul className="mt-10 flex flex-wrap gap-3">
+        {socials.map((s, i) => {
+          const label = platformLabel[s.platform];
+          const pending = isPending(s.handle) || s.href === "#";
+
+          return (
+            <RevealOnScroll
+              key={s.platform}
+              as="li"
+              variant="soft"
+              delayMs={i * 45}
             >
-              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-line bg-surface-2 text-pink-ink transition-colors duration-300 group-hover:bg-pink/10 group-hover:border-pink/30 group-hover:shadow-[0_0_15px_rgba(255,126,182,0.2)]">
-                <SocialIcon platform={s.platform} className="h-5 w-5" />
-              </span>
-              <span>
-                <span className="block font-display text-base font-bold text-ink transition-colors group-hover:text-pink-ink">
-                  {platformLabel[s.platform]}
+              {pending ? (
+                <span className="inline-flex items-center gap-3 rounded-full border border-dashed border-line px-5 py-3 text-muted">
+                  <SocialIcon platform={s.platform} className="h-4 w-4" />
+                  <span className="font-display text-sm font-bold">{label}</span>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.14em]">
+                    soon
+                  </span>
                 </span>
-                <span className="block mt-0.5 font-mono text-[11px] text-muted">{s.handle}</span>
-              </span>
-            </a>
-          </RevealOnScroll>
-        ))}
-      </div>
+              ) : (
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-3 rounded-full border border-line bg-surface/70 px-5 py-3 text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-pink/60 hover:bg-surface"
+                >
+                  <SocialIcon
+                    platform={s.platform}
+                    className="h-4 w-4 text-pink-ink"
+                  />
+                  <span className="font-display text-sm font-bold">{label}</span>
+                  <span className="font-mono text-[10px] tracking-[0.1em] text-muted transition-colors group-hover:text-ink-dim">
+                    {s.handle}
+                  </span>
+                </a>
+              )}
+            </RevealOnScroll>
+          );
+        })}
+      </ul>
     </Section>
   );
 }

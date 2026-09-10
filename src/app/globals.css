@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* next-themes toggles a `.dark` class on <html>, but Tailwind v4's stock
+   `dark:` variant is `prefers-color-scheme`. Without this the two disagree:
+   every `dark:` utility on the site followed the operating system while the
+   tokens followed the theme switch. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Type system, three voices:
    - Bricolage Grotesque carries the display headings. It has real character
      at large sizes, which is what stops a page of uniform bold sans from
@@ -52,6 +58,17 @@
   --qff-pink-rgb: 255 126 182;
   --qff-violet-rgb: 138 63 252;
 
+  /* Elevation. A shadow needs an offset and a soft blur to read as height; a
+     zero-offset coloured halo is decoration, and the page was built entirely
+     out of those. Light casts downward, so every step gains y before it gains
+     blur. */
+  --shadow-1:
+    0 1px 2px -1px rgba(42, 15, 82, 0.1),
+    0 3px 8px -3px rgba(42, 15, 82, 0.09);
+  --shadow-2:
+    0 2px 4px -2px rgba(42, 15, 82, 0.12),
+    0 14px 28px -10px rgba(42, 15, 82, 0.18);
+
   --font-display: "Bricolage Grotesque", "IBM Plex Sans", system-ui, sans-serif;
   --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -80,6 +97,13 @@
   --qff-cloud: #1b1140;
   --pulse-amber: #f1c21b;
   --qff-danger: #ff8389;
+
+  --shadow-1:
+    0 1px 2px -1px rgba(0, 0, 0, 0.5),
+    0 3px 10px -4px rgba(0, 0, 0, 0.45);
+  --shadow-2:
+    0 3px 6px -3px rgba(0, 0, 0, 0.6),
+    0 18px 36px -14px rgba(0, 0, 0, 0.65);
 }
 
 @theme inline {
@@ -164,8 +188,6 @@ body {
     linear-gradient(rgba(138, 63, 252, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(138, 63, 252, 0.03) 1px, transparent 1px);
 }
-
-/* circuit-field opacity blocker removed to allow background image to be visible */
 
 /* Glass card surface */
 .glass {
@@ -318,6 +340,237 @@ body {
   }
 }
 
+/* Entrance variants.
+   One identical rise-and-fade on every element down the page reads as a
+   template. Each section picks the entrance that suits its own structure:
+   a list wipes in from its start edge, a wall of logos just resolves, and
+   the rise is reserved for things that genuinely sit on the page. */
+.reveal-side {
+  opacity: 0;
+  transform: translateX(-18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-side.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-soft {
+  opacity: 0;
+  transform: scale(0.965);
+  filter: blur(6px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-soft.is-visible {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-side,
+  .reveal-soft {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* ===========================================================================
+   Hero sky — the fest's clouds and one bird, drifting.
+   ---------------------------------------------------------------------------
+   Transform-only and slow enough to read as weather rather than as animation.
+   Each keyframe starts and ends in the same place, so the reduced-motion rule
+   that collapses the duration leaves a composed still rather than a jump.
+   =========================================================================== */
+
+.qff-drift {
+  animation: qff-drift 34s ease-in-out infinite;
+}
+.qff-drift-slow {
+  animation: qff-drift 52s ease-in-out infinite reverse;
+}
+
+@keyframes qff-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(3.5rem, -0.75rem, 0);
+  }
+}
+
+/* The bird keeps its own mirror, so the drift has to compose with it rather
+   than overwrite it — hence scale on the keyframe, not a second wrapper. */
+.qff-glide {
+  animation: qff-glide 19s ease-in-out infinite;
+}
+
+@keyframes qff-glide {
+  0%,
+  100% {
+    transform: scaleX(-1) translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: scaleX(-1) translate3d(-2.5rem, 1.1rem, 0) rotate(2.5deg);
+  }
+}
+
+/* ===========================================================================
+   Card — one surface, defined once.
+   ---------------------------------------------------------------------------
+   Every section had hand-rolled the same eight utilities and then reached for
+   a different zero-offset colour glow on hover. Both live here now, so a card
+   picks up real elevation and the page has one raise instead of nine.
+   =========================================================================== */
+
+.qff-card {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  box-shadow: var(--shadow-1);
+  transition:
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s ease,
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .qff-card {
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+}
+
+/* Only cards that are themselves links or buttons lift. A raise on a card you
+   cannot click is a promise the page does not keep. */
+a.qff-card:hover,
+button.qff-card:hover,
+.qff-card-interactive:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--qff-pink) 55%, transparent);
+  box-shadow: var(--shadow-2);
+}
+
+/* The schedule's rail. A plain border-left in --line all but vanished against
+   the dark surface, which left the session dots floating unattached. */
+.qff-rail {
+  /* The whole background is set here rather than with utilities: this rule is
+     unlayered, so its `background` shorthand would reset anything Tailwind's
+     utilities layer tried to add to it. */
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--qff-pink) 55%, transparent),
+    var(--line) 30%,
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: 2px 100%;
+}
+
+/* ===========================================================================
+   Band — the one section that stops the page.
+   ---------------------------------------------------------------------------
+   The hackathon is the fest's headline event, and it sat in exactly the same
+   card grid as everything either side of it. This is a fixed deep-indigo
+   panel — the same night sky the brand's birds are drawn against, and the
+   same in both themes — so the scroll changes density once, at the moment the
+   page has something worth stopping for.
+   =========================================================================== */
+
+.qff-band {
+  --band: #250c48;
+  --band-line: rgba(255, 255, 255, 0.11);
+  --band-ink: #f4eefc;
+  --band-ink-dim: #c3b1e0;
+  background:
+    radial-gradient(
+      ellipse 70% 90% at 12% 0%,
+      rgba(138, 63, 252, 0.34),
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 60% 80% at 92% 100%,
+      rgba(238, 83, 150, 0.22),
+      transparent 60%
+    ),
+    var(--band);
+  color: var(--band-ink);
+}
+
+.qff-band-grid {
+  background: var(--band-line);
+}
+
+.qff-band-cell {
+  background: var(--band);
+  transition: background-color 0.35s ease;
+}
+
+.qff-band-cell:hover {
+  background: #2e1157;
+}
+
+/* ===========================================================================
+   Pending — the fest has not announced this yet.
+   ---------------------------------------------------------------------------
+   Thirty-seven fields currently read "To be announced" in the same type as
+   real content, so the page looks broken rather than early. A field that is
+   waiting should say so in its own quiet register.
+   =========================================================================== */
+
+.qff-pending {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.qff-pending::before {
+  content: "";
+  width: 0.4em;
+  height: 0.4em;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.55;
+  animation: qff-pending-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes qff-pending-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+/* ===========================================================================
+   Rule — a hairline that fades out, used to separate rows in the spec sheet
+   and the schedule without drawing a full-width box around anything.
+   =========================================================================== */
+
+.qff-rule {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--qff-pink) 38%, transparent),
+    var(--line) 22%,
+    transparent 92%
+  );
+}
+
 /* Thin scrollbar to match the technical aesthetic */
 ::-webkit-scrollbar {
   width: 8px;
@@ -467,6 +720,33 @@ body {
 }
 
 /* --- Lattice: dot grid crossed by a probability wave ---------------------- */
+
+/* The register is scenery, and scenery belongs behind the reading. Ungated it
+   ran at 70% across the whole viewport, which put animated dots directly on
+   top of every paragraph on the page. The mask holds the grid out of the
+   centre column where the text lives and lets it gather in the margins, so
+   the motif still reads at the edges of the screen without competing with a
+   single line of copy. Below `lg` there are no margins, so it simply goes. */
+.qff-lattice {
+  -webkit-mask-image: radial-gradient(
+    ellipse 62% 58% at 50% 50%,
+    transparent 40%,
+    #000 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 62% 58% at 50% 50%,
+    transparent 40%,
+    #000 100%
+  );
+}
+
+@media (max-width: 1023px) {
+  .qff-lattice {
+    opacity: 0.16 !important;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
 
 .qff-node {
   transform-box: fill-box;

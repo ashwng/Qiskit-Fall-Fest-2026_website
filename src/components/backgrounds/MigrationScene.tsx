@@ -1,4 +1,4 @@
-import { QFF_ART, QffArtDefs, type QffArtName } from "@/components/ui/qff-art";
+import { QFF_ART, type QffArtName } from "@/components/ui/qff-art";
 
 /**
  * Migration — the 2026 fest's own birds crossing a periwinkle sky.
@@ -63,7 +63,6 @@ function opacityFor(depth: number) {
 export function MigrationScene() {
   return (
     <div className="qff-scene" aria-hidden>
-      <QffArtDefs />
 
       {/* Sky: periwinkle at the horizon fading up into the page background,
           with two soft blooms in the fest pink and purple. */}

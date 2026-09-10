@@ -59,6 +59,7 @@ export const viewport: Viewport = {
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { SiteBackground } from "@/components/backgrounds/SiteBackground";
 import { ContactDock } from "@/components/layout/ContactDock";
+import { QffArtDefs } from "@/components/ui/qff-art";
 
 export default function RootLayout({
   children,
@@ -68,6 +69,9 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className="min-h-screen antialiased">
+        {/* The fest artwork, defined once for the whole document. Scenes and
+            in-page figures alike only ever emit a <use>. */}
+        <QffArtDefs />
         <ThemeProvider attribute="class" defaultTheme="dark">
           <SiteBackground />
           {children}
