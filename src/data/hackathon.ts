@@ -1,7 +1,9 @@
 import type { HackathonCard } from "@/types";
 
+/* The section's own voice line. Everything factual about the hackathon is
+   still unannounced; this only restates the format the event already gives. */
 export const hackathonIntro =
-  "To be announced.";
+  "One night, one quantum problem, and whatever your team can build with Qiskit before the clock runs out.";
 
 export const hackathonCards: HackathonCard[] = [
   {

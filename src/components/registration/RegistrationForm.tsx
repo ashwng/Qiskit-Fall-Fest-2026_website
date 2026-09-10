@@ -184,14 +184,14 @@ export function RegistrationForm() {
   if (isSubmitted) {
     return (
       <div id="register-form" className="space-y-8 animate-[fadeUp_0.6s_ease-out_forwards]">
-        <div className="glass-dark rounded-3xl border border-cyan/40 p-6 text-center shadow-[0_0_50px_rgba(8,189,186,0.15)] sm:p-10 print:border-none print:bg-transparent print:p-0 print:shadow-none">
+        <div className="glass-dark rounded-3xl border border-pink/40 p-6 text-center shadow-[0_0_50px_rgba(255,126,182,0.15)] sm:p-10 print:border-none print:bg-transparent print:p-0 print:shadow-none">
           {/* Confirmation Message */}
           <div className="print:hidden">
-            <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl border border-cyan/40 bg-cyan/10 text-cyan shadow-[0_0_20px_rgba(8,189,186,0.3)]">
+            <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl border border-pink/40 bg-pink/10 text-pink-ink shadow-[0_0_20px_rgba(255,126,182,0.3)]">
               <CheckCircle2 className="h-8 w-8" />
             </div>
 
-            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-cyan/30 bg-cyan/10 px-4 py-1.5 font-mono text-xs uppercase tracking-widest text-cyan">
+            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-pink/30 bg-pink/10 px-4 py-1.5 font-mono text-xs uppercase tracking-widest text-pink-ink">
               <Sparkles className="h-3.5 w-3.5 animate-pulse-glow" />
               Registration Confirmed
             </div>
@@ -201,7 +201,7 @@ export function RegistrationForm() {
             </h3>
             <p className="mx-auto mt-2 max-w-lg text-sm text-muted">
               Your registration has been securely recorded. Confirmation details have been logged for{" "}
-              <span className="font-mono font-medium text-cyan">{formData.email}</span>.
+              <span className="font-mono font-medium text-pink-ink">{formData.email}</span>.
             </p>
           </div>
 
@@ -217,20 +217,20 @@ export function RegistrationForm() {
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-cyan/15 blur-3xl print:hidden"
+                className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-pink/15 blur-3xl print:hidden"
               />
 
               {/* Ticket Header */}
               <div className="flex flex-wrap items-center justify-between gap-4 border-b border-line pb-5 print:border-slate-300">
                 <div>
-                  <span className="font-mono text-[11px] uppercase tracking-widest text-cyan print:text-sky-700 font-semibold">
+                  <span className="font-mono text-[11px] uppercase tracking-widest text-pink-ink print:text-sky-700 font-semibold">
                     Digital Attendee Pass
                   </span>
                   <p className="font-display text-xl font-bold text-ink print:text-black">
                     BITS Qiskit Fall Fest 2026
                   </p>
                 </div>
-                <div className="rounded-xl border border-cyan/40 bg-cyan/10 px-4 py-2 font-mono text-sm font-bold text-cyan shadow-[0_0_15px_rgba(8,189,186,0.2)] print:border-slate-800 print:bg-slate-100 print:text-black">
+                <div className="rounded-xl border border-pink/40 bg-pink/10 px-4 py-2 font-mono text-sm font-bold text-pink-ink shadow-[0_0_15px_rgba(255,126,182,0.2)] print:border-slate-800 print:bg-slate-100 print:text-black">
                   {ticketId}
                 </div>
               </div>
@@ -249,7 +249,7 @@ export function RegistrationForm() {
                   <p className="font-mono text-[10px] uppercase tracking-wider text-muted print:text-slate-600">
                     Attendance Mode
                   </p>
-                  <span className="mt-1 inline-flex items-center gap-1.5 rounded-lg border border-cyan/40 bg-cyan/10 px-3 py-1 font-mono text-xs font-semibold text-cyan print:border-slate-400 print:bg-slate-100 print:text-black">
+                  <span className="mt-1 inline-flex items-center gap-1.5 rounded-lg border border-pink/40 bg-pink/10 px-3 py-1 font-mono text-xs font-semibold text-pink-ink print:border-slate-400 print:bg-slate-100 print:text-black">
                     {formData.attendanceMode === "offline" ? (
                       <>
                         <MapPin className="h-3.5 w-3.5" />
@@ -278,8 +278,8 @@ export function RegistrationForm() {
                 <div className="flex flex-col items-center justify-center gap-3">
                   <Barcode value={ticketId} className="w-full max-w-[360px]" height={52} />
                   <div className="flex w-full items-center justify-between border-t border-line-soft pt-3 font-mono text-[10px] text-muted print:border-slate-300 print:text-slate-700">
-                    <span className="flex items-center gap-1.5 font-semibold text-cyan">
-                      <span className="h-1.5 w-1.5 rounded-full bg-cyan shadow-[0_0_6px_rgba(8,189,186,0.8)] print:bg-slate-900" />
+                    <span className="flex items-center gap-1.5 font-semibold text-pink-ink">
+                      <span className="h-1.5 w-1.5 rounded-full bg-pink shadow-[0_0_6px_rgba(255,126,182,0.8)] print:bg-slate-900" />
                       QFF-2026 VERIFIED
                     </span>
                     <span>Status: CONFIRMED</span>
@@ -295,9 +295,9 @@ export function RegistrationForm() {
             <button
               type="button"
               onClick={() => window.print()}
-              className="glow-button inline-flex items-center gap-2 rounded-full bg-surface-2 border border-line px-6 py-3 font-display text-sm font-bold text-ink hover:text-white hover:border-violet-bright transition-all"
+              className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-6 py-3 font-display text-sm font-bold text-ink-dim backdrop-blur-sm transition-all duration-300 hover:border-pink/60 hover:bg-surface-2 hover:text-ink"
             >
-              <Download className="h-4 w-4 text-cyan" />
+              <Download className="h-4 w-4 text-pink-ink" />
               Print / Save Pass
             </button>
             <a
@@ -306,7 +306,7 @@ export function RegistrationForm() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/40 backdrop-blur-sm px-6 py-3 font-display text-sm font-bold text-ink-dim hover:bg-surface-2 hover:text-ink transition-all"
             >
-              <Calendar className="h-4 w-4 text-violet-bright" />
+              <Calendar className="h-4 w-4 text-pink-ink" />
               Add to Calendar
             </a>
             <button
@@ -344,7 +344,7 @@ export function RegistrationForm() {
                 disabled={stepNum > step}
                 className={cn(
                   "flex flex-1 items-center gap-3 rounded-xl p-3 text-left transition-all",
-                  isActive && "bg-surface-2 border border-cyan/40 shadow-[0_0_20px_rgba(8,189,186,0.15)]",
+                  isActive && "bg-surface-2 border border-pink/40 shadow-[0_0_20px_rgba(255,126,182,0.15)]",
                   isCompleted && "text-ink-dim hover:text-ink cursor-pointer hover:bg-surface-2/50",
                   !isActive && !isCompleted && "opacity-50 cursor-not-allowed"
                 )}
@@ -352,15 +352,15 @@ export function RegistrationForm() {
                 <span
                   className={cn(
                     "grid h-9 w-9 shrink-0 place-items-center rounded-xl font-mono text-xs font-bold transition-all",
-                    isActive && "border border-cyan bg-cyan/20 text-cyan shadow-[0_0_12px_rgba(8,189,186,0.5)]",
-                    isCompleted && "border border-violet-bright/50 bg-violet/30 text-violet-bright",
+                    isActive && "border border-pink bg-pink/20 text-pink-ink shadow-[0_0_12px_rgba(255,126,182,0.5)]",
+                    isCompleted && "border border-violet-bright/50 bg-violet/30 text-pink-ink",
                     !isActive && !isCompleted && "border border-line bg-surface text-muted"
                   )}
                 >
                   {isCompleted ? <Check className="h-4 w-4" /> : <StepIcon className="h-4 w-4" />}
                 </span>
                 <div>
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-violet-bright font-bold">
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-pink-ink font-bold">
                     Step 0{stepNum}
                   </p>
                   <p className="font-display text-xs sm:text-sm font-bold text-ink">{label}</p>
@@ -376,8 +376,8 @@ export function RegistrationForm() {
         {step === 1 && (
           <div className="glass-dark space-y-6 rounded-3xl p-6 sm:p-9 animate-[fadeUp_0.4s_ease-out_forwards]">
             <div className="border-b border-line pb-5">
-              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-cyan">
-                <span className="inline-block h-2 w-2 rounded-full border border-cyan bg-cyan/20 shadow-[0_0_6px_rgba(8,189,186,0.8)]" />
+              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-pink-ink">
+                <span className="inline-block h-2 w-2 rounded-full border border-pink bg-pink/20 shadow-[0_0_6px_rgba(255,126,182,0.8)]" />
                 <span>Step 01 · Attendee Profile</span>
               </div>
               <h3 className="mt-2 font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
@@ -392,7 +392,7 @@ export function RegistrationForm() {
               {/* Full Name */}
               <div>
                 <label htmlFor="reg-fullname" className="block font-mono text-xs uppercase tracking-wider text-ink-dim">
-                  Full Name <span className="text-cyan">*</span>
+                  Full Name <span className="text-pink-ink">*</span>
                 </label>
                 <input
                   id="reg-fullname"
@@ -401,12 +401,12 @@ export function RegistrationForm() {
                   value={formData.fullName}
                   onChange={(e) => updateField("fullName", e.target.value)}
                   className={cn(
-                    "mt-2 w-full rounded-xl border bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan/50",
-                    errors.fullName ? "border-pulse-magenta bg-pulse-magenta/5" : "border-line"
+                    "mt-2 w-full rounded-xl border bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-pink focus:outline-none focus:ring-1 focus:ring-pink/50",
+                    errors.fullName ? "border-danger bg-danger/5" : "border-line"
                   )}
                 />
                 {errors.fullName && (
-                  <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] text-pulse-magenta">
+                  <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] text-danger">
                     <AlertCircle className="h-3.5 w-3.5" />
                     {errors.fullName}
                   </p>
@@ -416,7 +416,7 @@ export function RegistrationForm() {
               {/* Email Address */}
               <div>
                 <label htmlFor="reg-email" className="block font-mono text-xs uppercase tracking-wider text-ink-dim">
-                  Email Address <span className="text-cyan">*</span>
+                  Email Address <span className="text-pink-ink">*</span>
                 </label>
                 <input
                   id="reg-email"
@@ -425,12 +425,12 @@ export function RegistrationForm() {
                   value={formData.email}
                   onChange={(e) => updateField("email", e.target.value)}
                   className={cn(
-                    "mt-2 w-full rounded-xl border bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan/50",
-                    errors.email ? "border-pulse-magenta bg-pulse-magenta/5" : "border-line"
+                    "mt-2 w-full rounded-xl border bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-pink focus:outline-none focus:ring-1 focus:ring-pink/50",
+                    errors.email ? "border-danger bg-danger/5" : "border-line"
                   )}
                 />
                 {errors.email && (
-                  <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] text-pulse-magenta">
+                  <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] text-danger">
                     <AlertCircle className="h-3.5 w-3.5" />
                     {errors.email}
                   </p>
@@ -440,7 +440,7 @@ export function RegistrationForm() {
               {/* Phone Number */}
               <div>
                 <label htmlFor="reg-phone" className="block font-mono text-xs uppercase tracking-wider text-ink-dim">
-                  Phone Number <span className="text-cyan">*</span>
+                  Phone Number <span className="text-pink-ink">*</span>
                 </label>
                 <input
                   id="reg-phone"
@@ -449,12 +449,12 @@ export function RegistrationForm() {
                   value={formData.phone}
                   onChange={(e) => updateField("phone", e.target.value)}
                   className={cn(
-                    "mt-2 w-full rounded-xl border bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan/50",
-                    errors.phone ? "border-pulse-magenta bg-pulse-magenta/5" : "border-line"
+                    "mt-2 w-full rounded-xl border bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-pink focus:outline-none focus:ring-1 focus:ring-pink/50",
+                    errors.phone ? "border-danger bg-danger/5" : "border-line"
                   )}
                 />
                 {errors.phone && (
-                  <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] text-pulse-magenta">
+                  <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] text-danger">
                     <AlertCircle className="h-3.5 w-3.5" />
                     {errors.phone}
                   </p>
@@ -464,7 +464,7 @@ export function RegistrationForm() {
               {/* Institution */}
               <div>
                 <label htmlFor="reg-institution" className="block font-mono text-xs uppercase tracking-wider text-ink-dim">
-                  Institution / University <span className="text-cyan">*</span>
+                  Institution / University <span className="text-pink-ink">*</span>
                 </label>
                 <input
                   id="reg-institution"
@@ -473,12 +473,12 @@ export function RegistrationForm() {
                   value={formData.institution}
                   onChange={(e) => updateField("institution", e.target.value)}
                   className={cn(
-                    "mt-2 w-full rounded-xl border bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan/50",
-                    errors.institution ? "border-pulse-magenta bg-pulse-magenta/5" : "border-line"
+                    "mt-2 w-full rounded-xl border bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-pink focus:outline-none focus:ring-1 focus:ring-pink/50",
+                    errors.institution ? "border-danger bg-danger/5" : "border-line"
                   )}
                 />
                 {errors.institution && (
-                  <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] text-pulse-magenta">
+                  <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] text-danger">
                     <AlertCircle className="h-3.5 w-3.5" />
                     {errors.institution}
                   </p>
@@ -494,7 +494,7 @@ export function RegistrationForm() {
                   id="reg-studylevel"
                   value={formData.studyLevel}
                   onChange={(e) => updateField("studyLevel", e.target.value)}
-                  className="mt-2 w-full rounded-xl border border-line bg-surface-2/60 px-4 py-3 text-sm text-ink transition-all focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan/50"
+                  className="mt-2 w-full rounded-xl border border-line bg-surface-2/60 px-4 py-3 text-sm text-ink transition-all focus:border-pink focus:outline-none focus:ring-1 focus:ring-pink/50"
                 >
                   <option value="" className="bg-surface text-ink">Select current level</option>
                   {studyLevels.map((lvl) => (
@@ -516,7 +516,7 @@ export function RegistrationForm() {
                   placeholder="e.g. 2027"
                   value={formData.graduationYear}
                   onChange={(e) => updateField("graduationYear", e.target.value)}
-                  className="mt-2 w-full rounded-xl border border-line bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan/50"
+                  className="mt-2 w-full rounded-xl border border-line bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-pink focus:outline-none focus:ring-1 focus:ring-pink/50"
                 />
               </div>
             </div>
@@ -524,7 +524,7 @@ export function RegistrationForm() {
             {/* Attendance Mode Selector */}
             <div className="pt-4 border-t border-line">
               <label className="block font-mono text-xs uppercase tracking-wider text-ink-dim">
-                Participation Format <span className="text-cyan">*</span>
+                Participation Format <span className="text-pink-ink">*</span>
               </label>
               <div className="mt-3 grid gap-4 sm:grid-cols-2">
                 {attendanceOptions.map((opt) => {
@@ -537,7 +537,7 @@ export function RegistrationForm() {
                       className={cn(
                         "group relative flex flex-col rounded-2xl border p-5 text-left transition-all duration-300",
                         isSelected
-                          ? "border-cyan bg-cyan/10 shadow-[0_0_25px_rgba(8,189,186,0.15)]"
+                          ? "border-pink bg-pink/10 shadow-[0_0_25px_rgba(255,126,182,0.15)]"
                           : "border-line bg-surface-2/40 hover:border-line-soft hover:bg-surface-2/70"
                       )}
                     >
@@ -549,14 +549,14 @@ export function RegistrationForm() {
                           className={cn(
                             "grid h-5 w-5 place-items-center rounded-full border text-[10px] transition-colors",
                             isSelected
-                              ? "border-cyan bg-cyan text-surface font-bold"
+                              ? "border-pink bg-pink-fill text-white font-bold"
                               : "border-line bg-surface"
                           )}
                         >
                           {isSelected && "✓"}
                         </span>
                       </div>
-                      <span className="mt-1 font-mono text-[11px] font-semibold text-violet-bright">
+                      <span className="mt-1 font-mono text-[11px] font-semibold text-pink-ink">
                         {opt.tagline}
                       </span>
                       <p className="mt-2 text-xs leading-relaxed text-muted">
@@ -567,7 +567,7 @@ export function RegistrationForm() {
                 })}
               </div>
               {errors.attendanceMode && (
-                <p className="mt-2 flex items-center gap-1 font-mono text-[11px] text-pulse-magenta">
+                <p className="mt-2 flex items-center gap-1 font-mono text-[11px] text-danger">
                   <AlertCircle className="h-3.5 w-3.5" />
                   {errors.attendanceMode}
                 </p>
@@ -579,7 +579,7 @@ export function RegistrationForm() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="glow-button inline-flex items-center gap-2 rounded-full bg-surface-2 border border-line px-8 py-3 font-display text-sm font-bold text-ink hover:text-white hover:border-violet-bright transition-all"
+                className="inline-flex items-center gap-2 rounded-full bg-pink-fill px-8 py-3.5 font-display text-sm font-bold text-white shadow-[0_10px_30px_-10px_rgba(208,38,112,0.85)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-pink-fill-hover"
               >
                 Continue to Skills
                 <ArrowRight className="h-4 w-4" />
@@ -592,8 +592,8 @@ export function RegistrationForm() {
         {step === 2 && (
           <div className="glass-dark space-y-7 rounded-3xl p-6 sm:p-9 animate-[fadeUp_0.4s_ease-out_forwards]">
             <div className="border-b border-line pb-5">
-              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-cyan">
-                <span className="inline-block h-2 w-2 rounded-full border border-cyan bg-cyan/20 shadow-[0_0_6px_rgba(8,189,186,0.8)]" />
+              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-pink-ink">
+                <span className="inline-block h-2 w-2 rounded-full border border-pink bg-pink/20 shadow-[0_0_6px_rgba(255,126,182,0.8)]" />
                 <span>Step 02 · Quantum Background</span>
               </div>
               <h3 className="mt-2 font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
@@ -620,7 +620,7 @@ export function RegistrationForm() {
                       className={cn(
                         "rounded-2xl border p-4 text-left transition-all duration-300",
                         isSelected
-                          ? "border-cyan bg-cyan/10 shadow-[0_0_20px_rgba(8,189,186,0.15)]"
+                          ? "border-pink bg-pink/10 shadow-[0_0_20px_rgba(255,126,182,0.15)]"
                           : "border-line bg-surface-2/40 hover:border-line-soft hover:bg-surface-2/70"
                       )}
                     >
@@ -628,7 +628,7 @@ export function RegistrationForm() {
                         <span className="font-display text-sm font-bold text-ink">
                           {lvl.label}
                         </span>
-                        {isSelected && <span className="text-cyan font-bold">✓</span>}
+                        {isSelected && <span className="text-pink-ink font-bold">✓</span>}
                       </div>
                       <p className="mt-1 text-xs leading-relaxed text-muted">
                         {lvl.detail}
@@ -658,7 +658,7 @@ export function RegistrationForm() {
                       className={cn(
                         "rounded-xl border px-3.5 py-2 font-mono text-xs transition-all duration-200",
                         isChecked
-                          ? "border-cyan bg-cyan/20 text-cyan shadow-[0_0_12px_rgba(8,189,186,0.3)] font-semibold"
+                          ? "border-pink bg-pink/20 text-pink-ink shadow-[0_0_12px_rgba(255,126,182,0.3)] font-semibold"
                           : "border-line bg-surface-2/40 text-ink-dim hover:border-line-soft hover:text-ink"
                       )}
                     >
@@ -681,7 +681,7 @@ export function RegistrationForm() {
                   placeholder="https://github.com/..."
                   value={formData.githubUrl}
                   onChange={(e) => updateField("githubUrl", e.target.value)}
-                  className="mt-2 w-full rounded-xl border border-line bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan/50"
+                  className="mt-2 w-full rounded-xl border border-line bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-pink focus:outline-none focus:ring-1 focus:ring-pink/50"
                 />
               </div>
 
@@ -695,7 +695,7 @@ export function RegistrationForm() {
                   placeholder="https://linkedin.com/in/..."
                   value={formData.linkedinUrl}
                   onChange={(e) => updateField("linkedinUrl", e.target.value)}
-                  className="mt-2 w-full rounded-xl border border-line bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan/50"
+                  className="mt-2 w-full rounded-xl border border-line bg-surface-2/60 px-4 py-3 text-sm text-ink placeholder:text-muted transition-all focus:border-pink focus:outline-none focus:ring-1 focus:ring-pink/50"
                 />
               </div>
 
@@ -707,7 +707,7 @@ export function RegistrationForm() {
                   id="reg-tshirt"
                   value={formData.tshirtSize}
                   onChange={(e) => updateField("tshirtSize", e.target.value)}
-                  className="mt-2 w-full rounded-xl border border-line bg-surface-2/60 px-4 py-3 text-sm text-ink transition-all focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan/50"
+                  className="mt-2 w-full rounded-xl border border-line bg-surface-2/60 px-4 py-3 text-sm text-ink transition-all focus:border-pink focus:outline-none focus:ring-1 focus:ring-pink/50"
                 >
                   {tshirtSizes.map((size) => (
                     <option key={size} value={size} className="bg-surface text-ink">
@@ -725,14 +725,14 @@ export function RegistrationForm() {
                   type="checkbox"
                   checked={formData.agreedToTerms}
                   onChange={(e) => updateField("agreedToTerms", e.target.checked)}
-                  className="mt-1 h-4 w-4 rounded border-line text-cyan accent-cyan focus:ring-cyan"
+                  className="mt-1 h-4 w-4 rounded border-line text-pink-ink accent-pink-ink focus:ring-pink"
                 />
                 <span className="text-xs leading-relaxed text-ink-dim">
-                  I agree to abide by the BITS Pilani & IBM Quantum Code of Conduct, respect community guidelines, and adhere to responsible compute usage during the hackathon. <span className="text-cyan">*</span>
+                  I agree to abide by the BITS Pilani & IBM Quantum Code of Conduct, respect community guidelines, and adhere to responsible compute usage during the hackathon. <span className="text-pink-ink">*</span>
                 </span>
               </label>
               {errors.agreedToTerms && (
-                <p className="mt-2 flex items-center gap-1 font-mono text-[11px] text-pulse-magenta">
+                <p className="mt-2 flex items-center gap-1 font-mono text-[11px] text-danger">
                   <AlertCircle className="h-3.5 w-3.5" />
                   {errors.agreedToTerms}
                 </p>
@@ -741,7 +741,7 @@ export function RegistrationForm() {
 
             {/* Server Error Display */}
             {submitError && (
-              <div className="rounded-2xl border border-pulse-magenta/50 bg-pulse-magenta/10 p-4 text-xs font-mono text-pulse-magenta">
+              <div className="rounded-2xl border border-danger/50 bg-danger/10 p-4 text-xs font-mono text-danger">
                 <p className="flex items-center gap-2 font-bold">
                   <AlertCircle className="h-4 w-4" />
                   Registration Error
@@ -752,7 +752,7 @@ export function RegistrationForm() {
 
             {/* Submission Status Indicator */}
             {isSubmitting && (
-              <div className="flex items-center gap-3 rounded-2xl border border-cyan/40 bg-cyan/10 p-4 font-mono text-xs text-cyan animate-pulse">
+              <div className="flex items-center gap-3 rounded-2xl border border-pink/40 bg-pink/10 p-4 font-mono text-xs text-pink-ink animate-pulse">
                 <Loader2 className="h-4 w-4 animate-spin" />
                 <span>{submissionPhase}</span>
               </div>
@@ -773,17 +773,17 @@ export function RegistrationForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="glow-button inline-flex items-center gap-2 rounded-full bg-surface-2 border border-line px-8 py-3.5 font-display text-sm font-bold text-ink hover:text-white hover:border-violet-bright transition-all disabled:opacity-50"
+                className="inline-flex items-center gap-2 rounded-full bg-pink-fill px-8 py-3.5 font-display text-sm font-bold text-white shadow-[0_10px_30px_-10px_rgba(208,38,112,0.85)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-pink-fill-hover disabled:pointer-events-none disabled:opacity-60"
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="h-4 w-4 animate-spin text-cyan" />
+                    <Loader2 className="h-4 w-4 animate-spin text-white" />
                     Allocating Ticket...
                   </>
                 ) : (
                   <>
                     Complete Registration
-                    <Sparkles className="h-4 w-4 text-cyan" />
+                    <Sparkles className="h-4 w-4 text-white" />
                   </>
                 )}
               </button>

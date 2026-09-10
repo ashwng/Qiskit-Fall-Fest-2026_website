@@ -1,49 +1,112 @@
 @import "tailwindcss";
 
-@import "@fontsource/space-grotesk/400.css";
-@import "@fontsource/space-grotesk/500.css";
-@import "@fontsource/space-grotesk/600.css";
-@import "@fontsource/space-grotesk/700.css";
-@import "@fontsource/inter/400.css";
-@import "@fontsource/inter/500.css";
-@import "@fontsource/inter/600.css";
-@import "@fontsource/jetbrains-mono/400.css";
-@import "@fontsource/jetbrains-mono/500.css";
+/* next-themes toggles a `.dark` class on <html>, but Tailwind v4's stock
+   `dark:` variant is `prefers-color-scheme`. Without this the two disagree:
+   every `dark:` utility on the site followed the operating system while the
+   tokens followed the theme switch. */
+@custom-variant dark (&:where(.dark, .dark *));
 
+/* Type system, three voices:
+   - Bricolage Grotesque carries the display headings. It has real character
+     at large sizes, which is what stops a page of uniform bold sans from
+     reading as generic.
+   - IBM Plex Sans carries body copy — IBM's corporate typeface, and the type
+     used across the official Qiskit Fall Fest 2026 brand material.
+   - IBM Plex Mono carries labels and metadata, as it does on the fest badges. */
+@import "@fontsource/bricolage-grotesque/700.css";
+@import "@fontsource/bricolage-grotesque/800.css";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/600.css";
+
+/* ---------------------------------------------------------------------------
+   Palette — sampled from the official QFF 2026 art
+   (Qiskit-Fall-Fest-2026/materials-resources). These are IBM Carbon tokens:
+   pink 40/30/50, purple 90/60/50, blue 60, and the periwinkle sky the birds
+   are illustrated against.
+   --------------------------------------------------------------------------- */
 :root {
-  --bg: #fdfcff;
+  --bg: #f6f7fd;
   --surface: #ffffff;
-  --surface-2: #f4f4f5;
-  --line: #e4e4e7;
-  --line-soft: #f4f4f5;
-  --ink: #09090b;
-  --ink-dim: #3f3f46;
-  --muted: #71717a;
+  --surface-2: #eef1fb;
+  --line: #dbe1f4;
+  --line-soft: #e9edf9;
+  --ink: #2a0f52;
+  --ink-dim: #4c3a6b;
+  --muted: #6f6289;
   --qiskit-violet: #8a3ffc;
   --qiskit-violet-bright: #a56eff;
-  --qubit-cyan: #08bdba;
+  --qff-pink: #ff7eb6;
+  --qff-pink-soft: #ffafd2;
+  --qff-pink-deep: #ee5396;
+  /* accent text only — pink 40 is ~2.3:1 on white, pink 60 is ~5:1 */
+  --qff-pink-ink: #d02670;
+  /* filled pink surfaces carrying white text; fixed across themes, since a
+     token that lightens in the dark would strand the label at ~1.5:1 */
+  --qff-pink-fill: #d02670;
+  --qff-pink-fill-hover: #9f1853;
+  --qff-indigo: #31135e;
+  --qff-blue: #0f62fe;
+  --qff-periwinkle: #dae5fc;
+  --qff-cloud: #f2f4f8;
   --pulse-amber: #f1c21b;
-  --pulse-magenta: #d12771;
-  
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --qff-danger: #da1e28;
+
+  /* rgb triples, for the rgb(var(--x) / <alpha>) glows */
+  --qff-pink-rgb: 255 126 182;
+  --qff-violet-rgb: 138 63 252;
+
+  /* Elevation. A shadow needs an offset and a soft blur to read as height; a
+     zero-offset coloured halo is decoration, and the page was built entirely
+     out of those. Light casts downward, so every step gains y before it gains
+     blur. */
+  --shadow-1:
+    0 1px 2px -1px rgba(42, 15, 82, 0.1),
+    0 3px 8px -3px rgba(42, 15, 82, 0.09);
+  --shadow-2:
+    0 2px 4px -2px rgba(42, 15, 82, 0.12),
+    0 14px 28px -10px rgba(42, 15, 82, 0.18);
+
+  --font-display: "Bricolage Grotesque", "IBM Plex Sans", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 .dark {
-  --bg: #030014;
-  --surface: #0a051e;
-  --surface-2: #130a2f;
-  --line: #221443;
-  --line-soft: #170d30;
-  --ink: #f0ebf9;
-  --ink-dim: #9c8eaf;
-  --muted: #6b5c80;
+  --bg: #0a0420;
+  --surface: #140a2e;
+  --surface-2: #1d1040;
+  --line: #2e1a5c;
+  --line-soft: #1f1145;
+  --ink: #f1ecfb;
+  --ink-dim: #b6a6cf;
+  --muted: #8676a3;
   --qiskit-violet: #8a3ffc;
   --qiskit-violet-bright: #a56eff;
-  --qubit-cyan: #08bdba;
+  --qff-pink: #ff7eb6;
+  --qff-pink-soft: #ffafd2;
+  --qff-pink-deep: #ee5396;
+  --qff-pink-ink: #ff9ec7;
+  --qff-pink-fill: #d02670;
+  --qff-pink-fill-hover: #9f1853;
+  --qff-indigo: #31135e;
+  --qff-blue: #4589ff;
+  --qff-periwinkle: #2b2154;
+  --qff-cloud: #1b1140;
   --pulse-amber: #f1c21b;
-  --pulse-magenta: #d12771;
+  --qff-danger: #ff8389;
+
+  --shadow-1:
+    0 1px 2px -1px rgba(0, 0, 0, 0.5),
+    0 3px 10px -4px rgba(0, 0, 0, 0.45);
+  --shadow-2:
+    0 3px 6px -3px rgba(0, 0, 0, 0.6),
+    0 18px 36px -14px rgba(0, 0, 0, 0.65);
 }
 
 @theme inline {
@@ -57,34 +120,46 @@
   --color-muted: var(--muted);
   --color-violet: var(--qiskit-violet);
   --color-violet-bright: var(--qiskit-violet-bright);
-  --color-cyan: var(--qubit-cyan);
-  --color-magenta: var(--pulse-magenta);
+  --color-pink: var(--qff-pink);
+  --color-pink-soft: var(--qff-pink-soft);
+  --color-pink-deep: var(--qff-pink-deep);
+  --color-pink-ink: var(--qff-pink-ink);
+  --color-pink-fill: var(--qff-pink-fill);
+  --color-pink-fill-hover: var(--qff-pink-fill-hover);
+  --color-indigo: var(--qff-indigo);
+  --color-qblue: var(--qff-blue);
+  --color-periwinkle: var(--qff-periwinkle);
   --color-amber: var(--pulse-amber);
+  --color-danger: var(--qff-danger);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
   --font-mono: var(--font-mono);
 }
 
-* {
-  border-color: var(--line);
+/* Default border colour for every element.
+ *
+ * This must live in @layer base. Unlayered CSS outranks *every* cascade layer,
+ * so as a bare `* { }` rule it silently beat all of Tailwind's border-colour
+ * utilities — `border-pink`, `border-danger`, `focus:border-pink` and friends
+ * all resolved to --line no matter what the markup asked for. */
+@layer base {
+  * {
+    border-color: var(--line);
+  }
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 88px;
+  scroll-padding-top: 120px;
 }
 
+/* The page background is painted by <SiteBackground /> (a fixed, -z-10 layer),
+   so body only needs the flat base colour behind it. */
 body {
   color: var(--ink);
   font-family: var(--font-body);
+  background: var(--bg);
   -webkit-font-smoothing: antialiased;
-  background: var(--bg) url('/bg-network.png') no-repeat center center fixed;
-  background-size: cover;
-}
-
-.dark body {
-  background: var(--bg) url('/bg-network.png') no-repeat center center fixed;
-  background-size: cover;
 }
 
 /* Respect reduced-motion everywhere by default */
@@ -117,94 +192,58 @@ body {
     linear-gradient(90deg, rgba(138, 63, 252, 0.03) 1px, transparent 1px);
 }
 
-/* circuit-field opacity blocker removed to allow background image to be visible */
-
 /* Glass card surface */
 .glass {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 30px rgba(42, 15, 82, 0.06);
   border: 1px solid var(--line);
 }
 
 .dark .glass {
-  background: rgba(10, 5, 30, 0.6);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  background: rgba(20, 10, 46, 0.66);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
 }
 
 .glass-dark {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(138, 63, 252, 0.15);
-  box-shadow: inset 0 0 20px rgba(138, 63, 252, 0.05);
+  border: 1px solid rgba(255, 126, 182, 0.22);
+  box-shadow: inset 0 0 20px rgba(255, 126, 182, 0.06);
 }
 
 .dark .glass-dark {
-  background: rgba(3, 0, 20, 0.7);
-  box-shadow: inset 0 0 20px rgba(138, 63, 252, 0.02);
+  background: rgba(13, 6, 32, 0.7);
+  box-shadow: inset 0 0 20px rgba(255, 126, 182, 0.05);
 }
 
+/* Pink → violet, the two anchors of the fest palette. */
 .text-gradient {
   background: linear-gradient(
-    135deg,
-    var(--qiskit-violet-bright) 0%,
-    var(--qubit-cyan) 100%
+    120deg,
+    var(--qff-pink) 0%,
+    var(--qff-pink-deep) 42%,
+    var(--qiskit-violet) 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.glow-button {
-  position: relative;
-}
-
-.glow-button::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, var(--qiskit-violet), var(--qubit-cyan));
-  z-index: -1;
-  opacity: 0.5;
-  transition: opacity 0.3s ease;
-  filter: blur(8px);
-}
-
-.glow-button:hover::before {
-  opacity: 1;
-}
-
-.three-background {
-  position: relative;
-  min-height: 480px;
-  width: 100%;
-}
-
-.three-background canvas {
-  display: block;
-  height: 100%;
-  width: 100%;
-}
-
-@media (max-width: 1023px) {
-  .three-background {
-    min-height: 380px;
-    max-width: 520px;
-    margin: 0 auto;
-  }
-}
-
 /* Visible, on-brand focus ring for keyboard navigation */
 :focus-visible {
-  outline: 2px solid var(--qiskit-violet-bright);
+  outline: 2px solid var(--qff-pink-deep);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
 ::selection {
-  background: rgba(138, 63, 252, 0.4);
+  background: rgba(255, 126, 182, 0.45);
+  color: var(--qff-indigo);
+}
+
+.dark ::selection {
   color: #ffffff;
 }
 
@@ -228,6 +267,217 @@ body {
   }
 }
 
+/* Entrance variants.
+   One identical rise-and-fade on every element down the page reads as a
+   template. Each section picks the entrance that suits its own structure:
+   a list wipes in from its start edge, a wall of logos just resolves, and
+   the rise is reserved for things that genuinely sit on the page. */
+.reveal-side {
+  opacity: 0;
+  transform: translateX(-18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-side.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-soft {
+  opacity: 0;
+  transform: scale(0.965);
+  filter: blur(6px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-soft.is-visible {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-side,
+  .reveal-soft {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* ===========================================================================
+   Hero sky — the fest's clouds and one bird, drifting.
+   ---------------------------------------------------------------------------
+   Transform-only and slow enough to read as weather rather than as animation.
+   Each keyframe starts and ends in the same place, so the reduced-motion rule
+   that collapses the duration leaves a composed still rather than a jump.
+   =========================================================================== */
+
+.qff-drift {
+  animation: qff-drift 34s ease-in-out infinite;
+}
+.qff-drift-slow {
+  animation: qff-drift 52s ease-in-out infinite reverse;
+}
+
+@keyframes qff-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(3.5rem, -0.75rem, 0);
+  }
+}
+
+/* The bird keeps its own mirror, so the drift has to compose with it rather
+   than overwrite it — hence scale on the keyframe, not a second wrapper. */
+.qff-glide {
+  animation: qff-glide 19s ease-in-out infinite;
+}
+
+@keyframes qff-glide {
+  0%,
+  100% {
+    transform: scaleX(-1) translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: scaleX(-1) translate3d(-2.5rem, 1.1rem, 0) rotate(2.5deg);
+  }
+}
+
+/* ===========================================================================
+   Card — one surface, defined once.
+   ---------------------------------------------------------------------------
+   Every section had hand-rolled the same eight utilities and then reached for
+   a different zero-offset colour glow on hover. Both live here now, so a card
+   picks up real elevation and the page has one raise instead of nine.
+   =========================================================================== */
+
+.qff-card {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  box-shadow: var(--shadow-1);
+  transition:
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s ease,
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .qff-card {
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+}
+
+/* Only cards that are themselves links or buttons lift. A raise on a card you
+   cannot click is a promise the page does not keep. */
+a.qff-card:hover,
+button.qff-card:hover,
+.qff-card-interactive:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--qff-pink) 55%, transparent);
+  box-shadow: var(--shadow-2);
+}
+
+/* The schedule's rail. A plain border-left in --line all but vanished against
+   the dark surface, which left the session dots floating unattached. */
+.qff-rail {
+  /* The whole background is set here rather than with utilities: this rule is
+     unlayered, so its `background` shorthand would reset anything Tailwind's
+     utilities layer tried to add to it. */
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--qff-pink) 55%, transparent),
+    var(--line) 30%,
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: 2px 100%;
+}
+
+/* ===========================================================================
+   Band — the hackathon's blueprint grid.
+   ---------------------------------------------------------------------------
+   This was a fixed deep-indigo panel that ignored the theme. It read as a
+   different site rather than as the page's loudest moment, so the colour is
+   gone and only the structure stays: cells that share hairline borders rather
+   than floating as nine separate rounded boxes.
+   =========================================================================== */
+
+.qff-band-grid {
+  background: var(--line);
+}
+
+.qff-band-cell {
+  background: var(--surface);
+  transition: background-color 0.35s ease;
+}
+
+.qff-band-cell:hover {
+  background: var(--surface-2);
+}
+
+/* ===========================================================================
+   Pending — the fest has not announced this yet.
+   ---------------------------------------------------------------------------
+   Thirty-seven fields currently read "To be announced" in the same type as
+   real content, so the page looks broken rather than early. A field that is
+   waiting should say so in its own quiet register.
+   =========================================================================== */
+
+.qff-pending {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.qff-pending::before {
+  content: "";
+  width: 0.4em;
+  height: 0.4em;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.55;
+  animation: qff-pending-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes qff-pending-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+/* ===========================================================================
+   Rule — a hairline that fades out, used to separate rows in the spec sheet
+   and the schedule without drawing a full-width box around anything.
+   =========================================================================== */
+
+.qff-rule {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    var(--qff-pink) 0%,
+    color-mix(in srgb, var(--qff-pink) 45%, transparent) 12%,
+    var(--line) 34%,
+    transparent 92%
+  );
+}
+
 /* Thin scrollbar to match the technical aesthetic */
 ::-webkit-scrollbar {
   width: 8px;
@@ -249,11 +499,11 @@ body {
   0%,
   100% {
     opacity: 0.5;
-    box-shadow: 0 0 15px rgba(138, 63, 252, 0.2);
+    box-shadow: 0 0 15px rgba(255, 126, 182, 0.2);
   }
   50% {
     opacity: 1;
-    box-shadow: 0 0 25px rgba(138, 63, 252, 0.5);
+    box-shadow: 0 0 25px rgba(255, 126, 182, 0.5);
   }
 }
 .animate-pulse-glow {
@@ -289,6 +539,252 @@ body {
   }
 }
 
+/* ===========================================================================
+   Dynamic island — the floating capsule shared by the navbar, its mobile
+   sheet, and the contact dock. A frosted, translucent surface so the animated
+   background reads through it, with a soft outer shadow that lifts it off the
+   page and a hairline highlight along the top edge.
+   =========================================================================== */
+
+.qff-island {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  border: 1px solid rgba(42, 15, 82, 0.08);
+  box-shadow:
+    0 10px 34px -12px rgba(42, 15, 82, 0.28),
+    0 2px 8px -3px rgba(42, 15, 82, 0.1),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.7);
+}
+
+.dark .qff-island {
+  background: rgba(26, 14, 58, 0.72);
+  border-color: rgba(255, 255, 255, 0.09);
+  box-shadow:
+    0 12px 40px -12px rgba(0, 0, 0, 0.7),
+    0 2px 10px -4px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+}
+
+/* ===========================================================================
+   Animated site backgrounds
+   ---------------------------------------------------------------------------
+   Every scene is pure CSS keyframes over SVG/DOM — no rAF loop, no canvas —
+   so the compositor owns them and they cost nothing while scrolling. Each
+   animated property is transform or opacity only.
+
+   All four honour prefers-reduced-motion via the global rule above, which
+   collapses animation-duration; the scenes are composed to still read as a
+   deliberate still image when that happens.
+   =========================================================================== */
+
+.qff-scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100lvh;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* --- Migration: official fest birds crossing a periwinkle sky ------------- */
+
+.qff-lane {
+  position: absolute;
+  left: 0;
+  will-change: transform;
+  animation: qff-cross linear infinite;
+}
+
+@keyframes qff-cross {
+  from {
+    transform: translate3d(-24vw, 0, 0);
+  }
+  to {
+    transform: translate3d(124vw, 0, 0);
+  }
+}
+
+/* A second element inside the lane, so the bob composes with the crossing
+   instead of fighting it for the transform property. */
+.qff-bob {
+  animation: qff-bob ease-in-out infinite alternate;
+}
+
+@keyframes qff-bob {
+  from {
+    transform: translateY(-0.6rem) rotate(-1.5deg);
+  }
+  to {
+    transform: translateY(0.6rem) rotate(1.5deg);
+  }
+}
+
+/* --- Lattice: dot grid crossed by a probability wave ---------------------- */
+
+/* The register is scenery, and scenery belongs behind the reading. Ungated it
+   ran at 70% across the whole viewport, which put animated dots directly on
+   top of every paragraph on the page. The mask holds the grid out of the
+   centre column where the text lives and lets it gather in the margins, so
+   the motif still reads at the edges of the screen without competing with a
+   single line of copy. Below `lg` there are no margins, so it simply goes. */
+.qff-lattice {
+  -webkit-mask-image: radial-gradient(
+    ellipse 62% 58% at 50% 50%,
+    transparent 40%,
+    #000 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 62% 58% at 50% 50%,
+    transparent 40%,
+    #000 100%
+  );
+}
+
+@media (max-width: 1023px) {
+  .qff-lattice {
+    opacity: 0.24 !important;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+.qff-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: qff-swell 7s ease-in-out infinite;
+}
+
+/* The resting state is deliberately near-invisible: what should read is the
+   wavefront travelling through the grid, not the grid itself. */
+@keyframes qff-swell {
+  0%,
+  72%,
+  100% {
+    transform: scale(0.5);
+    opacity: 0.16;
+  }
+  36% {
+    transform: scale(2);
+    opacity: 0.95;
+  }
+}
+
+/* --- Interference: stacked travelling waves ------------------------------ */
+
+/* fill-box makes the -50% below resolve against the path's own width (two
+   tiles) rather than the viewBox, so one cycle advances exactly one tile and
+   the wrap is invisible. */
+.qff-wave {
+  transform-box: fill-box;
+  animation: qff-travel linear infinite;
+}
+
+@keyframes qff-travel {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.qff-orbit-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: qff-throb 4s ease-in-out infinite;
+}
+
+@keyframes qff-throb {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.45);
+    opacity: 1;
+  }
+}
+
+/* --- Bloch: precessing great circles ------------------------------------- */
+
+.qff-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: qff-spin linear infinite;
+}
+
+@keyframes qff-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.qff-squash {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: qff-squash ease-in-out infinite alternate;
+}
+
+@keyframes qff-squash {
+  from {
+    transform: scaleY(0.18);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.qff-breathe {
+  animation: qff-breathe ease-in-out infinite alternate;
+}
+
+@keyframes qff-breathe {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 0.85;
+  }
+}
+
+/* With motion suppressed, park every scene mid-cycle rather than at a frame
+   where elements sit stacked off-screen or fully collapsed. */
+@media (prefers-reduced-motion: reduce) {
+  .qff-lane,
+  .qff-bob,
+  .qff-node,
+  .qff-wave,
+  .qff-orbit-node,
+  .qff-spin,
+  .qff-squash,
+  .qff-breathe {
+    animation: none !important;
+  }
+  .qff-lane {
+    transform: translate3d(var(--qff-rest, 40vw), 0, 0);
+  }
+  .qff-node {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  .qff-squash {
+    transform: scaleY(0.55);
+  }
+  .qff-breathe {
+    opacity: 0.6;
+  }
+}
 /* Print optimization: Print ONLY the pass ticket, hide everything else */
 @media print {
   @page {
@@ -365,8 +861,8 @@ body {
     color: #475569 !important;
   }
 
-  #printable-pass .text-cyan {
-    color: #0284c7 !important;
+  #printable-pass .text-pink-ink {
+    color: #d02670 !important;
     font-weight: 600 !important;
   }
 
@@ -386,3 +882,257 @@ body {
   }
 }
 
+
+/* ---------------------------------------------------------------------------
+   Register call-to-action.
+
+   A halo that expands and fades out from behind the button, roughly the
+   rhythm of a slow pulse. It sits on a ::after so the button itself never
+   moves — a CTA that jumps around is harder to click, not easier to notice —
+   and it stops on hover, where the pointer has already found it.
+   --------------------------------------------------------------------------- */
+.qff-beacon {
+  position: relative;
+  isolation: isolate;
+}
+
+.qff-beacon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--qff-pink-fill);
+  animation: qff-beacon 2.8s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+
+.qff-beacon:hover::after,
+.qff-beacon:focus-visible::after {
+  animation-play-state: paused;
+  opacity: 0;
+}
+
+@keyframes qff-beacon {
+  0% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.32);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qff-beacon::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* ===========================================================================
+   Two hover moments.
+   ---------------------------------------------------------------------------
+   Both are decorative, both live on a marketing page, and both are rare enough
+   to earn the delight budget. Both are CSS animations rather than rAF, so they
+   keep running off the main thread while the page is still loading, and both
+   are gated on a real pointer — a tap fires a false hover, and a bird that
+   rains qubits every time a thumb brushes it stops being a surprise.
+   =========================================================================== */
+
+/* --- The hero bird drops its measurement ------------------------------------
+   Hovering the bird collapses a handful of qubits underneath it. They fall
+   linearly, because a falling object does not ease, and fade on the way.
+
+   The idle drift lives on a wrapper and the hover dip on the bird itself: an
+   animation outranks a transition on the same element, so a bird that drifted
+   and dipped from one node would simply never dip. */
+
+.qff-roost-float {
+  animation: qff-roost-drift 11s ease-in-out infinite;
+}
+
+@keyframes qff-roost-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-1.4rem, 0.7rem, 0);
+  }
+}
+
+.qff-qubit {
+  opacity: 0;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--qff-pink-ink);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.qff-roost-bird {
+  transition: transform 0.42s var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .qff-roost:hover .qff-qubit,
+  .qff-roost:focus-visible .qff-qubit {
+    animation: qff-drop 1.15s linear infinite;
+  }
+
+  /* The bird dips as it lets go. */
+  .qff-roost:hover .qff-roost-bird {
+    transform: scaleX(-1) translate3d(0, 5px, 0) rotate(5deg);
+  }
+}
+
+@keyframes qff-drop {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -4px, 0) scale(0.8);
+  }
+  18% {
+    opacity: 1;
+    transform: translate3d(0, 10px, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 76px, 0) scale(0.9);
+  }
+}
+
+/* --- A bird sits on Register until you reach for it --------------------------
+   It is perched by default, breathing gently. Approaching the button startles
+   it: it lifts off up and to the right and fades as it goes. Pressing sends it
+   further and faster, so the click reads as the thing that flushed it.
+
+   Same split as the hero bird — the wrapper carries the departure, the figure
+   carries the idle bob, so neither cancels the other. */
+
+.qff-perch-roost {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 0.34s var(--ease-out),
+    transform 0.38s var(--ease-out);
+  pointer-events: none;
+}
+
+.qff-perch-bird {
+  animation: qff-perch-bob 3.6s ease-in-out infinite;
+}
+
+@keyframes qff-perch-bob {
+  0%,
+  100% {
+    transform: scaleX(-1) translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: scaleX(-1) translate3d(0, -2px, 0) rotate(-2deg);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .qff-perch:hover .qff-perch-roost,
+  .qff-perch:focus-visible .qff-perch-roost {
+    opacity: 0;
+    transform: translate3d(30px, -34px, 0) rotate(-16deg) scale(0.92);
+  }
+
+  .qff-perch:active .qff-perch-roost {
+    opacity: 0;
+    transform: translate3d(46px, -52px, 0) rotate(-24deg) scale(0.84);
+    transition-duration: 0.2s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Keep the reveal, drop the travel. */
+  .qff-roost-float,
+  .qff-perch-bird {
+    animation: none;
+  }
+  .qff-roost:hover .qff-qubit,
+  .qff-roost:focus-visible .qff-qubit {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .qff-roost:hover .qff-roost-bird {
+    transform: scaleX(-1);
+  }
+  .qff-perch:hover .qff-perch-roost,
+  .qff-perch:focus-visible .qff-perch-roost {
+    transform: none;
+  }
+}
+
+/* ===========================================================================
+   Mobile performance overrides.
+   ---------------------------------------------------------------------------
+   Real-time backdrop-filter over an animated background destroys mobile frame
+   rates, so on small screens the blur is dropped and the surfaces go nearly
+   opaque instead.
+
+   This block has to sit AFTER the surfaces it overrides. A media query adds no
+   specificity, so while it lived above them the later `.dark .qff-island` rule
+   simply won on source order: the blur was correctly removed but the opaque
+   background never applied, which left every island genuinely see-through with
+   nothing frosting it. The mobile nav sheet was unreadable because of it.
+   =========================================================================== */
+@media (max-width: 768px) {
+  .glass,
+  .glass-dark,
+  .qff-island,
+  [class*="backdrop-blur"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.94);
+  }
+
+  .dark .glass {
+    background: rgba(20, 10, 46, 0.94);
+  }
+
+  .glass-dark {
+    background: rgba(255, 255, 255, 0.96);
+  }
+
+  .dark .glass-dark {
+    background: rgba(13, 6, 32, 0.95);
+  }
+
+  /* Fully opaque, not merely nearly. With no blur behind it, 4% of the hero
+     still showed through the nav sheet and sat behind its labels. */
+  .qff-island {
+    background: #ffffff;
+  }
+
+  .dark .qff-island {
+    background: #1a0e3a;
+  }
+
+  /* On mobile, animate opacity only (no SVG transform scaling) so the probability
+     wave sweeps across the grid smoothly without forcing SVG coordinate recalculations */
+  .qff-node {
+    animation-name: qff-swell-mobile !important;
+    transform: none !important;
+    transform-box: initial !important;
+  }
+}
+
+@keyframes qff-swell-mobile {
+  0%,
+  72%,
+  100% {
+    opacity: 0.16;
+  }
+  36% {
+    opacity: 0.95;
+  }
+}

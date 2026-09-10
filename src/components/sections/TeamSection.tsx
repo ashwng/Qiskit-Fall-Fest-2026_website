@@ -4,43 +4,68 @@ import { Section } from "@/components/ui/Section";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { SocialIcon, platformLabel } from "@/components/ui/SocialIcon";
 import { PlaceholderAvatar } from "@/components/ui/PlaceholderAvatar";
+import { Pending, isPending } from "@/components/ui/Pending";
 
+/**
+ * The organising team.
+ *
+ * The roles are real and the names are not yet, so the role leads each card
+ * and the name sits under it — the reverse of the old order, which put a blank
+ * line where the name should be and the only real information beneath it.
+ * Links to `#` are dropped rather than rendered as dead icons.
+ */
 export function TeamSection() {
   return (
-    <Section id="team" className="relative bg-surface/30">
-      <div className="absolute top-1/2 left-0 w-1/4 h-1/3 bg-[radial-gradient(ellipse_at_left,rgba(8,189,186,0.05),transparent_70%)] pointer-events-none" />
+    <Section id="team" className="bg-surface/30">
+      <SectionHeading title="Organizing Team" meta={`${team.length} roles`} />
 
-      <SectionHeading
-        eyebrow="05 · Organizing Team"
-        title="The people behind QFF"
-        description="  "
-      />
+      {team.every((m) => isPending(m.name)) ? (
+        <p className="mt-6">
+          <Pending label="Names announcing soon" />
+        </p>
+      ) : null}
 
-      <div className="mt-14 grid gap-5 sm:grid-cols-3 lg:grid-cols-4 relative z-10">
-        {team.map((member, i) => (
-          <RevealOnScroll key={member.id} delayMs={i * 45}>
-            <div className="glass-dark group rounded-2xl p-5 text-center transition-all duration-300 hover:border-cyan/50 hover:shadow-[0_0_25px_rgba(8,189,186,0.1)] hover:-translate-y-1">
-              <div className="overflow-hidden rounded-xl">
-                <PlaceholderAvatar seed={member.imageSeed} className="mx-auto aspect-square w-full rounded-xl transition-transform duration-500 group-hover:scale-105" />
+      <div className="mt-12 grid grid-cols-2 gap-4 sm:mt-14 sm:grid-cols-3 lg:grid-cols-4">
+        {team.map((member, i) => {
+          const links = member.socials.filter((s) => s.href && s.href !== "#");
+          return (
+            <RevealOnScroll key={member.id} variant="soft" delayMs={i * 45}>
+              <div className="qff-card qff-card-interactive group h-full p-4 text-center sm:p-5">
+                <div className="overflow-hidden rounded-xl">
+                  <PlaceholderAvatar
+                    seed={member.imageSeed}
+                    className="mx-auto aspect-square w-full rounded-xl transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <p className="mt-4 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-pink-ink">
+                  {member.role}
+                </p>
+                {isPending(member.name) ? null : (
+                  <p className="mt-1.5 font-display text-sm font-bold text-ink">
+                    {member.name}
+                  </p>
+                )}
+                {links.length > 0 ? (
+                  <ul className="mt-3.5 flex justify-center gap-2">
+                    {links.map((s) => (
+                      <li key={s.platform}>
+                        <a
+                          href={s.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${member.role} on ${platformLabel[s.platform]}`}
+                          className="grid h-8 w-8 place-items-center rounded-lg border border-transparent bg-surface-2/60 text-muted transition-colors duration-300 hover:border-pink/50 hover:text-pink-ink"
+                        >
+                          <SocialIcon platform={s.platform} className="h-3.5 w-3.5" />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </div>
-              <p className="mt-4 font-display text-base font-bold text-ink">{member.name}</p>
-              <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-cyan font-bold">{member.role}</p>
-              <ul className="mt-4 flex justify-center gap-2">
-                {member.socials.map((s) => (
-                  <li key={s.platform}>
-                    <a
-                      href={s.href}
-                      aria-label={`${member.name} on ${platformLabel[s.platform]}`}
-                      className="grid h-8 w-8 place-items-center rounded-lg border border-transparent bg-surface-2/50 text-muted transition-all duration-300 hover:border-violet-bright hover:text-cyan hover:bg-surface-2 hover:shadow-[0_0_10px_rgba(138,63,252,0.2)] hover:-translate-y-0.5"
-                    >
-                      <SocialIcon platform={s.platform} className="h-3.5 w-3.5" />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </RevealOnScroll>
-        ))}
+            </RevealOnScroll>
+          );
+        })}
       </div>
     </Section>
   );

@@ -2,11 +2,20 @@
 
 import { useMemo, useState } from "react";
 import { schedule } from "@/data/schedule";
+import { event } from "@/data/event";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Section } from "@/components/ui/Section";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { cn } from "@/lib/utils";
 
+/**
+ * The programme, as a timeline.
+ *
+ * The rows used to be another set of bordered boxes in another vertical
+ * stack. A rail with a node per session reads as a day rather than as a list,
+ * and it is the one shape on the page that carries the passage of time — which
+ * is the only thing this section is about.
+ */
 export function ScheduleSection() {
   const days = useMemo(
     () => Array.from(new Set(schedule.map((item) => item.day))),
@@ -17,17 +26,13 @@ export function ScheduleSection() {
   const items = schedule.filter((item) => item.day === activeDay);
 
   return (
-    <Section id="schedule" className="relative">
-      <SectionHeading
-        eyebrow="02 · Schedule"
-        title="Five days, one continuous circuit"
-        description="28th October to 1st November"
-      />
+    <Section id="schedule">
+      <SectionHeading title="Schedule" meta={event.dates} />
 
       <div
         role="tablist"
         aria-label="Schedule day"
-        className="mt-10 inline-flex gap-1 rounded-full border border-line bg-surface-2 p-1.5 shadow-[0_0_20px_rgba(0,0,0,0.2)]"
+        className="mt-10 flex w-fit max-w-full flex-wrap gap-1 rounded-full border border-line bg-surface-2/70 p-1.5"
       >
         {days.map((day) => (
           <button
@@ -36,10 +41,10 @@ export function ScheduleSection() {
             aria-selected={activeDay === day}
             onClick={() => setActiveDay(day)}
             className={cn(
-              "rounded-full px-5 py-2 font-mono text-xs uppercase tracking-widest transition-all duration-300",
+              "rounded-full px-4 py-2 font-mono text-xs uppercase tracking-[0.14em] transition-all duration-300 sm:px-5",
               activeDay === day
-                ? "bg-violet-bright text-white shadow-[0_0_15px_rgba(165,110,255,0.4)]"
-                : "text-muted hover:text-white hover:bg-surface",
+                ? "bg-pink-fill text-white shadow-[0_6px_16px_-8px_rgba(208,38,112,0.9)]"
+                : "text-muted hover:bg-surface hover:text-ink",
             )}
           >
             {day}
@@ -47,36 +52,39 @@ export function ScheduleSection() {
         ))}
       </div>
 
-      <ol className="relative mt-12 space-y-4 border-l-2 border-line pl-8">
+      {/* The rail is a border on the list itself, so it ends exactly at the
+          last session instead of running past it. */}
+      <ol className="qff-rail mt-10 pl-6 sm:mt-12 sm:pl-9">
         {items.map((item, i) => (
           <RevealOnScroll
             key={item.id}
             as="li"
-            delayMs={i * 50}
-            className="relative group"
+            variant="side"
+            delayMs={i * 55}
+            className="group relative pb-9 last:pb-0"
           >
             <span
               aria-hidden
-              className="absolute -left-[calc(2rem+7px)] top-4 h-3 w-3 rounded-full border-2 border-violet-bright bg-surface transition-all duration-300 group-hover:bg-violet-bright group-hover:shadow-[0_0_12px_rgba(165,110,255,0.8)] group-hover:scale-125"
+              className="absolute -left-[1.75rem] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-bg bg-pink transition-transform duration-300 group-hover:scale-125 sm:-left-[2.5rem]"
             />
-            <div className="glass-dark flex flex-col gap-3 rounded-2xl p-6 sm:flex-row sm:items-center sm:gap-6 transition-all duration-300 hover:border-violet-bright/50 hover:shadow-[0_0_25px_rgba(138,63,252,0.15)] hover:bg-surface-2/80 hover:-translate-x-1 hover:translate-y-0.5">
-              <div className="w-32 sm:w-40 shrink-0 font-mono text-sm font-bold text-cyan">
+            <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+              <span className="font-mono text-sm font-semibold tabular-nums text-pink-ink">
                 {item.time}
-              </div>
-              <div className="flex-1">
-                <p className="font-display text-lg font-bold text-ink">
-                  {item.title}
-                </p>
-                <p className="mt-2 font-body text-sm leading-relaxed text-muted">
-                  {item.description}
-                </p>
-              </div>
+              </span>
               {item.track ? (
-                <span className="w-fit shrink-0 rounded-full border border-cyan/30 bg-cyan/10 px-4 py-1.5 font-mono text-[10px] font-bold uppercase tracking-widest text-cyan">
+                <span className="rounded-full bg-pink/12 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-pink-ink">
                   {item.track}
                 </span>
               ) : null}
             </div>
+            <p className="mt-2 font-display text-xl font-bold tracking-tight text-ink dark:text-white sm:text-2xl">
+              {item.title}
+            </p>
+            {item.description ? (
+              <p className="mt-1.5 max-w-lg text-sm leading-relaxed text-muted">
+                {item.description}
+              </p>
+            ) : null}
           </RevealOnScroll>
         ))}
       </ol>

@@ -113,12 +113,12 @@ export function Barcode({
             y={0}
             width={bar.width}
             height={height}
-            className="fill-cyan transition-colors print:fill-black"
+            className="fill-pink-ink transition-colors print:fill-black"
           />
         ))}
       </svg>
       {showText && (
-        <span className="mt-2 font-mono text-[11px] tracking-[0.28em] text-cyan print:text-black">
+        <span className="mt-2 font-mono text-[11px] tracking-[0.28em] text-pink-ink print:text-black">
           {safeValue}
         </span>
       )}

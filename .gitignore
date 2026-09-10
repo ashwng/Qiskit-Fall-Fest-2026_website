@@ -4,3 +4,7 @@ node_modules
 .DS_Store
 *.log
 docs
+.vercel
+
+# editor/agent launch config
+.claude/
