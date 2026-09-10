@@ -4,28 +4,38 @@ import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
+/**
+ * Light/dark switch. Lives in the bottom-right dock beside Contact, so it
+ * wears the same island surface as its neighbour rather than the bordered
+ * square it used inside the nav capsule.
+ */
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const mounted = React.useSyncExternalStore(
     () => () => {},
     () => true,
-    () => false
+    () => false,
   );
 
+  // Reserve the same box before hydration, so the dock does not reflow when
+  // the real control arrives.
   if (!mounted) {
-    return <div className="h-9 w-9" />;
+    return <div className="h-10 w-10" aria-hidden />;
   }
+
+  const isLight = resolvedTheme === "light";
 
   return (
     <button
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="grid h-9 w-9 place-items-center rounded-lg border border-line bg-surface-2 text-ink transition-all duration-300 hover:border-violet-bright hover:text-pink-ink hover:shadow-[0_0_15px_rgba(138,63,252,0.3)] hover:-translate-y-0.5"
-      aria-label="Toggle theme"
+      type="button"
+      onClick={() => setTheme(isLight ? "dark" : "light")}
+      className="qff-island grid h-10 w-10 shrink-0 place-items-center rounded-full text-ink transition-transform duration-300 hover:-translate-y-0.5"
+      aria-label={isLight ? "Switch to dark theme" : "Switch to light theme"}
     >
-      {theme === "light" ? (
-        <Sun className="h-4 w-4" />
+      {isLight ? (
+        <Moon className="h-4 w-4 text-pink-ink" />
       ) : (
-        <Moon className="h-4 w-4" />
+        <Sun className="h-4 w-4 text-pink-ink" />
       )}
     </button>
   );

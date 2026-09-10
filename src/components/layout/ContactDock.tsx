@@ -6,6 +6,7 @@ import { MessageCircle, X } from "lucide-react";
 import { socials } from "@/data/socials";
 import { event } from "@/data/event";
 import { SocialIcon, platformLabel } from "@/components/ui/SocialIcon";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 /**
@@ -101,18 +102,25 @@ export function ContactDock() {
         </div>
       ) : null}
 
-      <button
-        type="button"
-        onClick={() => setOpen((value) => !value)}
-        aria-expanded={open}
-        aria-controls="contact-panel"
-        className={cn(
-          "qff-island inline-flex items-center gap-2 rounded-full py-2.5 pl-3.5 pr-4 text-[13px] font-semibold text-ink transition-transform duration-300 hover:-translate-y-0.5",
-        )}
-      >
-        <MessageCircle className="h-4 w-4 text-pink-ink" />
-        Contact
-      </button>
+      {/* The theme switch rides with Contact rather than sitting in the nav
+          capsule: both are page-level controls that belong to the reader, not
+          to the fest, and the nav is for the fest's own sections. */}
+      <div className="flex items-center gap-2">
+        <ThemeToggle />
+
+        <button
+          type="button"
+          onClick={() => setOpen((value) => !value)}
+          aria-expanded={open}
+          aria-controls="contact-panel"
+          className={cn(
+            "qff-island inline-flex h-10 items-center gap-2 rounded-full pl-3.5 pr-4 text-[13px] font-semibold text-ink transition-transform duration-300 hover:-translate-y-0.5",
+          )}
+        >
+          <MessageCircle className="h-4 w-4 text-pink-ink" />
+          Contact
+        </button>
+      </div>
     </div>
   );
 }

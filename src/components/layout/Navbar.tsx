@@ -9,7 +9,6 @@ import { navItems } from "@/data/nav";
 import { event } from "@/data/event";
 import { cn } from "@/lib/utils";
 
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 /**
  * A floating capsule nav — the "dynamic island" treatment.
@@ -115,7 +114,6 @@ export function Navbar() {
         </ul>
 
         <div className="flex shrink-0 items-center gap-2">
-          <ThemeToggle />
           <Link
             href={registerTarget}
             aria-current={onRegistration ? "page" : undefined}
