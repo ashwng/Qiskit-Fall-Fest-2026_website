@@ -19,6 +19,12 @@ export function TeamSection() {
     <Section id="team" className="bg-surface/30">
       <SectionHeading title="Organizing Team" meta={`${team.length} roles`} />
 
+      {team.every((m) => isPending(m.name)) ? (
+        <p className="mt-6">
+          <Pending label="Names announcing soon" />
+        </p>
+      ) : null}
+
       <div className="mt-12 grid grid-cols-2 gap-4 sm:mt-14 sm:grid-cols-3 lg:grid-cols-4">
         {team.map((member, i) => {
           const links = member.socials.filter((s) => s.href && s.href !== "#");
@@ -31,16 +37,14 @@ export function TeamSection() {
                     className="mx-auto aspect-square w-full rounded-xl transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
-                <p className="mt-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-pink-ink">
+                <p className="mt-4 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-pink-ink">
                   {member.role}
                 </p>
-                <p className="mt-1.5 font-display text-sm font-bold text-ink">
-                  {isPending(member.name) ? (
-                    <Pending label="Name soon" />
-                  ) : (
-                    member.name
-                  )}
-                </p>
+                {isPending(member.name) ? null : (
+                  <p className="mt-1.5 font-display text-sm font-bold text-ink">
+                    {member.name}
+                  </p>
+                )}
                 {links.length > 0 ? (
                   <ul className="mt-3.5 flex justify-center gap-2">
                     {links.map((s) => (

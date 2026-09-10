@@ -72,12 +72,12 @@ export function ScheduleSection() {
                 {item.time}
               </span>
               {item.track ? (
-                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted">
+                <span className="rounded-full bg-pink/12 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-pink-ink">
                   {item.track}
                 </span>
               ) : null}
             </div>
-            <p className="mt-2 font-display text-xl font-bold tracking-tight text-ink sm:text-2xl">
+            <p className="mt-2 font-display text-xl font-bold tracking-tight text-ink dark:text-white sm:text-2xl">
               {item.title}
             </p>
             {item.description ? (

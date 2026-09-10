@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { event } from "@/data/event";
@@ -11,15 +12,22 @@ const facts = [
   { label: "What", value: event.format },
 ];
 
+/** The qubits the hero bird lets fall, and how they are scattered beneath it. */
+const QUBITS = [
+  { v: "1", left: "6%", delay: "0s", size: "0.95rem" },
+  { v: "0", left: "26%", delay: "0.18s", size: "1.15rem" },
+  { v: "1", left: "48%", delay: "0.42s", size: "0.85rem" },
+  { v: "0", left: "68%", delay: "0.62s", size: "1.05rem" },
+  { v: "1", left: "86%", delay: "0.86s", size: "0.9rem" },
+];
+
 export function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden px-6 pb-20 pt-32 sm:px-10 sm:pt-40 lg:px-16 lg:pb-28"
+      className="relative overflow-hidden px-5 pb-20 pt-32 sm:px-10 sm:pt-40 lg:px-16 lg:pb-28"
     >
-      {/* The fest's own sky. Clouds sit behind the headline at the density the
-          brand sheet uses them, and one bird crosses above it — the only piece
-          of the flock that appears on a phone, where the margin birds cannot. */}
+      {/* The fest's own sky, behind the headline. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <QffFigure
           name="cloud-a"
@@ -29,11 +37,37 @@ export function Hero() {
           name="cloud-b"
           className="qff-drift-slow absolute -right-24 top-[58%] w-[26rem] opacity-[0.16] dark:opacity-[0.06] sm:w-[34rem] lg:right-[2%]"
         />
+      </div>
+
+      {/* The one bird you can reach. Hover it and the superposition collapses:
+          it dips, and a few measured qubits fall out from under it. Focusable
+          so it is not a mouse-only secret. */}
+      <div
+        className="qff-roost group absolute right-[6%] top-16 z-10 w-28 sm:w-36 lg:right-[36%] lg:top-24"
+        tabIndex={0}
+        role="img"
+        aria-label="A Qiskit Fall Fest bird. Hover to measure a few qubits."
+      >
         <QffFigure
           name="bird-glide"
           flip
-          className="qff-glide absolute right-[8%] top-16 w-24 opacity-60 sm:w-32 lg:right-[38%] lg:top-24"
+          className="qff-roost-bird w-full drop-shadow-[0_6px_18px_rgba(208,38,112,0.35)]"
         />
+        <div aria-hidden className="absolute inset-x-0 top-full h-20">
+          {QUBITS.map((q, i) => (
+            <span
+              key={i}
+              className="qff-qubit absolute top-0 tabular-nums"
+              style={{
+                left: q.left,
+                fontSize: q.size,
+                animationDelay: q.delay,
+              }}
+            >
+              {q.v}
+            </span>
+          ))}
+        </div>
       </div>
 
       <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)] lg:gap-10">
@@ -41,22 +75,56 @@ export function Hero() {
           className="animate-[fadeUp_1s_cubic-bezier(0.16,1,0.3,1)_forwards] opacity-0"
           style={{ animationDelay: "120ms" }}
         >
-          <h1 className="font-display text-[2.6rem] font-extrabold leading-[0.92] tracking-[-0.035em] text-ink sm:text-6xl lg:text-[4.25rem] xl:text-[4.75rem]">
-            BITS GOA
-            <br />
-            IBM PLUS Qiskit Fall Fest
-            <br />
-            {/* The year carries the emphasis by size, the way the fest's own
-                lettering does — not by a gradient across the glyphs. */}
-            <span className="text-[1.12em] leading-none text-pink-ink">2026</span>
+          {/* The fest's own lettering, from the official sticker pack, instead
+              of the name typed out in the site's display face. */}
+          <h1 className="flex flex-col items-start gap-3 sm:gap-4">
+            <span className="sr-only">{`${event.organizer} — ${event.fullName}`}</span>
+
+            <span
+              aria-hidden
+              className="font-display text-[2.4rem] font-extrabold leading-none tracking-[-0.035em] text-ink sm:text-5xl lg:text-6xl"
+            >
+              BITS GOA
+            </span>
+
+            <span aria-hidden className="flex flex-wrap items-center gap-2 sm:gap-3">
+              <Image
+                src="/brand/qiskit.svg"
+                alt=""
+                width={204}
+                height={81}
+                priority
+                className="h-11 w-auto sm:h-14 lg:h-16"
+              />
+              <Image
+                src="/brand/fall-fest.svg"
+                alt=""
+                width={268}
+                height={81}
+                priority
+                className="h-11 w-auto sm:h-14 lg:h-16"
+              />
+            </span>
+
+            <Image
+              aria-hidden
+              src="/brand/2026.svg"
+              alt=""
+              width={159}
+              height={81}
+              priority
+              className="h-11 w-auto sm:h-14 lg:h-16"
+            />
           </h1>
 
-          <p className="mt-6 max-w-md text-lg leading-relaxed text-ink-dim sm:mt-7 sm:text-xl">
-            {event.tagline}
+          <p className="mt-7 max-w-lg font-display text-xl font-bold leading-snug text-ink dark:text-white sm:mt-8 sm:text-2xl">
+            A campus-wide gathering for{" "}
+            <span className="text-pink-ink">quantum computing</span>, in
+            circuits and in community.
           </p>
 
-          {/* The facts as a spec strip rather than six cards further down the
-              page. Hairlines between them, so it reads as one line of record. */}
+          {/* The facts as a spec strip. Hairlines between them, so it reads as
+              one line of record. */}
           <dl className="mt-9 flex flex-col gap-px overflow-hidden rounded-xl border border-line bg-line/60 sm:mt-10 sm:flex-row">
             {facts.map((fact) => (
               <div key={fact.label} className="flex-1 bg-surface/80 px-5 py-4">
@@ -88,7 +156,7 @@ export function Hero() {
         </div>
 
         <div
-          className="relative mx-auto w-full max-w-sm animate-[fadeUp_1s_cubic-bezier(0.16,1,0.3,1)_forwards] opacity-0 sm:max-w-md lg:max-w-none"
+          className="relative mx-auto hidden w-full max-w-sm animate-[fadeUp_1s_cubic-bezier(0.16,1,0.3,1)_forwards] opacity-0 sm:max-w-md lg:block lg:max-w-none"
           style={{ animationDelay: "300ms" }}
         >
           <div className="pointer-events-none absolute inset-0 -m-8 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,126,182,0.22),transparent_70%)] blur-2xl" />

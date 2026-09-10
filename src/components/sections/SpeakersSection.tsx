@@ -33,8 +33,9 @@ export function SpeakersSection() {
               name="bird-hummingbirds"
               className="pointer-events-none absolute -right-6 -top-4 w-40 opacity-20 sm:right-8 sm:top-6 sm:w-52"
             />
-            <p className="relative max-w-md font-display text-2xl font-bold leading-snug text-ink sm:text-3xl">
-              The lineup is still being confirmed.
+            <p className="relative max-w-md font-display text-2xl font-bold leading-snug text-ink dark:text-white sm:text-3xl">
+              The lineup is{" "}
+              <span className="text-pink-ink">still being confirmed</span>.
             </p>
             <p className="relative mt-4 max-w-md text-base leading-relaxed text-muted">
               Speakers are announced here as they are booked. Register and

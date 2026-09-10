@@ -2,7 +2,7 @@ import { collaborations } from "@/data/collaborations";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Section } from "@/components/ui/Section";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
-import { isPending } from "@/components/ui/Pending";
+import { Pending, isPending } from "@/components/ui/Pending";
 
 const tierLabel: Record<string, string> = {
   title: "Title sponsor",
@@ -25,6 +25,12 @@ export function CollaborationsSection() {
     <Section id="collaborations">
       <SectionHeading title="Collaborations" meta="Slots open" />
 
+      {collaborations.every((c) => isPending(c.name)) ? (
+        <p className="mt-6">
+          <Pending label="Partners announcing soon" />
+        </p>
+      ) : null}
+
       <div className="mt-12 space-y-10 sm:mt-14 sm:space-y-12">
         {tiers.map((tier) => {
           const items = collaborations.filter((c) => c.tier === tier);
@@ -39,11 +45,7 @@ export function CollaborationsSection() {
                 {items.map((c, i) => (
                   <RevealOnScroll key={c.id} variant="soft" delayMs={i * 50}>
                     {isPending(c.name) ? (
-                      <div className="grid h-24 place-items-center rounded-xl border border-dashed border-line">
-                        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
-                          Open
-                        </span>
-                      </div>
+                      <div className="h-24 rounded-xl border border-dashed border-pink/25" />
                     ) : (
                       <div className="qff-card qff-card-interactive flex h-24 flex-col items-center justify-center gap-2.5 px-4 text-center">
                         <span className="grid h-9 w-9 place-items-center rounded-full border border-line bg-surface-2 font-display text-sm font-bold text-pink-ink">

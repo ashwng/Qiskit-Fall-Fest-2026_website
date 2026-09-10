@@ -180,12 +180,6 @@ export default function QubitSphere() {
     );
     vector.add(arrow);
 
-    const tip = new THREE.Mesh(
-      new THREE.SphereGeometry(0.11, 16, 12),
-      new THREE.MeshBasicMaterial({ color: palette.vector }),
-    );
-    vector.add(tip);
-
     const origin = new THREE.Mesh(
       new THREE.SphereGeometry(0.07, 12, 10),
       new THREE.MeshBasicMaterial({
@@ -252,7 +246,6 @@ export default function QubitSphere() {
       stateRef.current.lerp(target, 0.07).normalize();
 
       arrow.setDirection(stateRef.current);
-      tip.position.copy(stateRef.current).multiplyScalar(SPHERE_RADIUS);
 
       if (!reduceMotion.matches) shell.rotation.y = elapsed * 0.12;
 

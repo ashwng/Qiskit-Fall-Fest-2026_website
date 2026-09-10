@@ -13,7 +13,7 @@ export function FAQSection() {
         {faqs.map((faq, index) => (
           <RevealOnScroll key={faq.question} variant="side" delayMs={index * 45}>
             <details className="group border-b border-line first:border-t transition-colors duration-300">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-display text-base font-bold text-ink marker:hidden transition-colors hover:text-pink-ink [&::-webkit-details-marker]:hidden focus-visible:text-pink-ink focus-visible:outline-none sm:py-6 sm:text-lg">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-display text-base font-bold text-ink marker:hidden dark:text-white transition-colors hover:text-pink-ink [&::-webkit-details-marker]:hidden focus-visible:text-pink-ink focus-visible:outline-none sm:py-6 sm:text-lg">
                 {faq.question}
                 <ChevronDown
                   aria-hidden

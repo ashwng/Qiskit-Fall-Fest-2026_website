@@ -8,15 +8,20 @@ import { Menu, X } from "lucide-react";
 import { navItems } from "@/data/nav";
 import { event } from "@/data/event";
 import { cn } from "@/lib/utils";
+import { QffFigure } from "@/components/ui/QffFigure";
 
 
 /**
- * A floating capsule nav — the "dynamic island" treatment.
+ * A floating capsule nav — the "dynamic island" treatment, on desktop only.
  *
- * Rather than a full-width bar pinned to the top edge, the nav is an inset
- * pill that the page scrolls under. It tightens slightly once you leave the
- * top of the page, and a scroll-spy slides a filled pill onto whichever
- * section you are reading, so the island always says where you are.
+ * Above `lg` the nav is an inset pill that the page scrolls under. It tightens
+ * once you leave the top of the page, and a scroll-spy slides a filled pill
+ * onto whichever section you are reading, so the island always says where you
+ * are.
+ *
+ * On a phone the island was most of the screen's width and sat on top of every
+ * heading it passed, so there is no capsule at all: just the menu button in
+ * the top-right corner, and the sheet it opens.
  */
 export function Navbar() {
   const pathname = usePathname();
@@ -67,17 +72,18 @@ export function Navbar() {
   const registerTarget = isHome ? event.registerHref : "#form-section";
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-4 sm:px-5 sm:pt-5 print:hidden">
+    <header className="fixed inset-x-0 top-0 z-50 flex flex-col items-end px-4 pt-4 sm:px-5 sm:pt-5 lg:items-stretch lg:pt-9 print:hidden">
       <nav
         className={cn(
-          "qff-island mx-auto flex w-fit max-w-full items-center gap-2 rounded-full transition-all duration-300",
-          scrolled ? "p-2 sm:p-2.5" : "p-2.5 sm:p-3",
+          "ml-auto flex w-fit max-w-full items-center gap-2 rounded-full transition-all duration-300 lg:mx-auto",
+          "lg:qff-island",
+          scrolled ? "lg:p-2" : "lg:p-3",
         )}
         aria-label="Primary"
       >
         <Link
           href={isHome ? "#top" : "/#top"}
-          className="group flex shrink-0 items-center gap-2.5 rounded-full pl-1 pr-2"
+          className="group hidden shrink-0 items-center gap-2.5 rounded-full pl-1 pr-2 lg:flex"
         >
           <span className="relative block h-11 w-11 overflow-hidden rounded-full border border-line bg-surface-2 transition-transform duration-300 group-hover:scale-105">
             <Image
@@ -114,20 +120,30 @@ export function Navbar() {
         </ul>
 
         <div className="flex shrink-0 items-center gap-2">
+          {/* A bird comes down to perch on the button when you reach for it. */}
           <Link
             href={registerTarget}
             aria-current={onRegistration ? "page" : undefined}
-            className="qff-beacon inline-flex items-center whitespace-nowrap rounded-full bg-pink-fill px-6 py-3 text-sm font-bold text-white shadow-[0_6px_20px_-6px_rgba(208,38,112,0.9)] transition-all duration-300 hover:bg-pink-fill-hover hover:shadow-[0_8px_26px_-6px_rgba(208,38,112,1)]"
+            className="qff-beacon qff-perch relative hidden items-center whitespace-nowrap rounded-full bg-pink-fill px-6 py-3 text-sm font-bold text-white shadow-[0_6px_20px_-6px_rgba(208,38,112,0.9)] transition-all duration-300 hover:bg-pink-fill-hover hover:shadow-[0_8px_26px_-6px_rgba(208,38,112,1)] lg:inline-flex"
           >
+            <QffFigure
+              name="bird-soar"
+              flip
+              aria-hidden
+              className="qff-perch-bird absolute -top-7 right-2 w-10 origin-bottom"
+            />
             Register
           </Link>
+
+          {/* The phone's only nav affordance. It carries the island surface
+              itself, since there is no capsule behind it any more. */}
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="grid h-11 w-11 place-items-center rounded-full text-ink-dim transition-colors hover:bg-ink/[0.06] hover:text-ink lg:hidden dark:hover:bg-white/10"
+            className="qff-island ml-auto grid h-12 w-12 place-items-center rounded-full text-ink transition-transform duration-300 hover:-translate-y-0.5 lg:hidden"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -137,12 +153,21 @@ export function Navbar() {
       <div
         id="mobile-menu"
         className={cn(
-          "mx-auto grid w-full max-w-sm overflow-hidden transition-[grid-template-rows,margin] duration-300 lg:hidden",
+          "grid w-full max-w-sm overflow-hidden transition-[grid-template-rows,margin] duration-300 lg:hidden",
           open ? "mt-2 grid-rows-[1fr]" : "mt-0 grid-rows-[0fr]",
         )}
       >
         <div className="overflow-hidden">
           <ul className="qff-island flex flex-col gap-1 rounded-3xl p-2">
+            <li>
+              <Link
+                href={registerTarget}
+                onClick={() => setOpen(false)}
+                className="mb-1 block rounded-2xl bg-pink-fill px-4 py-3 text-center text-sm font-bold text-white"
+              >
+                Register
+              </Link>
+            </li>
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link

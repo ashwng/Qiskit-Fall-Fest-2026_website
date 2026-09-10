@@ -39,17 +39,17 @@ type Bird = {
  * pairs.
  */
 const BIRDS: Bird[] = [
-  { art: "bird-glide", side: "left", top: 17, width: 128, opacity: 0.5, inset: 3 },
-  { art: "bird-eagle", side: "right", top: 23, width: 150, opacity: 0.42, inset: 2 },
-  { art: "bird-hummingbirds", side: "left", top: 31, width: 112, opacity: 0.45, inset: 4 },
-  { art: "bird-soar", side: "right", top: 38, width: 138, opacity: 0.5, inset: 3.5 },
-  { art: "bird-eagle", side: "left", top: 46, width: 142, opacity: 0.4, inset: 2.5 },
-  { art: "bird-glide", side: "right", top: 54, width: 120, opacity: 0.48, inset: 4 },
-  { art: "bird-soar", side: "left", top: 62, width: 134, opacity: 0.44, inset: 3 },
-  { art: "bird-hummingbirds", side: "right", top: 70, width: 108, opacity: 0.46, inset: 4.5 },
-  { art: "bird-glide", side: "left", top: 78, width: 126, opacity: 0.42, inset: 2.5 },
-  { art: "bird-eagle", side: "right", top: 86, width: 146, opacity: 0.4, inset: 3 },
-  { art: "bird-soar", side: "left", top: 93, width: 118, opacity: 0.45, inset: 4 },
+  { art: "bird-glide", side: "left", top: 17, width: 128, opacity: 0.9, inset: 3 },
+  { art: "bird-eagle", side: "right", top: 23, width: 150, opacity: 0.8, inset: 2 },
+  { art: "bird-hummingbirds", side: "left", top: 31, width: 112, opacity: 0.85, inset: 4 },
+  { art: "bird-soar", side: "right", top: 38, width: 138, opacity: 0.9, inset: 3.5 },
+  { art: "bird-eagle", side: "left", top: 46, width: 142, opacity: 0.78, inset: 2.5 },
+  { art: "bird-glide", side: "right", top: 54, width: 120, opacity: 0.88, inset: 4 },
+  { art: "bird-soar", side: "left", top: 62, width: 134, opacity: 0.82, inset: 3 },
+  { art: "bird-hummingbirds", side: "right", top: 70, width: 108, opacity: 0.86, inset: 4.5 },
+  { art: "bird-glide", side: "left", top: 78, width: 126, opacity: 0.8, inset: 2.5 },
+  { art: "bird-eagle", side: "right", top: 86, width: 146, opacity: 0.78, inset: 3 },
+  { art: "bird-soar", side: "left", top: 93, width: 118, opacity: 0.85, inset: 4 },
 ];
 
 const clamp01 = (n: number) => (n < 0 ? 0 : n > 1 ? 1 : n);

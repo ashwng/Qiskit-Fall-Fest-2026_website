@@ -18,7 +18,7 @@ export function VenueSection() {
           />
           <div className="relative flex flex-col gap-8 p-7 sm:p-10 md:flex-row md:items-end md:justify-between">
             <div>
-              <h3 className="max-w-md font-display text-2xl font-bold leading-tight text-ink sm:text-3xl">
+              <h3 className="max-w-md font-display text-2xl font-bold leading-tight text-ink dark:text-white sm:text-3xl">
                 {event.venueName}
               </h3>
               <address className="mt-3 max-w-sm not-italic leading-relaxed text-muted">

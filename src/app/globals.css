@@ -72,6 +72,9 @@
   --font-display: "Bricolage Grotesque", "IBM Plex Sans", system-ui, sans-serif;
   --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 .dark {
@@ -213,62 +216,6 @@ body {
 .dark .glass-dark {
   background: rgba(13, 6, 32, 0.7);
   box-shadow: inset 0 0 20px rgba(255, 126, 182, 0.05);
-}
-
-/* Mobile performance overrides:
-   Real-time backdrop-filter blurs over animated background elements severely drop
-   mobile FPS. On small screens, disable blur and use high-opacity backgrounds instead. */
-@media (max-width: 768px) {
-  .glass,
-  .glass-dark,
-  .qff-island,
-  [class*="backdrop-blur"] {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-
-  .glass {
-    background: rgba(255, 255, 255, 0.94);
-  }
-
-  .dark .glass {
-    background: rgba(20, 10, 46, 0.94);
-  }
-
-  .glass-dark {
-    background: rgba(255, 255, 255, 0.96);
-  }
-
-  .dark .glass-dark {
-    background: rgba(13, 6, 32, 0.95);
-  }
-
-  .qff-island {
-    background: rgba(255, 255, 255, 0.96);
-  }
-
-  .dark .qff-island {
-    background: rgba(26, 14, 58, 0.96);
-  }
-
-  /* On mobile, animate opacity only (no SVG transform scaling) so the probability
-     wave sweeps across the grid smoothly without forcing SVG coordinate recalculations */
-  .qff-node {
-    animation-name: qff-swell-mobile !important;
-    transform: none !important;
-    transform-box: initial !important;
-  }
-}
-
-@keyframes qff-swell-mobile {
-  0%,
-  72%,
-  100% {
-    opacity: 0.16;
-  }
-  36% {
-    opacity: 0.95;
-  }
 }
 
 /* Pink → violet, the two anchors of the fest palette. */
@@ -474,46 +421,25 @@ button.qff-card:hover,
 }
 
 /* ===========================================================================
-   Band — the one section that stops the page.
+   Band — the hackathon's blueprint grid.
    ---------------------------------------------------------------------------
-   The hackathon is the fest's headline event, and it sat in exactly the same
-   card grid as everything either side of it. This is a fixed deep-indigo
-   panel — the same night sky the brand's birds are drawn against, and the
-   same in both themes — so the scroll changes density once, at the moment the
-   page has something worth stopping for.
+   This was a fixed deep-indigo panel that ignored the theme. It read as a
+   different site rather than as the page's loudest moment, so the colour is
+   gone and only the structure stays: cells that share hairline borders rather
+   than floating as nine separate rounded boxes.
    =========================================================================== */
 
-.qff-band {
-  --band: #250c48;
-  --band-line: rgba(255, 255, 255, 0.11);
-  --band-ink: #f4eefc;
-  --band-ink-dim: #c3b1e0;
-  background:
-    radial-gradient(
-      ellipse 70% 90% at 12% 0%,
-      rgba(138, 63, 252, 0.34),
-      transparent 62%
-    ),
-    radial-gradient(
-      ellipse 60% 80% at 92% 100%,
-      rgba(238, 83, 150, 0.22),
-      transparent 60%
-    ),
-    var(--band);
-  color: var(--band-ink);
-}
-
 .qff-band-grid {
-  background: var(--band-line);
+  background: var(--line);
 }
 
 .qff-band-cell {
-  background: var(--band);
+  background: var(--surface);
   transition: background-color 0.35s ease;
 }
 
 .qff-band-cell:hover {
-  background: #2e1157;
+  background: var(--surface-2);
 }
 
 /* ===========================================================================
@@ -565,8 +491,9 @@ button.qff-card:hover,
   border: 0;
   background: linear-gradient(
     90deg,
-    color-mix(in srgb, var(--qff-pink) 38%, transparent),
-    var(--line) 22%,
+    var(--qff-pink) 0%,
+    color-mix(in srgb, var(--qff-pink) 45%, transparent) 12%,
+    var(--line) 34%,
     transparent 92%
   );
 }
@@ -1021,5 +948,165 @@ button.qff-card:hover,
   .qff-beacon::after {
     animation: none;
     opacity: 0;
+  }
+}
+
+/* ===========================================================================
+   Two hover moments.
+   ---------------------------------------------------------------------------
+   Both are decorative, both live on a marketing page, and both are rare enough
+   to earn the delight budget. Both are CSS animations rather than rAF, so they
+   keep running off the main thread while the page is still loading, and both
+   are gated on a real pointer — a tap fires a false hover, and a bird that
+   rains qubits every time a thumb brushes it stops being a surprise.
+   =========================================================================== */
+
+/* --- The hero bird drops its measurement ------------------------------------
+   Hovering the bird collapses a handful of qubits underneath it. They fall
+   linearly, because a falling object does not ease, and fade on the way. */
+
+.qff-qubit {
+  opacity: 0;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--qff-pink-ink);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .qff-roost:hover .qff-qubit,
+  .qff-roost:focus-visible .qff-qubit {
+    animation: qff-drop 1.15s linear infinite;
+  }
+}
+
+@keyframes qff-drop {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -4px, 0) scale(0.8);
+  }
+  18% {
+    opacity: 1;
+    transform: translate3d(0, 10px, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 76px, 0) scale(0.9);
+  }
+}
+
+/* The bird itself dips as it lets go. */
+@media (hover: hover) and (pointer: fine) {
+  .qff-roost:hover .qff-roost-bird {
+    transform: scaleX(-1) translate3d(0, 5px, 0) rotate(5deg);
+  }
+}
+
+.qff-roost-bird {
+  transition: transform 0.42s var(--ease-out);
+}
+
+/* --- A bird lands on Register ------------------------------------------------
+   Scale from 0.9, never from 0, and out through the same path it came in. */
+
+.qff-perch-bird {
+  opacity: 0;
+  transform: translate3d(0, 6px, 0) scale(0.9) rotate(-8deg);
+  transition:
+    opacity 0.2s var(--ease-out),
+    transform 0.2s var(--ease-out);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .qff-perch:hover .qff-perch-bird,
+  .qff-perch:focus-visible .qff-perch-bird {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Keep the reveal, drop the travel. */
+  .qff-roost:hover .qff-qubit,
+  .qff-roost:focus-visible .qff-qubit {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .qff-roost:hover .qff-roost-bird {
+    transform: scaleX(-1);
+  }
+  .qff-perch-bird {
+    transform: none;
+  }
+}
+
+/* ===========================================================================
+   Mobile performance overrides.
+   ---------------------------------------------------------------------------
+   Real-time backdrop-filter over an animated background destroys mobile frame
+   rates, so on small screens the blur is dropped and the surfaces go nearly
+   opaque instead.
+
+   This block has to sit AFTER the surfaces it overrides. A media query adds no
+   specificity, so while it lived above them the later `.dark .qff-island` rule
+   simply won on source order: the blur was correctly removed but the opaque
+   background never applied, which left every island genuinely see-through with
+   nothing frosting it. The mobile nav sheet was unreadable because of it.
+   =========================================================================== */
+@media (max-width: 768px) {
+  .glass,
+  .glass-dark,
+  .qff-island,
+  [class*="backdrop-blur"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.94);
+  }
+
+  .dark .glass {
+    background: rgba(20, 10, 46, 0.94);
+  }
+
+  .glass-dark {
+    background: rgba(255, 255, 255, 0.96);
+  }
+
+  .dark .glass-dark {
+    background: rgba(13, 6, 32, 0.95);
+  }
+
+  /* Fully opaque, not merely nearly. With no blur behind it, 4% of the hero
+     still showed through the nav sheet and sat behind its labels. */
+  .qff-island {
+    background: #ffffff;
+  }
+
+  .dark .qff-island {
+    background: #1a0e3a;
+  }
+
+  /* On mobile, animate opacity only (no SVG transform scaling) so the probability
+     wave sweeps across the grid smoothly without forcing SVG coordinate recalculations */
+  .qff-node {
+    animation-name: qff-swell-mobile !important;
+    transform: none !important;
+    transform-box: initial !important;
+  }
+}
+
+@keyframes qff-swell-mobile {
+  0%,
+  72%,
+  100% {
+    opacity: 0.16;
+  }
+  36% {
+    opacity: 0.95;
   }
 }

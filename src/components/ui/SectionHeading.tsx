@@ -55,7 +55,7 @@ export function SectionHeading({
       <hr className="qff-rule mt-6" />
 
       {description ? (
-        <p className="mt-7 max-w-[68ch] text-lg leading-relaxed text-ink-dim sm:text-xl sm:leading-relaxed">
+        <p className="mt-7 max-w-[68ch] text-lg leading-relaxed text-ink-dim dark:text-ink sm:text-xl sm:leading-relaxed">
           {description}
         </p>
       ) : null}
