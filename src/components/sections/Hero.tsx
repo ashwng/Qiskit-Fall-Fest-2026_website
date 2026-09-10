@@ -48,11 +48,13 @@ export function Hero() {
         role="img"
         aria-label="A Qiskit Fall Fest bird. Hover to measure a few qubits."
       >
-        <QffFigure
-          name="bird-glide"
-          flip
-          className="qff-roost-bird w-full drop-shadow-[0_6px_18px_rgba(208,38,112,0.35)]"
-        />
+        <div className="qff-roost-float">
+          <QffFigure
+            name="bird-glide"
+            flip
+            className="qff-roost-bird w-full drop-shadow-[0_6px_18px_rgba(208,38,112,0.35)]"
+          />
+        </div>
         <div aria-hidden className="absolute inset-x-0 top-full h-20">
           {QUBITS.map((q, i) => (
             <span
@@ -84,7 +86,7 @@ export function Hero() {
               aria-hidden
               className="font-display text-[2.4rem] font-extrabold leading-none tracking-[-0.035em] text-ink sm:text-5xl lg:text-6xl"
             >
-              BITS GOA
+              BITS GOA PLUS
             </span>
 
             <span aria-hidden className="flex flex-wrap items-center gap-2 sm:gap-3">

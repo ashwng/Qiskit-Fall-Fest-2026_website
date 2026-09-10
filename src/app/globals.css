@@ -669,7 +669,7 @@ button.qff-card:hover,
 
 @media (max-width: 1023px) {
   .qff-lattice {
-    opacity: 0.16 !important;
+    opacity: 0.24 !important;
     -webkit-mask-image: none;
     mask-image: none;
   }
@@ -963,7 +963,25 @@ button.qff-card:hover,
 
 /* --- The hero bird drops its measurement ------------------------------------
    Hovering the bird collapses a handful of qubits underneath it. They fall
-   linearly, because a falling object does not ease, and fade on the way. */
+   linearly, because a falling object does not ease, and fade on the way.
+
+   The idle drift lives on a wrapper and the hover dip on the bird itself: an
+   animation outranks a transition on the same element, so a bird that drifted
+   and dipped from one node would simply never dip. */
+
+.qff-roost-float {
+  animation: qff-roost-drift 11s ease-in-out infinite;
+}
+
+@keyframes qff-roost-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-1.4rem, 0.7rem, 0);
+  }
+}
 
 .qff-qubit {
   opacity: 0;
@@ -974,10 +992,19 @@ button.qff-card:hover,
   pointer-events: none;
 }
 
+.qff-roost-bird {
+  transition: transform 0.42s var(--ease-out);
+}
+
 @media (hover: hover) and (pointer: fine) {
   .qff-roost:hover .qff-qubit,
   .qff-roost:focus-visible .qff-qubit {
     animation: qff-drop 1.15s linear infinite;
+  }
+
+  /* The bird dips as it lets go. */
+  .qff-roost:hover .qff-roost-bird {
+    transform: scaleX(-1) translate3d(0, 5px, 0) rotate(5deg);
   }
 }
 
@@ -996,39 +1023,57 @@ button.qff-card:hover,
   }
 }
 
-/* The bird itself dips as it lets go. */
-@media (hover: hover) and (pointer: fine) {
-  .qff-roost:hover .qff-roost-bird {
-    transform: scaleX(-1) translate3d(0, 5px, 0) rotate(5deg);
-  }
-}
+/* --- A bird sits on Register until you reach for it --------------------------
+   It is perched by default, breathing gently. Approaching the button startles
+   it: it lifts off up and to the right and fades as it goes. Pressing sends it
+   further and faster, so the click reads as the thing that flushed it.
 
-.qff-roost-bird {
-  transition: transform 0.42s var(--ease-out);
-}
+   Same split as the hero bird — the wrapper carries the departure, the figure
+   carries the idle bob, so neither cancels the other. */
 
-/* --- A bird lands on Register ------------------------------------------------
-   Scale from 0.9, never from 0, and out through the same path it came in. */
-
-.qff-perch-bird {
-  opacity: 0;
-  transform: translate3d(0, 6px, 0) scale(0.9) rotate(-8deg);
+.qff-perch-roost {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
   transition:
-    opacity 0.2s var(--ease-out),
-    transform 0.2s var(--ease-out);
+    opacity 0.34s var(--ease-out),
+    transform 0.38s var(--ease-out);
   pointer-events: none;
 }
 
+.qff-perch-bird {
+  animation: qff-perch-bob 3.6s ease-in-out infinite;
+}
+
+@keyframes qff-perch-bob {
+  0%,
+  100% {
+    transform: scaleX(-1) translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: scaleX(-1) translate3d(0, -2px, 0) rotate(-2deg);
+  }
+}
+
 @media (hover: hover) and (pointer: fine) {
-  .qff-perch:hover .qff-perch-bird,
-  .qff-perch:focus-visible .qff-perch-bird {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  .qff-perch:hover .qff-perch-roost,
+  .qff-perch:focus-visible .qff-perch-roost {
+    opacity: 0;
+    transform: translate3d(30px, -34px, 0) rotate(-16deg) scale(0.92);
+  }
+
+  .qff-perch:active .qff-perch-roost {
+    opacity: 0;
+    transform: translate3d(46px, -52px, 0) rotate(-24deg) scale(0.84);
+    transition-duration: 0.2s;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   /* Keep the reveal, drop the travel. */
+  .qff-roost-float,
+  .qff-perch-bird {
+    animation: none;
+  }
   .qff-roost:hover .qff-qubit,
   .qff-roost:focus-visible .qff-qubit {
     animation: none;
@@ -1038,7 +1083,8 @@ button.qff-card:hover,
   .qff-roost:hover .qff-roost-bird {
     transform: scaleX(-1);
   }
-  .qff-perch-bird {
+  .qff-perch:hover .qff-perch-roost,
+  .qff-perch:focus-visible .qff-perch-roost {
     transform: none;
   }
 }
