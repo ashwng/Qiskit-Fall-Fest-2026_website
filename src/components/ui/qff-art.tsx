@@ -16,6 +16,8 @@ export type QffArtName = keyof typeof QFF_ART;
  * (Qiskit-Fall-Fest-2026/materials-resources) and re-cut as <symbol>s so the
  * animated backgrounds can place each bird freely.
  *
+ * MIT licensed by Qiskit Fall Fest 2026 — see public/brand/README.md.
+ *
  * Generated — do not hand-edit. The badge rings, framing discs and baked-in
  * clouds were stripped; gradient and mask ids are namespaced per symbol.
  *

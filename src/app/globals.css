@@ -231,26 +231,6 @@ body {
   color: transparent;
 }
 
-.glow-button {
-  position: relative;
-}
-
-.glow-button::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, var(--qff-pink), var(--qiskit-violet));
-  z-index: -1;
-  opacity: 0.45;
-  transition: opacity 0.3s ease;
-  filter: blur(8px);
-}
-
-.glow-button:hover::before {
-  opacity: 1;
-}
-
 /* Visible, on-brand focus ring for keyboard navigation */
 :focus-visible {
   outline: 2px solid var(--qff-pink-deep);
