@@ -88,70 +88,70 @@ export function Navbar() {
           )}
           aria-label="Primary"
         >
-        <Link
-          href={isHome ? "#top" : "/#top"}
-          className="group hidden shrink-0 items-center gap-2.5 rounded-full pl-1 pr-2 lg:flex"
-        >
-          <span className="relative block h-11 w-11 overflow-hidden rounded-full border border-line bg-surface-2 transition-transform duration-300 group-hover:scale-105">
-            <Image
-              src="/image-removebg-preview.png"
-              alt=""
-              width={44}
-              height={44}
-              className="object-cover"
-            />
-          </span>
-          <span className="sr-only">{event.fullName}</span>
-        </Link>
-
-        <ul className="hidden items-center gap-0.5 lg:flex">
-          {navItems.map((item) => {
-            const active = isHome && activeId === item.href;
-            return (
-              <li key={item.href}>
-                <Link
-                  href={isHome ? item.href : `/${item.href}`}
-                  aria-current={active ? "true" : undefined}
-                  className={cn(
-                    "block whitespace-nowrap rounded-full px-3.5 py-2.5 text-sm transition-colors duration-200",
-                    active
-                      ? "bg-ink/[0.07] font-semibold text-ink dark:bg-white/10"
-                      : "font-medium text-ink-dim hover:bg-ink/[0.04] hover:text-ink dark:hover:bg-white/[0.06]",
-                  )}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-
-        <div className="flex shrink-0 items-center gap-2">
-          {/* A bird comes down to perch on the button when you reach for it. */}
           <Link
-            href={registerTarget}
-            aria-current={onRegistration ? "page" : undefined}
-            className="qff-beacon qff-perch relative hidden items-center whitespace-nowrap rounded-full bg-pink-fill px-6 py-3 text-sm font-bold text-white shadow-[0_6px_20px_-6px_rgba(208,38,112,0.9)] transition-all duration-300 hover:bg-pink-fill-hover hover:shadow-[0_8px_26px_-6px_rgba(208,38,112,1)] lg:inline-flex"
+            href={isHome ? "#top" : "/#top"}
+            className="group hidden shrink-0 items-center gap-2.5 rounded-full pl-1 pr-2 lg:flex"
           >
-            <span aria-hidden className="qff-perch-roost absolute -top-7 right-2 block w-10 origin-bottom">
-              <QffFigure name="bird-soar" flip className="qff-perch-bird w-full" />
+            <span className="relative block h-11 w-11 overflow-hidden rounded-full border border-line bg-surface-2 transition-transform duration-300 group-hover:scale-105">
+              <Image
+                src="/image-removebg-preview.png"
+                alt=""
+                width={44}
+                height={44}
+                className="object-cover"
+              />
             </span>
-            Register
+            <span className="sr-only">{event.fullName}</span>
           </Link>
 
-          {/* The phone's only nav affordance. It carries the island surface
+          <ul className="hidden items-center gap-0.5 lg:flex">
+            {navItems.map((item) => {
+              const active = isHome && activeId === item.href;
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={isHome ? item.href : `/${item.href}`}
+                    aria-current={active ? "true" : undefined}
+                    className={cn(
+                      "block whitespace-nowrap rounded-full px-3.5 py-2.5 text-sm transition-colors duration-200",
+                      active
+                        ? "bg-ink/[0.07] font-semibold text-ink dark:bg-white/10"
+                        : "font-medium text-ink-dim hover:bg-ink/[0.04] hover:text-ink dark:hover:bg-white/[0.06]",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+
+          <div className="flex shrink-0 items-center gap-2">
+            {/* A bird comes down to perch on the button when you reach for it. */}
+            <Link
+              href={registerTarget}
+              aria-current={onRegistration ? "page" : undefined}
+              className="qff-beacon qff-perch relative hidden items-center whitespace-nowrap rounded-full bg-pink-fill px-6 py-3 text-sm font-bold text-white shadow-[0_6px_20px_-6px_rgba(208,38,112,0.9)] transition-all duration-300 hover:bg-pink-fill-hover hover:shadow-[0_8px_26px_-6px_rgba(208,38,112,1)] lg:inline-flex"
+            >
+              <span aria-hidden className="qff-perch-roost absolute -top-7 right-2 block w-10 origin-bottom">
+                <QffFigure name="bird-soar" flip className="qff-perch-bird w-full" />
+              </span>
+              Register
+            </Link>
+
+            {/* The phone's only nav affordance. It carries the island surface
               itself, since there is no capsule behind it any more. */}
-          <button
-            type="button"
-            onClick={() => setOpen((value) => !value)}
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-            aria-label={open ? "Close menu" : "Open menu"}
-            className="qff-island ml-auto grid h-12 w-12 place-items-center rounded-full text-ink transition-transform duration-300 hover:-translate-y-0.5 lg:hidden"
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </div>
+            <button
+              type="button"
+              onClick={() => setOpen((value) => !value)}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              aria-label={open ? "Close menu" : "Open menu"}
+              className="qff-island ml-auto grid h-12 w-12 place-items-center rounded-full text-ink transition-transform duration-300 hover:-translate-y-0.5 lg:hidden"
+            >
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </nav>
 
         <IbmMark className="hidden justify-self-end lg:inline-flex" />
