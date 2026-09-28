@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { speakers } from "@/data/speakers";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Section } from "@/components/ui/Section";
@@ -44,27 +45,37 @@ export function SpeakersSection() {
           </div>
         </RevealOnScroll>
       ) : (
-        <div className="mt-12 grid gap-5 sm:mt-14 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 flex flex-wrap justify-center gap-5 sm:mt-14">
           {announced.map((speaker, i) => (
-            <RevealOnScroll key={speaker.id} delayMs={i * 60}>
-              <div className="qff-card qff-card-interactive group h-full p-6">
-                <div className="overflow-hidden rounded-xl">
-                  <PlaceholderAvatar
-                    seed={speaker.imageSeed}
-                    className="aspect-square w-full rounded-xl transition-transform duration-500 group-hover:scale-105"
-                  />
+            <RevealOnScroll
+              key={speaker.id}
+              delayMs={i * 60}
+              className="w-full sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]"
+            >
+              <div className="qff-card qff-card-interactive group flex h-full flex-col p-6">
+                <div className="relative aspect-square w-full overflow-hidden rounded-xl">
+                  {speaker.image ? (
+                    <Image
+                      src={speaker.image}
+                      alt={speaker.name}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <PlaceholderAvatar
+                      seed={speaker.imageSeed}
+                      className="aspect-square w-full rounded-xl transition-transform duration-500 group-hover:scale-105"
+                    />
+                  )}
                 </div>
                 <p className="mt-5 font-display text-lg font-bold text-ink">
                   {speaker.name}
                 </p>
-                <p className="mt-1 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-pink-ink">
-                  {speaker.designation}
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  {speaker.description}
                 </p>
-                <p className="mt-1 text-xs text-muted">{speaker.organization}</p>
-                <p className="mt-4 text-sm leading-relaxed text-muted">
-                  {speaker.bio}
-                </p>
-                <ul className="mt-5 flex gap-2">
+                <ul className="mt-auto flex gap-2 pt-5">
                   {speaker.socials
                     .filter((s) => s.href && s.href !== "#")
                     .map((s) => (

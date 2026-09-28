@@ -39,9 +39,8 @@ export interface SocialLink {
 export interface Speaker {
   id: string;
   name: string;
-  designation: string;
-  organization: string;
-  bio: string;
+  description: string;
+  image?: string; // path under /public; falls back to the placeholder avatar
   imageSeed: string; // used to generate a deterministic placeholder avatar
   socials: SocialLink[];
 }
