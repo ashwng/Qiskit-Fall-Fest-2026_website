@@ -56,7 +56,8 @@ export interface TeamMember {
   id: string;
   name: string;
   role: string;
-  team: string;
+  note?: string; // optional one-liner shown under the role
+  image?: string; // path under /public; falls back to the placeholder avatar
   imageSeed: string;
   socials: SocialLink[];
 }
