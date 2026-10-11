@@ -10,6 +10,7 @@ import {
   Sparkles,
   AlertCircle,
   Download,
+  Printer,
   Calendar,
   RotateCcw,
   CheckCircle2,
@@ -59,6 +60,22 @@ export function RegistrationForm({ initialReferralCode = "" }: { initialReferral
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [ticketId, setTicketId] = useState("");
   const [referralCode, setReferralCode] = useState("");
+  const [isDownloadingPass, setIsDownloadingPass] = useState(false);
+  const [passError, setPassError] = useState("");
+
+  const downloadPass = async () => {
+    setIsDownloadingPass(true);
+    setPassError("");
+    try {
+      const { downloadPassPdf } = await import("@/lib/pass-pdf");
+      await downloadPassPdf({ ticketId, fullName: formData.fullName, institution: formData.institution,
+        attendanceMode: formData.attendanceMode, tshirtSize: formData.tshirtSize, referralCode });
+    } catch {
+      setPassError("Couldn't create your PDF. Please try again, or use Print pass below.");
+    } finally {
+      setIsDownloadingPass(false);
+    }
+  };
 
   const updateField = <K extends keyof RegistrationFormData>(
     field: K,
@@ -185,6 +202,7 @@ export function RegistrationForm({ initialReferralCode = "" }: { initialReferral
     setTicketId("");
     setReferralCode("");
     setSubmitError(null);
+    setPassError("");
   };
 
   // If submitted, display digital attendee pass
@@ -321,13 +339,18 @@ export function RegistrationForm({ initialReferralCode = "" }: { initialReferral
 
           {/* Action Buttons */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4 print:hidden">
+            <button type="button" onClick={downloadPass} disabled={isDownloadingPass}
+              className="inline-flex items-center gap-2 rounded-full bg-pink-fill px-6 py-3 font-display text-sm font-bold text-white transition-colors hover:bg-pink-fill-hover disabled:opacity-60">
+              {isDownloadingPass ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+              {isDownloadingPass ? "Preparing PDF…" : "Download Pass PDF"}
+            </button>
             <button
               type="button"
               onClick={() => window.print()}
               className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-6 py-3 font-display text-sm font-bold text-ink-dim backdrop-blur-sm transition-all duration-300 hover:border-pink/60 hover:bg-surface-2 hover:text-ink"
             >
-              <Download className="h-4 w-4 text-pink-ink" />
-              Print / Save Pass
+              <Printer className="h-4 w-4 text-pink-ink" />
+              Print pass
             </button>
             <a
               href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=BITS+Qiskit+Fall+Fest+2026&dates=20261028%2F20261102&details=PLUS+Qiskit+Fall+Fest+at+BITS+Pilani&location=BITS+Pilani&"
@@ -347,6 +370,8 @@ export function RegistrationForm({ initialReferralCode = "" }: { initialReferral
               Register Another Person
             </button>
           </div>
+          <p className="mt-4 text-xs text-muted print:hidden">For the cleanest print, download your PDF and print it at actual size.</p>
+          {passError && <p role="alert" className="mt-3 text-sm text-danger print:hidden">{passError}</p>}
         </div>
       </div>
     );

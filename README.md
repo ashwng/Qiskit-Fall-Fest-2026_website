@@ -21,6 +21,11 @@ Set `DATABASE_URL` in `.env.local` and run `npm run db:init` before using the fo
 For an existing installation, run this command to add the `referrers` table;
 the migration preserves existing registrations and their referral codes.
 
+After registering, attendees can use **Download Pass PDF** for a standalone A5
+ticket without browser headers or URLs. The PDF is generated locally in the
+browser, using the site's fonts and a vector Code 39 barcode. **Print pass**
+remains available with a simplified, pass-only print layout.
+
 ## Build for production
 
 ```bash
