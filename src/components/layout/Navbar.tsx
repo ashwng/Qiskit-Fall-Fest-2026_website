@@ -70,7 +70,7 @@ export function Navbar() {
     };
   }, [open]);
 
-  const registerTarget = isHome ? event.registerHref : "#form-section";
+  const registerTarget = onRegistration ? "#form-section" : event.registerHref;
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-5 sm:pt-5 lg:pt-9 print:hidden">
@@ -127,6 +127,10 @@ export function Navbar() {
           </ul>
 
           <div className="flex shrink-0 items-center gap-2">
+            <Link href="/referral" aria-current={pathname === "/referral" ? "page" : undefined}
+              className="hidden rounded-full px-3 py-2 text-sm font-medium text-ink-dim hover:text-pink-ink lg:inline-flex">
+              Refer
+            </Link>
             {/* A bird comes down to perch on the button when you reach for it. */}
             <Link
               href={registerTarget}
@@ -186,6 +190,12 @@ export function Navbar() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link href="/referral" onClick={() => setOpen(false)}
+                className="block rounded-2xl px-4 py-3 text-sm font-medium text-ink-dim hover:text-pink-ink">
+                Become a referrer
+              </Link>
+            </li>
           </ul>
 
           <div className="mt-2 flex justify-center">

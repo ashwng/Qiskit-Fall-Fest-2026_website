@@ -184,7 +184,9 @@ export async function registerAttendee(
         };
       }
 
-      const referrerMatch = await sql`
+      const referrerMatch = referredByCode.startsWith("QREF") ? await sql`
+        SELECT id FROM referrers WHERE referral_code = ${referredByCode} LIMIT 1;
+      ` : await sql`
         SELECT id
         FROM registrations
         WHERE referral_code = ${referredByCode}
@@ -253,7 +255,11 @@ export async function registerAttendee(
 
           if (referredByCode) {
             queries.push(
-              tx`
+              referredByCode.startsWith("QREF") ? tx`
+                UPDATE referrers
+                SET referral_count = referral_count + 1
+                WHERE referral_code = ${referredByCode};
+              ` : tx`
                 UPDATE registrations
                 SET referral_count = referral_count + 1
                 WHERE referral_code = ${referredByCode};

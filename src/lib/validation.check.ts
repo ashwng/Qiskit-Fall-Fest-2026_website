@@ -7,6 +7,7 @@
  */
 
 import assert from "node:assert/strict";
+import { validateReferrer } from "./referral-validation.ts";
 import {
   LIMITS,
   takeInterests,
@@ -18,6 +19,24 @@ import {
 
 function errs(): FieldError[] {
   return [];
+}
+
+// The public referrer action must reject malformed or missing data, including
+// a truthy string that impersonates checkbox consent.
+{
+  const valid = { fullName: " Ada Lovelace ", email: " ADA@EXAMPLE.COM ", phone: "+91 1234567890", institution: " BITS Goa ", agreedToTerms: "on" };
+  assert.equal(validateReferrer(valid).data?.email, "ada@example.com");
+  assert.equal(validateReferrer(valid).data?.fullName, "Ada Lovelace");
+  assert.equal(validateReferrer({}).data, null);
+  for (const [field, value] of [
+    ["fullName", "x".repeat(LIMITS.fullName + 1)],
+    ["email", "invalid"], ["phone", 123], ["institution", "  "],
+    ["agreedToTerms", "false"], ["agreedToTerms", true],
+  ] as const) {
+    const result = validateReferrer({ ...valid, [field]: value });
+    assert.equal(result.data, null, `${field} rejects malformed input`);
+    assert.ok(result.errors[field]);
+  }
 }
 
 // --- takeText -------------------------------------------------------------

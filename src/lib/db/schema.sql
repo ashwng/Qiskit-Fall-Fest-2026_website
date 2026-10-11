@@ -50,6 +50,19 @@ CREATE INDEX IF NOT EXISTS idx_registrations_ticket_id ON registrations (ticket_
 -- Index on created_at for chronological ordering
 CREATE INDEX IF NOT EXISTS idx_registrations_created_at ON registrations (created_at DESC);
 
+-- Referrer signup is independent of attendee registration and does not issue a ticket.
+CREATE TABLE IF NOT EXISTS referrers (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  full_name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL CHECK (email = LOWER(email)),
+  phone VARCHAR(50) NOT NULL,
+  institution VARCHAR(255) NOT NULL,
+  referral_code VARCHAR(20) UNIQUE NOT NULL CHECK (referral_code ~ '^QREF[A-F0-9]{10}$'),
+  referral_count INTEGER NOT NULL DEFAULT 0,
+  agreed_to_terms BOOLEAN NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 -- ---------------------------------------------------------------------------
 -- Rate limiting counters.
 --

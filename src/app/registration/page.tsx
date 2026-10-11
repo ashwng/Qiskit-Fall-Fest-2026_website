@@ -17,7 +17,12 @@ export const metadata: Metadata = {
     "Register for PLUS Qiskit Fall Fest 2026. Secure your free spot for three days of talks, hands-on Qiskit hardware labs, and a 24-hour quantum hackathon.",
 };
 
-export default function RegistrationPage() {
+export default async function RegistrationPage({ searchParams }: {
+  searchParams: Promise<{ ref?: string | string[] }>;
+}) {
+  const { ref } = await searchParams;
+  const initialReferralCode = typeof ref === "string" && /^[A-Za-z0-9]{6,20}$/.test(ref)
+    ? ref.toUpperCase() : "";
   return (
     <>
       <Navbar />
@@ -94,7 +99,7 @@ export default function RegistrationPage() {
           bordered
           className="bg-surface/20 print:border-none print:p-0 print:m-0 print:bg-transparent"
         >
-          <RegistrationForm />
+          <RegistrationForm key={initialReferralCode} initialReferralCode={initialReferralCode} />
         </Section>
 
         {/* Perks & Admission Privileges */}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { LIMITS } from "@/lib/validation";
 import {
   Check,
@@ -48,9 +49,9 @@ const initialFormData: RegistrationFormData = {
   willingToBePOC: false,
 };
 
-export function RegistrationForm() {
+export function RegistrationForm({ initialReferralCode = "" }: { initialReferralCode?: string }) {
   const [step, setStep] = useState<1 | 2>(1);
-  const [formData, setFormData] = useState<RegistrationFormData>(initialFormData);
+  const [formData, setFormData] = useState<RegistrationFormData>({ ...initialFormData, referredByCode: initialReferralCode });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionPhase, setSubmissionPhase] = useState("");
@@ -178,7 +179,7 @@ export function RegistrationForm() {
   };
 
   const resetForm = () => {
-    setFormData(initialFormData);
+    setFormData({ ...initialFormData, referredByCode: initialReferralCode });
     setStep(1);
     setIsSubmitted(false);
     setTicketId("");
@@ -413,6 +414,10 @@ export function RegistrationForm() {
               </h3>
               <p className="mt-1 text-sm text-muted">
                 Please enter your details as they should appear on your fest credentials and completion certificate.
+              </p>
+              <p className="mt-3 text-sm text-muted">
+                Want to invite your community?{" "}
+                <Link href="/referral" className="font-semibold text-pink-ink underline underline-offset-4">Become a referrer</Link>.
               </p>
             </div>
 

@@ -9,6 +9,18 @@ npm run dev
 
 Open http://localhost:3000.
 
+## Registration and referrals
+
+`/referral` provides independent referrer signup, a personal code, and a shareable
+`/registration?ref=CODE` link. Referrer signup does not create an attendee ticket.
+Repeated signup with the same email returns the existing public code without
+changing the saved profile. Completed attendee registrations count referrals in
+the same database transaction as the attendee record.
+
+Set `DATABASE_URL` in `.env.local` and run `npm run db:init` before using the forms.
+For an existing installation, run this command to add the `referrers` table;
+the migration preserves existing registrations and their referral codes.
+
 ## Build for production
 
 ```bash

@@ -877,7 +877,8 @@ button.qff-card:hover,
     background: #f8fafc !important;
   }
 
-  #printable-pass svg rect {
+  /* Keep the barcode's white background and quiet zones clear when printing. */
+  #printable-pass svg rect[fill="black"] {
     fill: #0b0f19 !important;
   }
 }
