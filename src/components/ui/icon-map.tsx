@@ -5,12 +5,6 @@ import {
   Clock,
   Ticket,
   Layers,
-  Flag,
-  Puzzle,
-  GanttChartSquare,
-  Gavel,
-  Trophy,
-  CheckCircle2,
   type LucideIcon,
 } from "lucide-react";
 
@@ -21,13 +15,4 @@ export const detailIconMap: Record<string, LucideIcon> = {
   clock: Clock,
   ticket: Ticket,
   layers: Layers,
-};
-
-export const hackathonIconMap: Record<string, LucideIcon> = {
-  flag: Flag,
-  puzzle: Puzzle,
-  timeline: GanttChartSquare,
-  gavel: Gavel,
-  trophy: Trophy,
-  "check-circle": CheckCircle2,
 };

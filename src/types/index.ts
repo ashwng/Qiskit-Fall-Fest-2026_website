@@ -12,13 +12,7 @@ export interface EventDetail {
   label: string;
   value: string;
   icon: "calendar" | "map-pin" | "users" | "clock" | "ticket" | "layers";
-}
-
-export interface HackathonCard {
-  id: string;
-  title: string;
-  description: string;
-  icon: "flag" | "puzzle" | "timeline" | "gavel" | "trophy" | "check-circle";
+  cta?: { label: string; href: string }; // optional button beside the value
 }
 
 export interface ScheduleItem {

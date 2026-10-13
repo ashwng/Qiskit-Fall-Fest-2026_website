@@ -3,21 +3,29 @@ import Image from "next/image";
 /**
  * The two organisation marks that flank the nav.
  *
- * qBITS runs the fest; its wordmark has a single black rounded plate. IBM's
+ * qBITS runs the fest; its wordmark sits on the page with no plate. IBM's
  * Qiskit is what it runs on, so that mark keeps the shared island treatment.
  */
 
 export function QbitsMark({ className = "" }: { className?: string }) {
+  // Transparent wordmark: white lettering in dark mode, ink lettering in light.
+  const alt = "qBITS, BITS Goa — the student body running the fest";
   return (
-    <span
-      className={`inline-flex shrink-0 items-center rounded-full bg-[#050509] px-3.5 py-1.5 ${className}`}
-    >
+    <span className={`inline-flex shrink-0 items-center ${className}`}>
       <Image
-        src="/brand/qbits.png"
-        alt="qBITS, BITS Goa — the student body running the fest"
-        width={634}
-        height={231}
-        className="h-7 w-auto sm:h-8"
+        src="/brand/qbits-ink.png"
+        alt={alt}
+        width={773}
+        height={259}
+        className="h-11 w-auto sm:h-14 dark:hidden"
+        preload
+      />
+      <Image
+        src="/brand/qbits-white.png"
+        alt={alt}
+        width={773}
+        height={259}
+        className="hidden h-11 w-auto sm:h-14 dark:block"
         preload
       />
     </span>

@@ -80,13 +80,13 @@ export function Hero() {
           {/* The fest's own lettering, from the official sticker pack, instead
               of the name typed out in the site's display face. */}
           <h1 className="flex flex-col items-start gap-3 sm:gap-4">
-            <span className="sr-only">{`${event.organizer} — ${event.fullName}`}</span>
+            <span className="sr-only">{`IBM ${event.fullName}`}</span>
 
             <span
               aria-hidden
               className="font-display text-[2.4rem] font-extrabold leading-none tracking-[-0.035em] text-ink sm:text-5xl lg:text-6xl"
             >
-              BITS GOA PLUS
+              IBM PLUS
             </span>
 
             <span aria-hidden className="flex flex-wrap items-center gap-2 sm:gap-3">
@@ -166,9 +166,6 @@ export function Hero() {
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(138,63,252,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(138,63,252,0.05)_1px,transparent_1px)] bg-[size:20px_20px]" />
             <HeroSphere />
           </div>
-          <p className="mt-5 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-            One qubit · move your cursor
-          </p>
         </div>
       </div>
     </section>

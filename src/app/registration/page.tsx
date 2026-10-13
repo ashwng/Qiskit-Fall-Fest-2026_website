@@ -14,7 +14,7 @@ import { ArrowLeft, MapPin, Calendar, Ticket } from "lucide-react";
 export const metadata: Metadata = {
   title: "Registration",
   description:
-    "Register for PLUS Qiskit Fall Fest 2026. Secure your free spot for three days of talks, hands-on Qiskit hardware labs, and a 24-hour quantum hackathon.",
+    "Register for PLUS Qiskit Fall Fest 2026. Secure your free spot for three days of talks, hands-on Qiskit hardware labs, and a 72-hour quantum hackathon.",
 };
 
 export default async function RegistrationPage({ searchParams }: {

@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | QFF 2026",
   },
   description:
-    "BITS Qiskit Fall Fest 2026 (QFF 2026) — talks, workshops, and a 24-hour quantum computing hackathon at BITS Pilani.",
+    "BITS Qiskit Fall Fest 2026 (QFF 2026) — talks, workshops, and a 72-hour quantum computing hackathon at BITS Pilani.",
   keywords: [
     "Qiskit Fall Fest",
     "QFF 2026",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "BITS Qiskit Fall Fest 2026",
     description:
-      "A campus-wide gathering for quantum computing — talks, workshops, and a 24-hour hackathon at BITS Pilani.",
+      "A campus-wide gathering for quantum computing — talks, workshops, and a 72-hour hackathon at BITS Pilani.",
     url: siteUrl,
     siteName: "QFF 2026",
     type: "website",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BITS Qiskit Fall Fest 2026",
     description:
-      "A campus-wide gathering for quantum computing — talks, workshops, and a 24-hour hackathon at BITS Pilani.",
+      "A campus-wide gathering for quantum computing — talks, workshops, and a 72-hour hackathon at BITS Pilani.",
     images: ["/og-image.png"],
   },
 };
