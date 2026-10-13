@@ -39,11 +39,11 @@ export const speakers: Speaker[] = [
     socials: [{ platform: "linkedin", href: "https://www.linkedin.com/in/vedangipathak/" }],
   },
   {
-    id: "bhupinder-singh",
-    name: "Bhupinder Singh",
+    id: "bhupendra-singh",
+    name: "Bhupendra Singh",
     description: "Post-Quantum Cryptography @ DRDO",
-    image: "/speakers/bhupinder-singh.jpg",
-    imageSeed: "qff-speaker-bhupinder-singh",
+    image: "/speakers/bhupendra-singh.jpg",
+    imageSeed: "qff-speaker-bhupendra-singh",
     socials: [{ platform: "linkedin", href: "https://www.linkedin.com/in/bhupendra-singh-5ab5327" }],
   },
   {

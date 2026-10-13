@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { eventDetails, event } from "@/data/event";
 import { detailIconMap } from "@/components/ui/icon-map";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -36,8 +38,17 @@ export function DetailsSection() {
                 <dt className="font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-pink-ink">
                   {detail.label}
                 </dt>
-                <dd className="col-start-2 text-base font-medium leading-snug text-ink sm:col-start-3 sm:text-lg">
+                <dd className="col-start-2 flex flex-wrap items-center gap-x-4 gap-y-3 text-base font-medium leading-snug text-ink sm:col-start-3 sm:text-lg">
                   {isPending(detail.value) ? <Pending /> : detail.value}
+                  {detail.cta ? (
+                    <Link
+                      href={detail.cta.href}
+                      className="group inline-flex items-center gap-2 rounded-full bg-pink-fill px-5 py-2 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-pink-fill-hover"
+                    >
+                      {detail.cta.label}
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </Link>
+                  ) : null}
                 </dd>
               </div>
             </RevealOnScroll>

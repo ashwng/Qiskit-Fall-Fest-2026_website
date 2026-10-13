@@ -8,7 +8,7 @@ export const registrationHeader = {
   title: "Reserve Your Spot at QFF 2026",
   tagline: "BITS Qiskit Fall Fest 2026 — BITS Pilani",
   description:
-    "Join hundreds of students, researchers, and quantum enthusiasts for three days of keynotes, guided lab sessions, and a 24-hour hackathon on real quantum hardware. Registration is completely free.",
+    "Join hundreds of students, researchers, and quantum enthusiasts for three days of keynotes, guided lab sessions, and a 72-hour hackathon on real quantum hardware. Registration is completely free.",
   notice:
     "Early applications are prioritized for hands-on hardware compute credits and swag kits. Acceptance confirmations will be emailed in batches.",
 };
@@ -51,7 +51,7 @@ export const registrationPerks: RegistrationPerk[] = [
     id: "food",
     title: "Food & Refreshments",
     description:
-      "Catered meals, midnight snacks, and coffee bar provided to keep your energy high throughout the 24-hour hackathon.",
+      "Catered meals, midnight snacks, and coffee bar provided to keep your energy high throughout the 72-hour hackathon.",
     icon: "coffee",
   },
 ];

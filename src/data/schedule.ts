@@ -1,101 +1,82 @@
 import type { ScheduleItem } from "@/types";
 
+// One entry per confirmed talk. Open slots are left out until they are filled.
 export const schedule: ScheduleItem[] = [
-  // Day 1
+  // Wed, Oct 28
   {
-    id: "d1-01",
-    day: "Day 1",
-    time: "6:00 PM - 7:00 PM",
-    title: "QC101",
-    description: "Introduction to Quantum Computing basics.",
-    track: "Workshop",
+    id: "oct28-1",
+    day: "Wed, Oct 28",
+    time: "5:00 PM - 7:00 PM",
+    title: "Bhanwar Gupta",
+    description: "IBM",
+    track: "In person",
   },
   {
-    id: "d1-02",
-    day: "Day 1",
-    time: "7:30 PM - 8:30 PM",
-    title: "Qiskit101",
-    description: "Getting started with Qiskit.",
-    track: "Workshop",
+    id: "oct28-2",
+    day: "Wed, Oct 28",
+    time: "7:00 PM - 8:00 PM",
+    title: "Manoj Nambiar",
+    description: "TCS",
+    track: "Virtual",
   },
-
-  // Day 2
+  // Thu, Oct 29
   {
-    id: "d2-01",
-    day: "Day 2",
-    time: "6:00 PM - 7:00 PM",
-    title: "Campus Talk",
-    description: "Insights from our campus researchers.",
-    track: "Talks",
-  },
-  {
-    id: "d2-02",
-    day: "Day 2",
-    time: "7:30 PM - 8:30 PM",
-    title: "IBM Talk",
-    description: "Industry perspectives from IBM experts.",
-    track: "Talks",
-  },
-
-  // Day 3
-  {
-    id: "d3-01",
-    day: "Day 3",
-    time: "6:00 PM - 7:00 PM",
-    title: "Campus Talk",
-    description: "Deep dive into quantum algorithms.",
-    track: "Talks",
+    id: "oct29-1",
+    day: "Thu, Oct 29",
+    time: "5:00 PM - 7:00 PM",
+    title: "Nick Bronn",
+    description: "IBM New York",
+    track: "Virtual",
   },
   {
-    id: "d3-02",
-    day: "Day 3",
-    time: "7:30 PM - 8:30 PM",
-    title: "IBM Talk",
-    description: "Scaling quantum hardware.",
-    track: "Talks",
+    id: "oct29-2",
+    day: "Thu, Oct 29",
+    time: "7:00 PM - 8:00 PM",
+    title: "Santosh Kumar",
+    description: "IIT Goa, Photonics",
+    track: "In person",
   },
-
-  // Day 4
+  // Fri, Oct 30
   {
-    id: "d4-01",
-    day: "Day 4",
-    time: "10:00 AM - 11:00 AM",
-    title: "Campus Talk",
-    description: "Quantum machine learning applications.",
-    track: "Talks",
+    id: "oct30-1",
+    day: "Fri, Oct 30",
+    time: "5:00 PM - 7:00 PM",
+    title: "Prof. Anil Prabhakar",
+    description: "IIT Madras",
+    track: "In person",
   },
+  // Sat, Oct 31
   {
-    id: "d4-02",
-    day: "Day 4",
-    time: "11:30 AM - 12:30 PM",
-    title: "IBM Talk",
-    description: "Error mitigation and error correction.",
-    track: "Talks",
-  },
-  {
-    id: "d4-03",
-    day: "Day 4",
-    time: "2:00 PM - 3:00 PM",
-    title: "Campus Talk",
-    description: "Student projects and research showcase.",
-    track: "Talks",
+    id: "oct31-1",
+    day: "Sat, Oct 31",
+    time: "11:00 AM - 12:30 PM",
+    title: "Vedangi Pathak",
+    description: "IBM Vancouver",
+    track: "Virtual",
   },
   {
-    id: "d4-04",
-    day: "Day 4",
-    time: "3:30 PM - 4:30 PM",
-    title: "IBM Talk",
-    description: "The future of quantum utility.",
-    track: "Talks",
+    id: "oct31-2",
+    day: "Sat, Oct 31",
+    time: "1:00 PM - 2:30 PM",
+    title: "Bhupendra Singh",
+    description: "DRDO",
+    track: "In person",
   },
-
-  // Day 5
   {
-    id: "d5-01",
-    day: "Day 5",
-    time: "TBA",
-    title: "To be announced",
-    description: "Schedule for Day 5 will be updated soon.",
-    track: "General",
+    id: "oct31-3",
+    day: "Sat, Oct 31",
+    time: "3:00 PM - 4:00 PM",
+    title: "Anupama Ray",
+    description: "IBM India",
+    track: "Virtual",
+  },
+  // Sun, Nov 1
+  {
+    id: "nov1-1",
+    day: "Sun, Nov 1",
+    time: "3:00 PM - 4:00 PM",
+    title: "Ritajit Majumdar",
+    description: "IBM India",
+    track: "Virtual",
   },
 ];

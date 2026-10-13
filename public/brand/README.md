@@ -37,10 +37,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## qBITS (`qbits.png`)
+## qBITS (`qbits-white.png`, `qbits-ink.png`)
 
-The society's own logo, cropped to its wordmark. Not covered by the licence
-above.
+The society's own logo on a transparent background, trimmed to its wordmark.
+`qbits-white.png` is the original (white lettering, for dark mode);
+`qbits-ink.png` recolours the lettering to the site's ink for light mode.
+Not covered by the licence above.
 
 ## IBM
 
