@@ -102,4 +102,12 @@ export const team: TeamMember[] = [
     imageSeed: "qff-team-kavish-shah",
     socials: [{ platform: "linkedin", href: "#" }],
   },
+  {
+    id: "kanishk",
+    name: "Kanishk",
+    role: "Co-organiser",
+    image: "/team/kanishk.jpg",
+    imageSeed: "qff-team-kanishk",
+    socials: [{ platform: "linkedin", href: "#" }],
+  },
 ];

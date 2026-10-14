@@ -43,7 +43,9 @@ export interface Collaboration {
   id: string;
   name: string;
   tier: "title" | "partner" | "collaborator";
-  logoInitial: string; // placeholder mark shown until a real logo is supplied
+  logoInitial?: string; // placeholder mark shown until a real logo is supplied
+  logo?: string;
+  url?: string;
 }
 
 export interface TeamMember {

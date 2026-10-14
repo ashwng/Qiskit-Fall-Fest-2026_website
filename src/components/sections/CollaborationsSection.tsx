@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { collaborations } from "@/data/collaborations";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Section } from "@/components/ui/Section";
@@ -41,11 +42,33 @@ export function CollaborationsSection() {
               <p className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-pink-ink">
                 {tierLabel[tier]}
               </p>
-              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              <div
+                className={
+                  tier === "title"
+                    ? "mt-4 max-w-xs sm:max-w-sm"
+                    : "mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4"
+                }
+              >
                 {items.map((c, i) => (
                   <RevealOnScroll key={c.id} variant="soft" delayMs={i * 50}>
                     {isPending(c.name) ? (
                       <div className="h-24 rounded-xl border border-dashed border-pink/25" />
+                    ) : c.logo ? (
+                      <a
+                        href={c.url || "#"}
+                        target={c.url ? "_blank" : undefined}
+                        rel={c.url ? "noopener noreferrer" : undefined}
+                        aria-label={c.name}
+                        className="qff-card qff-card-interactive flex h-24 sm:h-28 items-center justify-center p-5 text-center transition-all duration-300 hover:-translate-y-0.5"
+                      >
+                        <Image
+                          src={c.logo}
+                          alt={c.name}
+                          width={1024}
+                          height={244}
+                          className="h-9 sm:h-11 w-auto max-w-[85%] object-contain invert dark:invert-0"
+                        />
+                      </a>
                     ) : (
                       <div className="qff-card qff-card-interactive flex h-24 flex-col items-center justify-center gap-2.5 px-4 text-center">
                         <span className="grid h-9 w-9 place-items-center rounded-full border border-line bg-surface-2 font-display text-sm font-bold text-pink-ink">
