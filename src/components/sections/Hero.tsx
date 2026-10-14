@@ -127,18 +127,15 @@ export function Hero() {
 
           {/* The facts as a spec strip. Hairlines between them, so it reads as
               one line of record. */}
-          <dl className="mt-9 flex flex-col gap-px overflow-hidden rounded-xl border border-line bg-line/60 sm:mt-10 sm:flex-row">
+          <div className="mt-9 flex flex-col gap-px overflow-hidden rounded-xl border border-line bg-line/60 sm:mt-10 sm:flex-row">
             {facts.map((fact) => (
               <div key={fact.label} className="flex-1 bg-surface/80 px-5 py-4">
-                <dt className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-pink-ink">
-                  {fact.label}
-                </dt>
-                <dd className="mt-1.5 text-sm font-semibold leading-snug text-ink">
+                <p className="text-sm font-semibold leading-snug text-ink">
                   {fact.value}
-                </dd>
+                </p>
               </div>
             ))}
-          </dl>
+          </div>
 
           <div className="mt-9 flex flex-wrap items-center gap-4 sm:mt-10">
             <Link

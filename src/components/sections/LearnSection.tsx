@@ -16,7 +16,6 @@ export function LearnSection() {
     <Section id="learn">
       <SectionHeading
         title="Head start"
-        meta="Free · IBM Quantum"
         description={learnIntro}
       />
 

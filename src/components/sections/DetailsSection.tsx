@@ -35,7 +35,7 @@ export function DetailsSection() {
                   aria-hidden
                   className="h-[18px] w-[18px] shrink-0 translate-y-[3px] text-pink-ink transition-transform duration-300 group-hover:scale-110 sm:translate-y-0"
                 />
-                <dt className="font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-pink-ink">
+                <dt className="text-base font-medium leading-snug text-ink sm:text-lg">
                   {detail.label}
                 </dt>
                 <dd className="col-start-2 flex flex-wrap items-center gap-x-4 gap-y-3 text-base font-medium leading-snug text-ink sm:col-start-3 sm:text-lg">

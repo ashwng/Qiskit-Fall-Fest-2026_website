@@ -47,14 +47,6 @@ export const speakers: Speaker[] = [
     socials: [{ platform: "linkedin", href: "https://www.linkedin.com/in/bhupendra-singh-5ab5327" }],
   },
   {
-    id: "kunal-korgaonkar",
-    name: "Kunal Korgaonkar",
-    description: "Quantum System Design",
-    image: "/speakers/kunal-korgaonkar.jpg",
-    imageSeed: "qff-speaker-kunal-korgaonkar",
-    socials: [{ platform: "linkedin", href: "https://www.linkedin.com/in/kunal-korgaonkar-70171418/" }],
-  },
-  {
     id: "anil-prabhakar",
     name: "Prof. Anil Prabhakar",
     description:
