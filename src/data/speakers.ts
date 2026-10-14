@@ -55,4 +55,33 @@ export const speakers: Speaker[] = [
     imageSeed: "qff-speaker-anil-prabhakar",
     socials: [{ platform: "linkedin", href: "https://www.linkedin.com/in/anil-prabhakar-66b3b730/" }],
   },
+  {
+    id: "bhanwar-gupta",
+    name: "Bhanwar Gupta",
+    description: "IBM Quantum Ambassador | Lead Data Scientist @IBM",
+    imageSeed: "qff-speaker-bhanwar-gupta",
+    socials: [{ platform: "linkedin", href: "https://www.linkedin.com/in/bhanwargupta/" }],
+  },
+  {
+    id: "manoj-nambiar",
+    name: "Manoj Nambiar",
+    description: "Chief Scientist, TCS Research",
+    imageSeed: "qff-speaker-manoj-nambiar",
+    socials: [{ platform: "linkedin", href: "https://www.linkedin.com/in/manoj-nambiar-1b7715/" }],
+  },
+  {
+    id: "nick-bronn",
+    name: "Nick Bronn",
+    description: "Global Strategic Research Development Lead - IBM Quantum",
+    imageSeed: "qff-speaker-nick-bronn",
+    socials: [{ platform: "linkedin", href: "https://www.linkedin.com/in/nickbronn/" }],
+  },
+  {
+    id: "santosh-kumar",
+    name: "Santosh Kumar",
+    description:
+      "IIT Goa, Photonics | Investigating Solid State Photonic Platforms for their Suitability in Future Quantum Technologies",
+    imageSeed: "qff-speaker-santosh-kumar",
+    socials: [{ platform: "linkedin", href: "https://www.linkedin.com/in/skumar-phys-iitgoa/" }],
+  },
 ];
