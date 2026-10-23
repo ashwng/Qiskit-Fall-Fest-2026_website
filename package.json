@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "check:pass": "node --test scripts/check-pass-lookup.mjs scripts/check-pass-email.mjs scripts/check-registration-email.mjs",
     "db:init": "node scripts/init-db.mjs",
     "check:validation": "node --no-warnings=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types src/lib/validation.check.ts"
   },
@@ -17,11 +18,14 @@
     "@fontsource/manrope": "^5.3.0",
     "@fontsource/playfair-display": "^5.3.0",
     "@neondatabase/serverless": "^1.1.0",
+    "@pdf-lib/fontkit": "^1.1.1",
     "@types/three": "^0.185.4",
     "clsx": "^2.1.1",
     "lucide-react": "^1.37.0",
     "next": "16.3.3",
     "next-themes": "^0.4.6",
+    "nodemailer": "^10.2.1",
+    "pdf-lib": "^1.17.1",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "three": "^0.185.1"

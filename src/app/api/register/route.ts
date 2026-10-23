@@ -73,6 +73,7 @@ export async function POST(request: Request) {
       success: true,
       ticketId: result.ticketId,
       referralCode: result.referralCode,
+      emailStatus: result.emailStatus,
       message: result.message,
     },
     { status: result.statusCode || 201 },

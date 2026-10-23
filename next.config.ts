@@ -69,6 +69,12 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   // Stop advertising the framework and version to scanners.
   poweredByHeader: false,
+  outputFileTracingIncludes: {
+    "/*": [
+      "./node_modules/@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff",
+      "./node_modules/@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-600-normal.woff",
+    ],
+  },
 
   async headers() {
     return [

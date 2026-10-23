@@ -32,6 +32,11 @@ export function Footer() {
 
         <nav aria-label="Footer">
           <ul className="grid grid-cols-2 gap-x-10 gap-y-3 sm:grid-cols-1">
+            <li>
+              <a href="/retrieve-pass" className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-dim transition-colors duration-300 hover:text-pink-ink">
+                Retrieve your pass
+              </a>
+            </li>
             {navItems.map((item) => (
               <li key={item.href}>
                 <a

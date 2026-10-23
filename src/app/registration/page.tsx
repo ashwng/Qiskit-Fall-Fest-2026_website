@@ -40,7 +40,13 @@ export default function RegistrationPage() {
                 <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />
                 Back to Fest Overview
               </Link>
-
+              <Link
+                href="/retrieve-pass"
+                className="inline-flex items-center gap-2 rounded-full border border-pink/30 bg-pink/10 px-4 py-2 text-sm font-semibold text-pink-ink transition-colors hover:border-pink"
+              >
+                <Ticket aria-hidden className="h-4 w-4" />
+                Already registered? Retrieve your pass
+              </Link>
             </div>
 
             {/* Header Content Grid */}

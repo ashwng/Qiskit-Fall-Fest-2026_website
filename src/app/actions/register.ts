@@ -2,6 +2,7 @@
 
 import crypto from "node:crypto";
 import { getDb, hasDatabase } from "@/lib/db";
+import { sendPassEmail } from "@/lib/pass-email";
 import { RegistrationFormData, RegistrationActionResult } from "@/types";
 import { clientIp, rateLimit, sweepRateLimits } from "@/lib/rate-limit";
 import { experienceLevels, studyLevels, tshirtSizes } from "@/data/registration";
@@ -268,10 +269,28 @@ export async function registerAttendee(
           ticket_id: string;
         };
 
+        // The registration is already committed. SMTP failure must never turn
+        // this into a failed registration or trigger a second database write.
+        let emailStatus: "sent" | "failed" = "failed";
+        try {
+          await sendPassEmail(email, {
+            ticketId: inserted.ticket_id,
+            fullName,
+            institution,
+            attendanceMode,
+          }, referralCode);
+          emailStatus = "sent";
+        } catch (err) {
+          console.error("Registration pass email failed:", {
+            code: (err as { code?: string })?.code,
+          });
+        }
+
         return {
           success: true,
           ticketId: inserted.ticket_id,
           referralCode,
+          emailStatus,
           message: "Registration successfully recorded in database.",
           statusCode: 201,
         };

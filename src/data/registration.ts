@@ -1,3 +1,4 @@
+import { logisticsFaqs } from "@/data/faqs";
 import type {
   RegistrationPerk,
   RegistrationFaq,
@@ -10,7 +11,7 @@ export const registrationHeader = {
   description:
     "Join hundreds of students, researchers, and quantum enthusiasts for three days of keynotes, guided lab sessions, and a 72-hour hackathon on real quantum hardware. Registration is completely free.",
   notice:
-    "Early applications are prioritized for hands-on hardware compute credits and swag kits. Acceptance confirmations will be emailed in batches.",
+    "Your attendee pass will be emailed as a PDF after registration. You can request another copy using your registered email address.",
 };
 
 export const attendanceOptions = [
@@ -49,9 +50,9 @@ export const registrationPerks: RegistrationPerk[] = [
   },
   {
     id: "food",
-    title: "Food & Refreshments",
+    title: "Lunch Provided",
     description:
-      "Catered meals, midnight snacks, and coffee bar provided to keep your energy high throughout the 72-hour hackathon.",
+      "Lunch will be provided by the organizers on 31 October and 1 November 2026.",
     icon: "coffee",
   },
 ];
@@ -96,11 +97,12 @@ export const studyLevels = [
 export const tshirtSizes = ["S (36\")", "M (38\")", "L (40\")", "XL (42\")", "2XL (44\")"];
 
 export const registrationFaqs: RegistrationFaq[] = [
+  ...logisticsFaqs,
   {
     id: "cost",
     question: "Is registration really completely free?",
     answer:
-      "Yes! Thanks to IBM Quantum and BITS Pilani, participation in all workshops, keynote sessions, compute hardware access, swag, and hackathon meals are 100% free for admitted students.",
+      "Yes! Thanks to IBM Quantum and BITS Pilani, participation in all workshops, keynote sessions, compute hardware access, and swag are 100% free for admitted students. Lunch is also provided on 31 October and 1 November 2026.",
   },
   {
     id: "prerequisites",
