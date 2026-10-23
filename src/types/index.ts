@@ -90,10 +90,20 @@ export interface RegistrationFormData {
   willingToBePOC: boolean;
 }
 
+export type AttendeePassData = Pick<
+  RegistrationFormData,
+  "fullName" | "institution" | "attendanceMode"
+> & { ticketId: string };
+
+export type PassLookupResponse =
+  | { success: true; message: string }
+  | { success: false; error: string };
+
 export interface RegistrationResponse {
   success?: boolean;
   ticketId?: string;
   referralCode?: string;
+  emailStatus?: "sent" | "failed";
   message?: string;
   error?: string;
 }
@@ -102,6 +112,7 @@ export interface RegistrationActionResult {
   success: boolean;
   ticketId?: string;
   referralCode?: string;
+  emailStatus?: "sent" | "failed";
   message?: string;
   error?: string;
   /** Set alongside a 429 so the caller can surface a Retry-After. */

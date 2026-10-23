@@ -11,7 +11,7 @@ export const registrationHeader = {
   description:
     "Join hundreds of students, researchers, and quantum enthusiasts for three days of keynotes, guided lab sessions, and a 72-hour hackathon on real quantum hardware. Registration is completely free.",
   notice:
-    "Early applications are prioritized for hands-on hardware compute credits and swag kits. Acceptance confirmations will be emailed in batches.",
+    "Your attendee pass will be emailed as a PDF after registration. You can request another copy using your registered email address.",
 };
 
 export const attendanceOptions = [

@@ -70,7 +70,7 @@ export function Navbar() {
     };
   }, [open]);
 
-  const registerTarget = isHome ? event.registerHref : "#form-section";
+  const registerTarget = onRegistration ? "#form-section" : event.registerHref;
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-5 sm:pt-5 lg:pt-9 print:hidden">

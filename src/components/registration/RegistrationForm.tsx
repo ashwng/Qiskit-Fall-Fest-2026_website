@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { LIMITS } from "@/lib/validation";
 import {
   Check,
@@ -56,6 +57,7 @@ export function RegistrationForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [ticketId, setTicketId] = useState("");
   const [referralCode, setReferralCode] = useState("");
+  const [emailStatus, setEmailStatus] = useState<"sent" | "failed">("failed");
 
   const updateField = <K extends keyof RegistrationFormData>(
     field: K,
@@ -158,6 +160,7 @@ export function RegistrationForm() {
       if (result.ticketId) {
         setTicketId(result.ticketId);
         setReferralCode(result.referralCode || "");
+        setEmailStatus(result.emailStatus || "failed");
         setIsSubmitted(true);
         window.scrollTo({ top: 100, behavior: "smooth" });
       } else {
@@ -181,6 +184,7 @@ export function RegistrationForm() {
     setIsSubmitted(false);
     setTicketId("");
     setReferralCode("");
+    setEmailStatus("failed");
     setSubmitError(null);
   };
 
@@ -204,9 +208,18 @@ export function RegistrationForm() {
               You&apos;re Set for <span className="text-gradient">QFF 2026</span>!
             </h3>
             <p className="mx-auto mt-2 max-w-lg text-sm text-muted">
-              Your registration has been securely recorded. Confirmation details have been logged for{" "}
-              <span className="font-mono font-medium text-pink-ink">{formData.email}</span>.
+              {emailStatus === "sent" ? (
+                <>Your registration is confirmed. Check <span className="font-mono font-medium text-pink-ink">{formData.email}</span> for your pass PDF.</>
+              ) : (
+                <>Your registration is confirmed, but we couldn&apos;t email your pass just now. Save it below or request it again.</>
+              )}
             </p>
+            {/* <p className="mt-3 text-sm text-muted">
+              Need this pass later?{" "}
+              <Link href="/retrieve-pass" className="font-semibold text-pink-ink underline underline-offset-4">
+                Request another copy at your registered email.
+              </Link>
+            </p> */}
 
             {referralCode && (
               <div className="mx-auto mt-5 max-w-md rounded-2xl border border-pink/40 bg-pink/10 p-4 text-left shadow-[0_0_22px_rgba(255,126,182,0.08)]">
