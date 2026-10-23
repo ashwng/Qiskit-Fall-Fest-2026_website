@@ -785,100 +785,56 @@ button.qff-card:hover,
     opacity: 0.6;
   }
 }
-/* Print optimization: Print ONLY the pass ticket, hide everything else */
+/* Print the confirmed pass without page decoration or animated ancestors. */
 @media print {
   @page {
-    margin: 1.5cm;
+    margin: 12mm;
     size: auto;
   }
 
-  body {
-    background: #ffffff !important;
-    color: #000000 !important;
+  body:has(#printable-pass) {
+    min-height: 0 !important;
+    margin: 0 !important;
+    background: #fff !important;
+    color: #000 !important;
+    color-scheme: light;
   }
 
-  header,
-  footer,
-  nav,
-  button,
-  .circuit-field,
-  #perks,
-  #faqs,
-  .no-print,
-  #registration-hero,
-  #print-hide-header,
-  #print-hide-actions {
+  body:has(#printable-pass) > :not(:has(#printable-pass)),
+  main:has(#printable-pass) > :not(:has(#printable-pass)) {
     display: none !important;
   }
 
-  main {
-    padding: 0 !important;
+  main:has(#printable-pass),
+  #form-section,
+  #form-section > div,
+  #register-form,
+  #register-form > .qff-pass-confirmation {
+    min-height: 0 !important;
+    max-width: none !important;
     margin: 0 !important;
+    border: 0 !important;
+    padding: 0 !important;
     overflow: visible !important;
-  }
-
-  #form-section {
-    border: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
     background: transparent !important;
-  }
-
-  #printable-pass-wrapper {
-    display: block !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
-    width: 100% !important;
-    max-width: 580px !important;
-  }
-
-  #printable-pass {
-    display: block !important;
-    background: #ffffff !important;
-    color: #0b0f19 !important;
-    border: 2px solid #0f172a !important;
     box-shadow: none !important;
-    border-radius: 16px !important;
-    padding: 24px !important;
-    page-break-inside: avoid !important;
+    backdrop-filter: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    animation: none !important;
   }
 
-  #printable-pass * {
+  #register-form * {
+    animation: none !important;
+    transition: none !important;
     text-shadow: none !important;
-    box-shadow: none !important;
   }
 
-  #printable-pass .text-ink,
-  #printable-pass .text-ink-dim,
-  #printable-pass h1,
-  #printable-pass h2,
-  #printable-pass h3,
-  #printable-pass p {
-    color: #0b0f19 !important;
-  }
-
-  #printable-pass .text-muted {
-    color: #475569 !important;
-  }
-
-  #printable-pass .text-pink-ink {
-    color: #d02670 !important;
-    font-weight: 600 !important;
-  }
-
-  #printable-pass .border-line,
-  #printable-pass .border-line-soft {
-    border-color: #cbd5e1 !important;
-  }
-
-  #printable-pass .bg-surface,
-  #printable-pass .bg-surface-2,
-  #printable-pass .bg-bg {
-    background: #f8fafc !important;
-  }
-
-  #printable-pass svg rect {
-    fill: #0b0f19 !important;
+  /* Keep the SVG's white quiet zone and black bars distinct when printing.
+     A blanket fill on svg rect also paints the background black. */
+  [data-barcode] {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 }
 

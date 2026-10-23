@@ -102,16 +102,20 @@ export function Barcode({
   const totalWidth = currentX + quietZone;
 
   return (
-    <div className={cn("inline-flex flex-col items-center", className)}>
+    <div className={cn("inline-flex flex-col items-center bg-white p-3 text-black", className)}>
       <svg
+        data-barcode
+        width={totalWidth}
+        height={height}
         viewBox={`0 0 ${totalWidth} ${height}`}
-        className="w-full max-w-full overflow-visible"
+        className="block w-full max-w-full"
         style={{ height }}
         preserveAspectRatio="none"
-        aria-label={`Barcode for ${value}`}
+        shapeRendering="crispEdges"
+        aria-label={`Barcode for ${safeValue}`}
         role="img"
       >
-        <rect width={totalWidth} height={height} fill="white" />
+        <rect data-barcode-background width={totalWidth} height={height} fill="#ffffff" />
         {bars.map((bar, idx) => (
           <rect
             key={idx}
@@ -119,7 +123,7 @@ export function Barcode({
             y={0}
             width={bar.width}
             height={height}
-            fill="black"
+            fill="#000000"
           />
         ))}
       </svg>

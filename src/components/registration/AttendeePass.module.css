@@ -1,0 +1,192 @@
+.wrapper {
+  width: 100%;
+  max-width: 640px;
+  margin: 32px auto 0;
+  text-align: left;
+}
+
+/* A paper surface keeps the pass readable in either site theme. */
+.pass {
+  color-scheme: light;
+  overflow-wrap: anywhere;
+  border: 1px solid #d8d0e5;
+  border-top: 5px solid #8a3ffc;
+  border-radius: 18px;
+  padding: 28px;
+  background: #fff;
+  color: #241333;
+  box-shadow: 0 16px 48px rgb(0 0 0 / 12%);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.eyebrow,
+.pass dt {
+  color: #63546e;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.title {
+  max-width: 340px;
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.status {
+  flex-shrink: 0;
+  border: 1px solid #9aaf9f;
+  border-radius: 999px;
+  padding: 5px 10px;
+  color: #235733;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.eventDetails,
+.attendeeDetails {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 24px;
+}
+
+.eventDetails {
+  margin-top: 20px;
+  border-top: 1px solid #e5dfeb;
+  border-bottom: 1px solid #e5dfeb;
+  padding: 16px 0;
+}
+
+.attendeeDetails {
+  padding: 22px 0;
+}
+
+.pass dd {
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.pass .attendeeName {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.entry {
+  border: 1px solid #e5dfeb;
+  border-left: 3px solid #8a3ffc;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.entry h3 {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.entry ul {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+  padding-left: 16px;
+  list-style: disc;
+}
+
+.barcodeSection {
+  margin-top: 22px;
+  border-top: 1px dashed #cfc5da;
+  padding-top: 18px;
+  text-align: center;
+}
+
+.barcode {
+  width: 100%;
+  max-width: 384px;
+  margin-top: 8px;
+  background: #fff;
+  color: #000;
+}
+
+.barcodeHint {
+  margin-top: 6px;
+  color: #63546e;
+  font-size: 11px;
+}
+
+@media screen and (max-width: 480px) {
+  .pass {
+    border-radius: 12px;
+    padding: 20px 16px;
+  }
+
+  .header {
+    flex-direction: column-reverse;
+    gap: 12px;
+  }
+
+  .title {
+    font-size: 25px;
+  }
+
+  .eventDetails {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .entry {
+    padding: 12px;
+  }
+}
+
+@media print {
+  .wrapper {
+    max-width: 170mm;
+    margin: 0 auto;
+  }
+
+  .pass {
+    break-inside: avoid;
+    border: 1px solid #555;
+    border-top: 4px solid #241333;
+    border-radius: 10px;
+    padding: 24px;
+    background: #fff;
+    color: #000;
+    box-shadow: none;
+  }
+
+  .status,
+  .entry {
+    border-color: #777;
+    color: #000;
+  }
+
+  .barcodeSection {
+    break-inside: avoid;
+  }
+}

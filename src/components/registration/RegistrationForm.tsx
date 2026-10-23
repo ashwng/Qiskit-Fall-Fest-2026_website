@@ -14,11 +14,9 @@ import {
   CheckCircle2,
   User,
   Terminal,
-  MapPin,
-  Globe,
   Loader2,
 } from "lucide-react";
-import { Barcode } from "@/components/ui/Barcode";
+import { AttendeePass } from "./AttendeePass";
 import {
   attendanceOptions,
   experienceLevels,
@@ -190,7 +188,7 @@ export function RegistrationForm() {
   if (isSubmitted) {
     return (
       <div id="register-form" className="space-y-8 animate-[fadeUp_0.6s_ease-out_forwards]">
-        <div className="glass-dark rounded-3xl border border-pink/40 p-6 text-center shadow-[0_0_50px_rgba(255,126,182,0.15)] sm:p-10 print:border-none print:bg-transparent print:p-0 print:shadow-none">
+        <div className="qff-pass-confirmation glass-dark rounded-3xl border border-pink/40 p-4 text-center shadow-[0_0_50px_rgba(255,126,182,0.15)] sm:p-10 print:border-none print:bg-transparent print:p-0 print:shadow-none">
           {/* Confirmation Message */}
           <div className="print:hidden">
             <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl border border-pink/40 bg-pink/10 text-pink-ink shadow-[0_0_20px_rgba(255,126,182,0.3)]">
@@ -223,100 +221,7 @@ export function RegistrationForm() {
             )}
           </div>
 
-          {/* Digital Quantum Pass Card (Print Target) */}
-          <div id="printable-pass-wrapper" className="w-full">
-            <div
-              id="printable-pass"
-              className="relative mx-auto mt-8 max-w-xl overflow-hidden rounded-3xl border border-line bg-gradient-to-b from-surface-2 to-bg p-7 text-left shadow-2xl sm:p-9 print:mt-0 print:border-2 print:border-black print:bg-white print:p-6 print:shadow-none"
-            >
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-violet-bright/20 blur-3xl print:hidden"
-              />
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-pink/15 blur-3xl print:hidden"
-              />
-
-              {/* Ticket Header */}
-              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-line pb-5 print:border-slate-300">
-                <div>
-                  <span className="font-mono text-[11px] uppercase tracking-widest text-pink-ink print:text-sky-700 font-semibold">
-                    Digital Attendee Pass
-                  </span>
-                  <p className="font-display text-xl font-bold text-ink print:text-black">
-                    BITS Qiskit Fall Fest 2026
-                  </p>
-                </div>
-                <div className="rounded-xl border border-pink/40 bg-pink/10 px-4 py-2 font-mono text-sm font-bold text-pink-ink shadow-[0_0_15px_rgba(255,126,182,0.2)] print:border-slate-800 print:bg-slate-100 print:text-black">
-                  {ticketId}
-                </div>
-              </div>
-
-              {/* Ticket Body */}
-              <div className="mt-6 grid gap-6 sm:grid-cols-2">
-                <div>
-                  <p className="font-mono text-[10px] uppercase tracking-wider text-muted print:text-slate-600">
-                    Attendee Name
-                  </p>
-                  <p className="mt-1 font-display text-lg font-bold text-ink print:text-black">
-                    {formData.fullName}
-                  </p>
-                </div>
-                <div>
-                  <p className="font-mono text-[10px] uppercase tracking-wider text-muted print:text-slate-600">
-                    Attendance Mode
-                  </p>
-                  <span className="mt-1 inline-flex items-center gap-1.5 rounded-lg border border-pink/40 bg-pink/10 px-3 py-1 font-mono text-xs font-semibold text-pink-ink print:border-slate-400 print:bg-slate-100 print:text-black">
-                    {formData.attendanceMode === "offline" ? (
-                      <>
-                        <MapPin className="h-3.5 w-3.5" />
-                        In-Person · BITS Campus
-                      </>
-                    ) : (
-                      <>
-                        <Globe className="h-3.5 w-3.5" />
-                        Virtual · Remote Access
-                      </>
-                    )}
-                  </span>
-                </div>
-                <div className="sm:col-span-2">
-                  <p className="font-mono text-[10px] uppercase tracking-wider text-muted print:text-slate-600">
-                    Institution / University
-                  </p>
-                  <p className="mt-1 font-display text-sm font-medium text-ink print:text-slate-900">
-                    {formData.institution}
-                  </p>
-                </div>
-                {referralCode && (
-                  <div className="sm:col-span-2">
-                    <p className="font-mono text-[10px] uppercase tracking-wider text-muted print:text-slate-600">
-                      Referral Code
-                    </p>
-                    <p className="mt-1 font-mono text-sm font-bold text-pink-ink print:text-sky-700">
-                      {referralCode}
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* Barcode Section */}
-              <div className="mt-8 rounded-2xl border border-line bg-surface/80 p-5 print:border-slate-300 print:bg-slate-50">
-                <div className="flex flex-col items-center justify-center gap-3">
-                  <Barcode value={ticketId} className="w-full max-w-[360px]" height={80} />
-                  <div className="flex w-full items-center justify-between border-t border-line-soft pt-3 font-mono text-[10px] text-muted print:border-slate-300 print:text-slate-700">
-                    <span className="flex items-center gap-1.5 font-semibold text-pink-ink">
-                      <span className="h-1.5 w-1.5 rounded-full bg-pink shadow-[0_0_6px_rgba(255,126,182,0.8)] print:bg-slate-900" />
-                      QFF-2026 VERIFIED
-                    </span>
-                    <span>Status: CONFIRMED</span>
-                    <span>T-Shirt: {formData.tshirtSize.split(" ")[0]}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <AttendeePass ticketId={ticketId} attendee={formData} />
 
           {/* Action Buttons */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4 print:hidden">
