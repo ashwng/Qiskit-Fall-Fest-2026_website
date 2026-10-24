@@ -13,6 +13,8 @@ docs
 # who created a plain .env would have committed live credentials.
 .env
 .env.*
+env.local
+*.env
 !.env.example
 
 # Keys and certificates
