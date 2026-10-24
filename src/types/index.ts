@@ -119,3 +119,41 @@ export interface RegistrationActionResult {
   retryAfterSeconds?: number;
   statusCode?: number;
 }
+
+/** What the hackathon team form sends. The leader is whoever fills it in. */
+export interface TeamRegistrationInput {
+  leaderCode: string;
+  leaderEmail: string;
+  /** The other members' QFF codes, 0-3 of them. */
+  memberCodes: string[];
+  /** Track ids from `hackathon.tracks`; at least one. */
+  tracks: string[];
+}
+
+/** A leader adding tracks to the team they already registered. */
+export interface TeamTracksInput {
+  leaderCode: string;
+  leaderEmail: string;
+  tracks: string[];
+}
+
+export interface TeamMemberSummary {
+  ticketId: string;
+  fullName: string;
+  isLeader: boolean;
+}
+
+export interface TeamRegistrationResult {
+  success: boolean;
+  teamId?: string;
+  members?: TeamMemberSummary[];
+  /** Every track the team is now entered in. */
+  tracks?: string[];
+  /** On an add-tracks request: the tracks that were new. */
+  addedTracks?: string[];
+  /** "partial" when some, but not all, members' confirmations were accepted. */
+  emailStatus?: "sent" | "partial" | "failed";
+  error?: string;
+  retryAfterSeconds?: number;
+  statusCode?: number;
+}

@@ -3,7 +3,7 @@ import { createPassPdf } from "@/lib/pass-pdf";
 import { event } from "@/data/event";
 import type { AttendeePassData } from "@/types";
 
-function escapeHtml(value: string) {
+export function escapeHtml(value: string) {
   return value.replace(/[&<>"']/g, (character) => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
   })[character]!);
@@ -41,8 +41,11 @@ export async function buildPassEmail(to: string, pass: AttendeePassData, referra
   };
 }
 
-/** Await SMTP acceptance; callers handle failures independently of registration. */
-export async function sendPassEmail(to: string, pass: AttendeePassData, referralCode?: string) {
+/**
+ * The configured SMTP transport. Throws when the configuration is incomplete,
+ * so callers treat "not configured" the same as "send failed".
+ */
+export function createSmtpTransport() {
   if (!process.env.SMTP_USER || !process.env.SMTP_PASS || !process.env.SMTP_FROM) {
     throw new Error("Pass email SMTP configuration is incomplete.");
   }
@@ -50,7 +53,7 @@ export async function sendPassEmail(to: string, pass: AttendeePassData, referral
   if (!Number.isInteger(port) || port < 1 || port > 65535) {
     throw new Error("SMTP_PORT is invalid.");
   }
-  const smtp = nodemailer.createTransport({
+  return nodemailer.createTransport({
     host: process.env.SMTP_HOST || "smtp-relay.brevo.com",
     port,
     secure: port === 465,
@@ -60,6 +63,11 @@ export async function sendPassEmail(to: string, pass: AttendeePassData, referral
     socketTimeout: 15000,
     auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
   });
+}
+
+/** Await SMTP acceptance; callers handle failures independently of registration. */
+export async function sendPassEmail(to: string, pass: AttendeePassData, referralCode?: string) {
+  const smtp = createSmtpTransport();
   const result = await smtp.sendMail(await buildPassEmail(to, pass, referralCode));
   if (result.accepted.length === 0 || result.rejected.length > 0) {
     throw new Error("The pass email recipient was not accepted by SMTP.");

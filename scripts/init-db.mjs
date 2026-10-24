@@ -20,8 +20,10 @@ function loadEnv() {
         const trimmed = line.trim();
         if (trimmed.startsWith("DATABASE_URL=")) {
           const rawValue = trimmed.slice("DATABASE_URL=".length).trim();
-          // Remove trailing inline comments
-          const cleaned = rawValue.split("#")[0].trim().replace(/^["']|["']$/g, "");
+          // Strip a trailing inline comment only when "#" follows whitespace,
+          // matching src/lib/db.ts. Splitting on the first "#" truncated any
+          // password containing one, which then failed like a bad password.
+          const cleaned = rawValue.replace(/\s+#.*$/, "").trim().replace(/^["']|["']$/g, "");
           process.env.DATABASE_URL = cleaned;
           break;
         }

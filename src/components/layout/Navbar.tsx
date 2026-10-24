@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -24,6 +24,18 @@ import { QbitsMark, IbmMark } from "@/components/layout/BrandMarks";
  * heading it passed, so there is no capsule at all: just the menu button in
  * the top-right corner, and the sheet it opens.
  */
+/** Breathing room between the bottom of the fixed nav and a section it lands. */
+const NAV_GAP = 16;
+
+/**
+ * How far below the landing line a section's top may sit and still count as
+ * the one being read. It must exceed the island's own shrink (it loses 8px of
+ * padding once the page scrolls), so a section reached by a click or a hash is
+ * always the active one, and stay far smaller than any section's padding, so
+ * the next section can never be mistaken for it.
+ */
+const ACTIVATION_SLACK = 24;
+
 export function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -31,35 +43,80 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeId, setActiveId] = useState("");
+  const barRef = useRef<HTMLDivElement>(null);
 
+  // Publish where the fixed bar really ends as --qff-nav-offset. The html
+  // element turns it into scroll-padding-top, so every way of reaching a
+  // section (a nav click, a typed or shared /#hash, back/forward, the forms'
+  // own scrollIntoView) lands it just below the bar at any breakpoint, rather
+  // than at a guessed constant. The open mobile sheet is outside the measured
+  // row, so it never inflates the offset.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const bar = barRef.current;
+    if (!bar) return;
+    const root = document.documentElement;
+    const publish = () => {
+      const offset = Math.ceil(bar.getBoundingClientRect().bottom) + NAV_GAP;
+      root.style.setProperty("--qff-nav-offset", `${offset}px`);
+    };
+    publish();
+    const resize = new ResizeObserver(publish);
+    resize.observe(bar);
+    return () => {
+      resize.disconnect();
+      root.style.removeProperty("--qff-nav-offset");
+    };
   }, []);
 
-  // Scroll-spy. The observation band sits in the upper part of the viewport so
-  // a section becomes "current" as its heading reaches reading position, not
-  // when its last pixel finally leaves the screen.
+  // Scroll state and scroll-spy, from one rAF-throttled pass.
+  //
+  // The rule: the active section is the last one, in page order, whose top
+  // has reached the line just under the bar (the landing line plus a little
+  // slack). It is recomputed from the layout every time instead of being
+  // pieced together from IntersectionObserver batches, which only report the
+  // sections that changed; a tall section that never left the band was never
+  // re-reported, so the previous item stayed lit. Every section in <main>
+  // takes part, so the hero, FAQs and venue, which have no nav item, clear
+  // the highlight instead of leaving the last one stuck on.
   useEffect(() => {
-    if (!isHome) return;
-    const sections = navItems
-      .map((item) => document.querySelector(item.href))
-      .filter((node): node is Element => node !== null);
-    if (sections.length === 0) return;
+    const bar = barRef.current;
+    const sections = isHome
+      ? Array.from(document.querySelectorAll<HTMLElement>("main section[id]"))
+      : [];
+    const navHrefs = new Set(navItems.map((item) => item.href));
+    let frame = 0;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible[0]) setActiveId(`#${visible[0].target.id}`);
-      },
-      { rootMargin: "-12% 0px -68% 0px", threshold: 0 },
-    );
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+    const update = () => {
+      frame = 0;
+      setScrolled(window.scrollY > 12);
+      if (sections.length === 0 || !bar) return;
+
+      const line = bar.getBoundingClientRect().bottom + NAV_GAP + ACTIVATION_SLACK;
+      let current = "";
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top > line) break;
+        current = `#${section.id}`;
+      }
+      setActiveId(navHrefs.has(current) ? current : "");
+    };
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+
+    schedule();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    window.addEventListener("hashchange", schedule);
+    // Late layout (images, fonts, reveals) moves sections without a scroll.
+    const resize = new ResizeObserver(schedule);
+    resize.observe(document.body);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      window.removeEventListener("hashchange", schedule);
+      resize.disconnect();
+    };
   }, [isHome]);
 
   // Lock body scroll while the mobile menu is open.
@@ -77,7 +134,10 @@ export function Navbar() {
       {/* Three parts: who runs the fest, where you are in it, what it runs on.
           Below `lg` the middle is only the menu button, so the rail collapses
           to a plain row with the mark at one end and the button at the other. */}
-      <div className="flex items-start justify-between gap-3 lg:grid lg:grid-cols-[1fr_auto_1fr]">
+      <div
+        ref={barRef}
+        className="flex items-start justify-between gap-3 lg:grid lg:grid-cols-[1fr_auto_1fr]"
+      >
         <QbitsMark className="justify-self-start" />
 
         <nav
@@ -119,7 +179,15 @@ export function Navbar() {
                         : "font-medium text-ink-dim hover:bg-ink/[0.04] hover:text-ink dark:hover:bg-white/[0.06]",
                     )}
                   >
-                    {item.label}
+                    {/* Bold and regular labels differ in width. A hidden bold
+                        copy holds the slot at its widest, so lighting one
+                        item never nudges its neighbours along the rail. */}
+                    <span className="grid">
+                      <span className="col-start-1 row-start-1">{item.label}</span>
+                      <span aria-hidden className="invisible col-start-1 row-start-1 font-semibold">
+                        {item.label}
+                      </span>
+                    </span>
                   </Link>
                 </li>
               );
@@ -175,17 +243,26 @@ export function Navbar() {
                 Register
               </Link>
             </li>
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={isHome ? item.href : `/${item.href}`}
-                  onClick={() => setOpen(false)}
-                  className="block rounded-2xl px-4 py-3 text-sm font-medium text-ink-dim transition-colors hover:bg-ink/[0.05] hover:text-ink dark:hover:bg-white/[0.07]"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {navItems.map((item) => {
+              const active = isHome && activeId === item.href;
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={isHome ? item.href : `/${item.href}`}
+                    onClick={() => setOpen(false)}
+                    aria-current={active ? "true" : undefined}
+                    className={cn(
+                      "block rounded-2xl px-4 py-3 text-sm transition-colors",
+                      active
+                        ? "bg-ink/[0.07] font-semibold text-ink dark:bg-white/10"
+                        : "font-medium text-ink-dim hover:bg-ink/[0.05] hover:text-ink dark:hover:bg-white/[0.07]",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
           <div className="mt-2 flex justify-center">

@@ -51,6 +51,41 @@ CREATE INDEX IF NOT EXISTS idx_registrations_ticket_id ON registrations (ticket_
 CREATE INDEX IF NOT EXISTS idx_registrations_created_at ON registrations (created_at DESC);
 
 -- ---------------------------------------------------------------------------
+-- Hackathon teams.
+--
+-- A team is a group of 1-4 people who already hold a fest registration, so
+-- there is no separate teams table: each member's row carries the team code
+-- and whether they lead it. NULL team_id means "not in the hackathon".
+-- ---------------------------------------------------------------------------
+ALTER TABLE registrations
+  ADD COLUMN IF NOT EXISTS team_id VARCHAR(20),
+  ADD COLUMN IF NOT EXISTS is_team_leader BOOLEAN NOT NULL DEFAULT FALSE;
+
+-- Lists a team's members.
+CREATE INDEX IF NOT EXISTS idx_registrations_team_id ON registrations (team_id);
+
+-- Exactly one leader per team: the database refuses a second one.
+CREATE UNIQUE INDEX IF NOT EXISTS idx_registrations_team_leader
+  ON registrations (team_id) WHERE is_team_leader;
+
+-- The team itself: one row per team code, holding what belongs to the team as
+-- a whole rather than to any one member. A team enters one or more tracks and
+-- keeps the same code for all of them; tracks can be added later, never
+-- silently dropped. The allowed values match `hackathon.tracks` in
+-- src/data/event.ts.
+CREATE TABLE IF NOT EXISTS hackathon_teams (
+  team_id    VARCHAR(20) PRIMARY KEY,
+  tracks     TEXT[] NOT NULL
+             CHECK (cardinality(tracks) >= 1
+                    AND tracks <@ ARRAY['rookie', 'novice', 'advanced']::TEXT[]),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- "Which teams entered Advanced?" — answers from the index, not a scan.
+CREATE INDEX IF NOT EXISTS idx_hackathon_teams_tracks ON hackathon_teams USING GIN (tracks);
+
+-- ---------------------------------------------------------------------------
 -- Rate limiting counters.
 --
 -- One row per (bucket, window). Kept in Postgres rather than in process memory

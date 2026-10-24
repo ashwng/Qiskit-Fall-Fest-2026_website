@@ -28,6 +28,40 @@ Whether you are a complete beginner or a coding veteran, join us to build tomorr
     "https://www.google.com/maps/search/?api=1&query=BITS+Pilani+K.K.+Birla+Goa+Campus",
 };
 
+/**
+ * The hackathon, as the homepage section and its registration page show it.
+ *
+ * - `details`: replace TBA with the blurb; until then the section says
+ *   "Details announcing soon" instead of showing placeholder text.
+ * - `rulebookHref`: drop the PDF at public/hackathon/rulebook.pdf and set this
+ *   to "/hackathon/rulebook.pdf". While it is empty the button shows as
+ *   "Rulebook coming soon" rather than linking to a missing file.
+ */
+export const hackathon = {
+  duration: "72 hours",
+  minTeamSize: 1,
+  maxTeamSize: 4,
+  /**
+   * Levels a team can enter, any combination of them, under one team code.
+   * Open to everyone regardless of experience. The ids are what the database
+   * stores; if you add or rename one, update the CHECK on hackathon_teams in
+   * src/lib/db/schema.sql to match.
+   *
+   * `details`: replace "To be announced" with each track's description. Until
+   * then its card on the homepage says "Details announcing soon".
+   */
+  tracks: [
+    { id: "rookie", label: "Rookie", details: "To be announced" },
+    { id: "novice", label: "Novice", details: "To be announced" },
+    { id: "advanced", label: "Advanced", details: "To be announced" },
+  ],
+  // Same value as TBA in components/ui/Pending; a literal so this data file
+  // stays free of component imports (the node test loader only reads .ts).
+  details: "To be announced",
+  rulebookHref: "",
+  registerHref: "/hackathon-registration",
+};
+
 export const eventDetails: EventDetail[] = [
   {
     label: "Dates",

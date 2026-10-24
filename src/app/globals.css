@@ -148,9 +148,31 @@
   }
 }
 
+/* Where a scrolled-to section lands: just below the fixed nav. The Navbar
+   measures the real bar and overwrites --qff-nav-offset on <html>; these are
+   only the pre-hydration estimates (bar bottom + 16px gap) so a shared /#hash
+   lands correctly on first paint. This is the single offset for the whole
+   site — sections carry no scroll-margin of their own, which used to stack on
+   top of this and drop every section 96px too low. */
+:root {
+  --qff-nav-offset: 80px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --qff-nav-offset: 92px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --qff-nav-offset: 112px;
+  }
+}
+
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 120px;
+  scroll-padding-top: var(--qff-nav-offset);
 }
 
 /* The page background is painted by <SiteBackground /> (a fixed, -z-10 layer),
