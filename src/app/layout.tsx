@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     apple: "/image-removebg-preview.png",
   },
   openGraph: {
-    title: "BITS Qiskit Fall Fest 2026",
+    title: "BITS Goa Qiskit Fall Fest 2026",
     description:
       "A campus-wide gathering for quantum computing — talks, workshops, and a 72-hour hackathon at BITS Pilani.",
     url: siteUrl,
