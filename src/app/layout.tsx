@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BITS Qiskit Fall Fest 2026",
     description:
-      "A campus-wide gathering for quantum computing — talks, workshops, and a 72-hour hackathon at BITS Pilani.",
+      "A campus-wide gathering for quantum computing — talks, workshops, and a 72-hour hackathon at BITS Pilani KK Birla Goa Campus.",
     images: ["/og-image.png"],
   },
 };
