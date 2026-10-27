@@ -172,7 +172,7 @@ export async function registerTeam(
 
     // 1. Shape and format. Nothing touches the database until this passes.
     const tracks = takeTracks(payload?.tracks);
-    if (!tracks) return fail("Pick at least one track: Rookie, Novice or Advanced.", 400);
+    if (!tracks) return fail("Pick at least one track: Beginner or Advanced.", 400);
 
     const rawMembers = Array.isArray(payload?.memberCodes) ? payload.memberCodes : [];
     const filled = rawMembers.filter((value) => typeof value === "string" && value.trim() !== "");

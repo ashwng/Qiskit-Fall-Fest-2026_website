@@ -9,6 +9,18 @@ npm run dev
 
 Open http://localhost:3000.
 
+## Update the database
+
+With `DATABASE_URL` set in `.env.local`, `.env`, or the environment, run:
+
+```bash
+npm run db:init
+```
+
+This also migrates existing hackathon teams from Rookie/Novice to Beginner,
+deduplicates merged entries, preserves Advanced, and updates the allowed tracks
+to Beginner and Advanced. It is safe to run again.
+
 ## Build for production
 
 ```bash

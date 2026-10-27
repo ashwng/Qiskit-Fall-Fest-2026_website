@@ -51,8 +51,7 @@ export const hackathon = {
    * then its card on the homepage says "Details announcing soon".
    */
   tracks: [
-    { id: "rookie", label: "Rookie", details: "To be announced" },
-    { id: "novice", label: "Novice", details: "To be announced" },
+    { id: "beginner", label: "Beginner", details: "To be announced" },
     { id: "advanced", label: "Advanced", details: "To be announced" },
   ],
   // Same value as TBA in components/ui/Pending; a literal so this data file

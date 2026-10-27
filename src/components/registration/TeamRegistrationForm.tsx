@@ -354,7 +354,7 @@ export function TeamRegistrationForm() {
           </span>
           <span className="font-mono text-[11px] uppercase tracking-widest text-muted">Pick one or more</span>
         </legend>
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-2">
           {hackathon.tracks.map((track) => {
             const checked = tracks.includes(track.id);
             return (

@@ -35,7 +35,7 @@ export function HackathonSection() {
         />
 
         {/* One card per track. A team can enter any of them under one code. */}
-        <ul className="mt-10 grid gap-4 sm:grid-cols-3">
+        <ul className="mt-10 grid gap-4 sm:grid-cols-2">
           {hackathon.tracks.map((track) => (
             <li
               key={track.id}

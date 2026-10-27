@@ -18,7 +18,7 @@ function registered() {
 // A database double that understands just the statements the team actions issue.
 function setup() {
   const rows = registered();
-  const teams = new Map([["TEAM-XXXXXX", ["rookie"]]]);
+  const teams = new Map([["TEAM-XXXXXX", ["beginner"]]]);
   const claims = [];
   const sql = async (parts, ...params) => {
     const text = parts.join("?");
@@ -60,38 +60,41 @@ test("a team is claimed with its tracks in one statement and every member is ema
   const app = setup();
   const result = await app.registerTeam({
     leaderCode: "qff-aaaaaa", leaderEmail: "ADA@example.test", memberCodes: ["bbbbbb"],
-    tracks: ["advanced", "rookie", "rookie"],
+    tracks: ["advanced", "beginner", "beginner"],
   });
   assert.equal(result.success, true, result.error);
   assert.match(result.teamId, /^TEAM-[A-HJ-NP-Z2-9]{6}$/);
   assert.deepEqual(app.claims[0].codes, ["QFF-AAAAAA", "QFF-BBBBBB"]);
-  assert.deepEqual(app.claims[0].tracks, ["rookie", "advanced"], "de-duplicated, in site order");
-  assert.deepEqual(result.tracks, ["rookie", "advanced"]);
+  assert.deepEqual(app.claims[0].tracks, ["beginner", "advanced"], "de-duplicated, in site order");
+  assert.deepEqual(result.tracks, ["beginner", "advanced"]);
   assert.deepEqual(result.members.map((m) => [m.ticketId, m.isLeader]), [["QFF-AAAAAA", true], ["QFF-BBBBBB", false]]);
   assert.equal(app.emails.length, 1);
-  assert.deepEqual(app.emails[0].tracks, ["rookie", "advanced"]);
+  assert.deepEqual(app.emails[0].tracks, ["beginner", "advanced"]);
 });
 
 test("a team must pick at least one real track", async () => {
   const app = setup();
-  for (const tracks of [undefined, [], ["expert"], ["rookie", 7]]) {
+  for (const tracks of [undefined, [], ["expert"], ["rookie"], ["novice"], ["beginner", "rookie"], ["beginner", 7]]) {
     const result = await app.registerTeam({ leaderCode: "QFF-AAAAAA", leaderEmail: "ada@example.test", memberCodes: [], tracks });
     assert.equal(result.statusCode, 400, JSON.stringify(tracks));
     assert.match(result.error, /track/);
+    const added = await app.addTeamTracks({ leaderCode: "QFF-DDDDDD", leaderEmail: "di@example.test", tracks });
+    assert.equal(added.statusCode, 400, JSON.stringify(tracks));
   }
   assert.equal(app.claims.length, 0);
+  assert.equal(app.emails.length, 0);
 });
 
 test("the leader must prove their code with the email they registered with", async () => {
   const app = setup();
-  const result = await app.registerTeam({ leaderCode: "QFF-AAAAAA", leaderEmail: "bo@example.test", memberCodes: [], tracks: ["rookie"] });
+  const result = await app.registerTeam({ leaderCode: "QFF-AAAAAA", leaderEmail: "bo@example.test", memberCodes: [], tracks: ["beginner"] });
   assert.equal(result.statusCode, 400);
   assert.equal(app.claims.length, 0);
 });
 
 test("someone already on a team blocks the whole team, and nobody is emailed", async () => {
   const app = setup();
-  const result = await app.registerTeam({ leaderCode: "QFF-AAAAAA", leaderEmail: "ada@example.test", memberCodes: ["QFF-CCCCCC"], tracks: ["rookie"] });
+  const result = await app.registerTeam({ leaderCode: "QFF-AAAAAA", leaderEmail: "ada@example.test", memberCodes: ["QFF-CCCCCC"], tracks: ["beginner"] });
   assert.equal(result.statusCode, 409);
   assert.equal(app.claims.length, 0);
   assert.equal(app.emails.length, 0);
@@ -99,27 +102,27 @@ test("someone already on a team blocks the whole team, and nobody is emailed", a
 
 test("the leader adds tracks under the same team code, and the team is told what's new", async () => {
   const app = setup();
-  const result = await app.addTeamTracks({ leaderCode: "QFF-DDDDDD", leaderEmail: "di@example.test", tracks: ["novice", "rookie"] });
+  const result = await app.addTeamTracks({ leaderCode: "QFF-DDDDDD", leaderEmail: "di@example.test", tracks: ["advanced", "beginner"] });
   assert.equal(result.success, true, result.error);
   assert.equal(result.teamId, "TEAM-XXXXXX");
-  assert.deepEqual(result.tracks, ["rookie", "novice"]);
-  assert.deepEqual(result.addedTracks, ["novice"]);
-  assert.deepEqual(app.emails[0].added, ["novice"]);
+  assert.deepEqual(result.tracks, ["beginner", "advanced"]);
+  assert.deepEqual(result.addedTracks, ["advanced"]);
+  assert.deepEqual(app.emails[0].added, ["advanced"]);
   assert.equal(app.emails[0].members.length, 2);
 });
 
 test("only the team leader can add tracks, and only new ones", async () => {
   const app = setup();
-  const member = await app.addTeamTracks({ leaderCode: "QFF-CCCCCC", leaderEmail: "cy@example.test", tracks: ["novice"] });
+  const member = await app.addTeamTracks({ leaderCode: "QFF-CCCCCC", leaderEmail: "cy@example.test", tracks: ["advanced"] });
   assert.equal(member.statusCode, 403);
-  const noTeam = await app.addTeamTracks({ leaderCode: "QFF-AAAAAA", leaderEmail: "ada@example.test", tracks: ["novice"] });
+  const noTeam = await app.addTeamTracks({ leaderCode: "QFF-AAAAAA", leaderEmail: "ada@example.test", tracks: ["advanced"] });
   assert.equal(noTeam.statusCode, 404);
-  const nothingNew = await app.addTeamTracks({ leaderCode: "QFF-DDDDDD", leaderEmail: "di@example.test", tracks: ["rookie"] });
+  const nothingNew = await app.addTeamTracks({ leaderCode: "QFF-DDDDDD", leaderEmail: "di@example.test", tracks: ["beginner"] });
   assert.equal(nothingNew.statusCode, 409);
-  const wrongEmail = await app.addTeamTracks({ leaderCode: "QFF-DDDDDD", leaderEmail: "cy@example.test", tracks: ["novice"] });
+  const wrongEmail = await app.addTeamTracks({ leaderCode: "QFF-DDDDDD", leaderEmail: "cy@example.test", tracks: ["advanced"] });
   assert.equal(wrongEmail.statusCode, 400);
   assert.equal(app.emails.length, 0);
-  assert.deepEqual(app.teams.get("TEAM-XXXXXX"), ["rookie"]);
+  assert.deepEqual(app.teams.get("TEAM-XXXXXX"), ["beginner"]);
 });
 
 test("the confirmation lists tracks, tells the leader they get updates, and names the leader to members", () => {
@@ -128,17 +131,17 @@ test("the confirmation lists tracks, tells the leader they get updates, and name
     { ticketId: "QFF-AAAAAA", fullName: "Ada <Leader>", email: "ada@example.test", isLeader: true },
     { ticketId: "QFF-BBBBBB", fullName: "Bo Member", email: "bo@example.test", isLeader: false },
   ];
-  const toLeader = buildTeamEmail(members[0], "TEAM-ABC234", members, ["rookie", "advanced"]);
-  const toMember = buildTeamEmail(members[1], "TEAM-ABC234", members, ["rookie", "advanced"]);
+  const toLeader = buildTeamEmail(members[0], "TEAM-ABC234", members, ["beginner", "advanced"]);
+  const toMember = buildTeamEmail(members[1], "TEAM-ABC234", members, ["beginner", "advanced"]);
   assert.equal(toLeader.to.address, "ada@example.test");
   assert.match(toLeader.subject, /TEAM-ABC234/);
-  assert.match(toLeader.text, /Tracks: Rookie, Advanced/);
+  assert.match(toLeader.text, /Tracks: Beginner, Advanced/);
   assert.match(toLeader.text, /As team leader, you will receive all further hackathon information/);
   assert.match(toMember.text, /sent to your team leader, Ada <Leader>\./);
   assert.ok(!toMember.text.includes("ada@example.test"), "members never see each other's addresses");
   assert.ok(toMember.html.includes("Ada &lt;Leader&gt;") && !toMember.html.includes("<Leader>"), "names are escaped in HTML");
 
-  const update = buildTeamEmail(members[1], "TEAM-ABC234", members, ["rookie", "novice"], ["novice"]);
-  assert.match(update.subject, /TEAM-ABC234 now entered in Rookie, Novice/);
-  assert.match(update.text, /now also entered in: Novice\./);
+  const update = buildTeamEmail(members[1], "TEAM-ABC234", members, ["beginner", "advanced"], ["advanced"]);
+  assert.match(update.subject, /TEAM-ABC234 now entered in Beginner, Advanced/);
+  assert.match(update.text, /now also entered in: Advanced\./);
 });

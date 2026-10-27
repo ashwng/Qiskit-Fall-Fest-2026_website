@@ -8,7 +8,7 @@ export interface TeamEmailMember {
   isLeader: boolean;
 }
 
-/** "rookie" -> "Rookie", using the labels the site shows. */
+/** "beginner" -> "Beginner", using the labels the site shows. */
 export function trackLabels(ids: string[]): string {
   return hackathon.tracks
     .filter((track) => ids.includes(track.id))

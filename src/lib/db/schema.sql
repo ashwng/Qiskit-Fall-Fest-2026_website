@@ -77,10 +77,35 @@ CREATE TABLE IF NOT EXISTS hackathon_teams (
   team_id    VARCHAR(20) PRIMARY KEY,
   tracks     TEXT[] NOT NULL
              CHECK (cardinality(tracks) >= 1
-                    AND tracks <@ ARRAY['rookie', 'novice', 'advanced']::TEXT[]),
+                    AND tracks <@ ARRAY['beginner', 'advanced']::TEXT[]),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- Existing databases: merge Rookie and Novice into Beginner without losing
+-- teams or their Advanced entry. Keep the constraint change and data update
+-- atomic; the block is also safe to run again via npm run db:init.
+DO $$
+BEGIN
+  ALTER TABLE hackathon_teams
+    DROP CONSTRAINT IF EXISTS hackathon_teams_tracks_check;
+
+  UPDATE hackathon_teams
+  SET tracks = ARRAY(
+        SELECT DISTINCT CASE
+          WHEN track IN ('rookie', 'novice') THEN 'beginner'
+          ELSE track
+        END
+        FROM unnest(tracks) AS track
+      ),
+      updated_at = NOW()
+  WHERE tracks && ARRAY['rookie', 'novice']::TEXT[];
+
+  ALTER TABLE hackathon_teams
+    ADD CONSTRAINT hackathon_teams_tracks_check
+    CHECK (cardinality(tracks) >= 1
+           AND tracks <@ ARRAY['beginner', 'advanced']::TEXT[]);
+END $$;
 
 -- "Which teams entered Advanced?" — answers from the index, not a scan.
 CREATE INDEX IF NOT EXISTS idx_hackathon_teams_tracks ON hackathon_teams USING GIN (tracks);
