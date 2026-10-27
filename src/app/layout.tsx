@@ -22,11 +22,11 @@ const siteUrl =
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "BITS Qiskit Fall Fest 2026 | QFF 2026",
+    default: "BITS Goa Qiskit Fall Fest 2026 | QFF 2026",
     template: "%s | QFF 2026",
   },
   description:
-    "BITS Qiskit Fall Fest 2026 (QFF 2026) — talks, workshops, and a 72-hour quantum computing hackathon at BITS Pilani.",
+    "BITS Goa Qiskit Fall Fest 2026 (QFF 2026) — talks, workshops, and a 72-hour quantum computing hackathon at BITS Pilani KK Birla Goa Campus.",
   keywords: [
     "Qiskit Fall Fest",
     "QFF 2026",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     "hackathon",
     "Qiskit",
   ],
-  authors: [{ name: "BITS Qiskit Fall Fest" }],
+  authors: [{ name: "BITS Goa Qiskit Fall Fest" }],
   icons: {
     icon: "/image-removebg-preview.png",
     apple: "/image-removebg-preview.png",
@@ -43,25 +43,25 @@ export const metadata: Metadata = {
   openGraph: {
     title: "BITS Goa Qiskit Fall Fest 2026",
     description:
-      "A campus-wide gathering for quantum computing — talks, workshops, and a 72-hour hackathon at BITS Pilani.",
+      "A campus-wide gathering for quantum computing — talks, workshops, and a 72-hour hackathon at BITS Pilani KK Birla Goa Campus.",
     url: siteUrl,
     siteName: "QFF 2026",
     type: "website",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image-updated.png",
         width: 1200,
         height: 630,
-        alt: "BITS Qiskit Fall Fest 2026",
+        alt: "BITS Goa Qiskit Fall Fest 2026",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BITS Qiskit Fall Fest 2026",
+    title: "BITS Goa Qiskit Fall Fest 2026",
     description:
       "A campus-wide gathering for quantum computing — talks, workshops, and a 72-hour hackathon at BITS Pilani KK Birla Goa Campus.",
-    images: ["/og-image.png"],
+    images: ["/og-image-updated.png"],
   },
 };
 
